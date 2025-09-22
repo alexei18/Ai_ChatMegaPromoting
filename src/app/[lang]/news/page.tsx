@@ -411,8 +411,8 @@ export default function NewsPage() {
             <Link href={`${basePath}/news/${heroLead.id}`} className="group relative block rounded-2xl overflow-hidden border border-gray-200">
               <div className="relative h-72 sm:h-96">
             <Image
-              src={a.imageUrl || coverMap[a.id] || '/placeholder/card.jpg'}
-              alt={a.title}
+              src={heroLead.imageUrl || coverMap[heroLead.id] || '/placeholder/card.jpg'}
+              alt={heroLead.title}
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className="object-cover"
