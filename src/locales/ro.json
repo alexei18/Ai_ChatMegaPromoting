@@ -1,0 +1,420 @@
+{
+  "common": {
+    "signIn": "Autentificare",
+    "getStarted": "Începe"
+  },
+  
+  "Header": {
+  "nav": {
+    "resources": "Resurse",
+    "company": "Companie",
+    "integrations": "Integrări",
+    "pricing": "Prețuri",
+    "items": {
+      "blog": "Blog",
+      "news": "Noutăți",
+      "guides": "Ghiduri",
+      "documentation": "Documentație",
+      "faq": "Întrebări frecvente",
+      "roiCalculator": "Calculator ROI",
+      "about": "Despre noi",
+      "career": "Carieră",
+      "partners": "Parteneri",
+      "trustCenter": "Centru de încredere",
+      "contacts": "Contacte"
+      }
+    },
+  "hover": {
+    "blog": {
+      "title": "Povești de succes",
+      "subtitle": "Descoperă cum companiile și-au transformat procesele folosind soluțiile noastre AI pentru rezultate extraordinare."
+      },
+      "news": {
+        "title": "Ultimele noutăți",
+        "subtitle": "Rămâi la curent cu ultimele dezvoltări din lumea AI și automatizării din Moldova."
+      },
+      "guides": {
+        "title": "Învață pas cu pas",
+        "subtitle": "Accesează ghiduri detaliate și tutoriale pentru a implementa cu succes automatizările în afacerea ta."
+      },
+      "documentation": {
+        "title": "Tot ce trebuie să știi",
+        "subtitle": "Găsește răspunsuri complete la toate întrebările tehnice și implementează soluțiile cu ușurință."
+      },
+      "faq": {
+        "title": "Răspunsuri rapide",
+        "subtitle": "Găsește rapid răspunsuri la întrebările frecvente despre produsele și serviciile noastre."
+      },
+      "roiCalculator": {
+        "title": "Calculează beneficiile",
+        "subtitle": "Descoperă exact cât timp și bani poți economisi implementând soluțiile noastre de automatizare."
+      },
+      "about": {
+        "title": "Povestea noastră",
+        "subtitle": "Află mai multe despre misiunea, valorile și echipa din spatele soluțiilor AI inovatoare."
+      },
+      "career": {
+        "title": "Alătură-te echipei",
+        "subtitle": "Descoperă oportunitățile de carieră și construiește viitorul AI împreună cu noi."
+      },
+      "partners": {
+        "title": "Colaborări de succes",
+        "subtitle": "Conectează-te cu rețeaua noastră de parteneri și dezvoltă oportunități de business."
+      },
+      "trustCenter": {
+        "title": "Securitate și încredere",
+        "subtitle": "Află cum protejăm datele tale și respectăm standardele de securitate cele mai înalte."
+      },
+      "contacts": {
+        "title": "Hai să vorbim",
+        "subtitle": "Contactează echipa noastră pentru consultanță personalizată și suport dedicat."
+      }
+    }
+  },
+  "NewsPage": {
+    "loading": "Se încarcă noutățile…",
+    "title": "Noutăți",
+    "subtitle": "Articole curate, fără zgomot vizual. Filtrează și găsește rapid ce te interesează.",
+    "sortLabel": "Sortează",
+    "sortOptions": {
+      "newest": "Cele mai noi",
+      "oldest": "Cele mai vechi",
+      "title": "Titlu A–Z"
+    },
+    "search": {
+      "label": "Căutare",
+      "placeholder": "Caută după titlu sau conținut…"
+    },
+  "categories": "Categorii",
+  "tags": "Taguri",
+    "clearFilters": "Șterge filtrele",
+    "noMatchesTitle": "Nicio potrivire găsită.",
+    "noMatchesSubtitle": "Încearcă să ajustezi filtrele sau să ștergi căutarea.",
+    "itemsLabel": "noutăți",
+    "filtered": "(filtrat)",
+    "readMore": "Citește mai mult",
+    "tagLabels": {
+      "press_online": "Presă Online",
+      "video": "Video",
+      "video_live": "Video Live",
+      "social_media": "Social Media",
+      "eu_org": "Organizație EU"
+    }
+  },
+
+  "HeroSection": {
+    "news": "Noutăți",
+    "virtual_agent": "Agent virtual 24/7 pentru companii",
+    "title": "Bravin AI pentru companii",
+    "subtitle": "Un agent virtual care răspunde instant pe web, WhatsApp, Facebook și email. Reduce costurile de suport și crește conversiile — păstrând vocea brandului tău.",
+    "under_subtitle_cards1": "Fără cod",
+    "under_subtitle_cards2": "Multichannel",
+    "under_subtitle_cards3": "GDPR‑ready",
+
+    "chat": {
+      "rightBoxData": [
+        {
+          "name": "Alex M.",
+          "conversations": [
+            { "sender": "Alex", "message": "Bună, aș vrea mai multe detalii despre produse." },
+            { "sender": "Bot", "message": "Desigur, Alex! Despre ce tip de produse doriți mai multe informații? Avem telefoane, laptopuri și accesorii." },
+            { "sender": "Alex", "message": "Mă Bravinează în special telefoanele." },
+            { "sender": "Bot", "message": "Perfect, telefoanele noastre sunt modele Apple, inclusiv cele mai recente versiuni de iPhone. Doriți să știți prețurile, specificațiile sau disponibilitatea în stoc?" },
+            { "sender": "Alex", "message": "În primul rând, prețurile." },
+            { "sender": "Bot", "message": "Prețurile pentru iPhone variază între 12.000 și 25.000 MDL, în funcție de model și capacitatea de stocare. Vreți să vă dau exemple concrete pentru modelele cele mai populare?" },
+            { "sender": "Alex", "message": "Da, te rog." },
+            { "sender": "Bot", "message": "De exemplu, iPhone 15 are un preț de la 19.500 MDL pentru varianta de 128 GB. Modelul Pro Max pornește de la 24.500 MDL." },
+            { "sender": "Alex", "message": "Și ce garanție oferă produsele?" },
+            { "sender": "Bot", "message": "Toate produsele vin cu garanție oficială de 12 luni. În plus, oferim opțiunea de extindere a garanției până la 24 de luni." },
+            { "sender": "Alex", "message": "Foarte bine, și în cât timp ajunge comanda?" },
+            { "sender": "Bot", "message": "Dacă produsul este pe stoc, livrarea în Chișinău se face în aceeași zi, iar în restul țării între 1–2 zile lucrătoare." },
+            { "sender": "Alex", "message": "Mulțumesc mult pentru informații!" },
+            { "sender": "Bot", "message": "Cu mare drag, Alex! Dacă doriți, vă pot ajuta să plasați comanda chiar acum." }
+          ]
+        },
+        {
+          "name": "Cristina G.",
+          "conversations": [
+            { "sender": "Cristina", "message": "Bună, aș vrea să știu dacă oferiți servicii de întreținere auto." },
+            { "sender": "Bot", "message": "Bună, Cristina! Da, oferim servicii complete de întreținere auto: schimb de ulei, verificări tehnice și reparații mecanice." },
+            { "sender": "Cristina", "message": "Bravinant. Ce tipuri de verificări tehnice faceți?" },
+            { "sender": "Bot", "message": "Facem verificări pentru sistemul de frânare, suspensie, baterie, filtre, lichide și anvelope. În plus, oferim diagnosticare computerizată completă." },
+            { "sender": "Cristina", "message": "Și cât durează o verificare standard?" },
+            { "sender": "Bot", "message": "O verificare completă durează aproximativ 60–90 de minute, în funcție de starea mașinii." },
+            { "sender": "Cristina", "message": "Dacă este nevoie de reparații, cum procedați?" },
+            { "sender": "Bot", "message": "După diagnosticare, vă trimitem un raport detaliat cu recomandările și costurile estimate. Reparațiile se fac doar după ce primim acordul dumneavoastră." },
+            { "sender": "Cristina", "message": "Foarte clar, mulțumesc pentru detalii!" },
+            { "sender": "Bot", "message": "Cu plăcere, Cristina! Doriți să vă ofer și informații despre pachetele noastre de întreținere periodică?" }
+          ]
+        },
+        {
+          "name": "Diana R.",
+          "conversations": [
+            { "sender": "Diana", "message": "Salut! Caut servicii de web design pentru compania mea." },
+            { "sender": "Bot", "message": "Bună ziua, Diana! Excelent, oferim servicii complete de web design și dezvoltare. Ce tip de site doriți să creați?" },
+            { "sender": "Diana", "message": "Am nevoie de un site e-commerce pentru produsele noastre." },
+            { "sender": "Bot", "message": "Perfect! Pentru e-commerce oferim platforme moderne cu plăți online, gestiune stoc și panou admin. Câte produse aveți aproximativ?" },
+            { "sender": "Diana", "message": "Aproape 200 de produse în mai multe categorii." },
+            { "sender": "Bot", "message": "Foarte bine! Pentru 200 de produse recomandăm o platformă robustă cu filtrare avansată și optimizare SEO. Doriți și integrare cu sistemele existente?" },
+            { "sender": "Diana", "message": "Da, și cu sistem de facturare și contabilitate." },
+            { "sender": "Bot", "message": "Excelent! Putem integra cu sisteme populare de facturare. În cât timp doriți să fie gata proiectul?" }
+          ]
+        },
+        {
+          "name": "Bogdan L.",
+          "conversations": [
+            { "sender": "Bogdan", "message": "Bună! Mă Bravinează cursurile voastre de programare." },
+            { "sender": "Bot", "message": "Salut, Bogdan! Avem cursuri pentru toate nivelurile: începători, intermediari și avansați. Ce limbaj de programare vă Bravinează?" },
+            { "sender": "Bogdan", "message": "JavaScript și React pentru frontend development." },
+            { "sender": "Bot", "message": "Excelentă alegere! Cursul nostru de JavaScript + React durează 4 luni și include proiecte practice. Aveți experiență anterioară în programare?" },
+            { "sender": "Bogdan", "message": "Am ceva experiență cu HTML și CSS basic." },
+            { "sender": "Bot", "message": "Perfect! Cu baza de HTML/CSS puteți începe direct cu modulul de JavaScript fundamentals. Oferim și sesiuni de mentorat individual." },
+            { "sender": "Bogdan", "message": "Sună foarte bine! Care este prețul pentru întregul curs?" },
+            { "sender": "Bot", "message": "Cursul complet costă 8.500 MDL, dar puteți plăti în rate lunare de 2.200 MDL. Prima lecție este gratuită!" }
+          ]
+        }
+      ]
+    },
+    "mouseResponses": {
+      "left": [
+        "Raspund la Mesaje\nPentru mesajele Necitite...",
+        "Citesc Conversatii\nPentru mesajele Necitite...",
+        "Analizez Raspunsurile\nPentru mesajele Necitite...",
+        "Verific Starea Clientului\nPentru mesajele Necitite..."
+      ],
+      "input": "Scriu Mesaj Clientului",
+      "send": "Trimit mesajul",
+      "hoursAgo": "h în urmă",
+      "minutesAgo": "Acum {min} min",
+      "typing": "În curs de scriere...",
+      "inputPlaceholder": "Scrie un mesaj...",
+      "statusRead": "Citit",
+      "statusDelivered": "Livrat",
+      "statusSent": "Trimis",
+      "sendButton": "Trimite"
+    }
+  },
+  "LogoTicker":{
+    "usedBy": "Utilizat zilnic de peste 500 de utilizatori globali, din echipe de toate dimensiunile",
+    "rating": "rating",
+    "supportedBy": "Susținut de Kallina AI"
+  },
+
+  "HowitWorks":{
+    "title": "Cum funcționează",
+    "subtitle": "Descoperă cum soluțiile noastre AI pot transforma afacerea ta",
+    "steps": [
+      {
+        "title": "Conectează-te",
+        "description": "Ne contactezi și stabilim împreună obiectivele și tipul de conversații pe care agentul tău AI le va gestiona."
+      },
+      {
+        "title": "Alegi platforma",
+        "description": "Selectezi platforma (WhatsApp, Facebook Messenger, site web, Instagram, etc.) de pe care vrei să fie preluate mesajele."
+      },
+      {
+        "title": "AI răspunde",
+        "description": "Agentul nostru virtual AI răspunde instant și profesionist clienților tăi, fără a fi nevoie de o persoană reală, 24/7."
+      }
+    ],
+    "Learn-more": "Află mai multe"
+  },
+  "BlogPage": {
+    "title": "Blog",
+    "subtitle": "Află mai multe despre Bravin în blogul nostru!"
+  ,
+    "categories": {
+      "title": "Categorii",
+      "items": {
+        "latest": "Ultimele",
+        "insights": "Insights",
+        "company": "Companie",
+        "useCases": "Cazuri de utilizare"
+      }
+    }
+    ,
+    "featured": {
+      "elevenlabs-hackathon": {
+        "title": "Câștigătorii ElevenLabs Hackathon: $20,000 pentru Agenții AI",
+        "description": "Cum am câștigat primul loc la ElevenLabs Hackathon cu tehnologia noastră de agenți AI vocali și ce înseamnă asta pentru viitorul industriei.",
+        "date": "Nov 15, 2024"
+      },
+      "ebrd-star-venture": {
+        "title": "EBRD ne Selectează pentru Programul Star Venture",
+        "description": "Aichat.md este selectat pentru prestigiosul program Star Venture de la EBRD. Ce înseamnă această recunoaștere pentru dezvoltarea AI în Moldova.",
+        "date": "Jul 25, 2024"
+      },
+      "sevan-startup-summit": {
+        "title": "Locul 2 la Sevan Startup Summit: $6,000 pentru Aichat.md",
+        "description": "Performanța excepțională la Sevan Startup Summit ne aduce recunoașterea internațională și finanțarea pentru dezvoltarea ulterioară.",
+        "date": "Aug 20, 2024"
+      },
+      "google-cloud-partnership": {
+        "title": "Google Cloud ne Susține: $25K Grant pentru Infrastructura AI",
+        "description": "Parteneriatul strategic cu Google Cloud ne permite să scalăm infrastructura AI la nivel global. Detalii despre grant-ul de $25,000.",
+        "date": "Sep 10, 2024"
+      },
+      "upnext-accelerator": {
+        "title": "Parteneri cu UpNext Accelerator: $10K Start Funding",
+        "description": "Alăturarea programului UpNext Accelerator by Dreamups marchează o nouă etapă în dezvoltarea Aichat.md cu finanțare de $10,000.",
+        "date": "Jun 5, 2024"
+      }
+    }
+  },
+
+  "IndustryModules": {
+    "title": "Bravin pentru orice",
+    "subtitle": "Soluții AI conversaționale adaptate fiecărei industrii — automatizează, personalizează și scalează interacțiunea cu clienții tăi, indiferent de domeniu.    ",
+    "secondarytitle": "Încearcă acum",
+    "industries": [
+      "companie",
+      "restaurant",
+      "magazin",
+      "hotel",
+      "salon",
+      "clinică",
+      "agenție",
+      "școală",
+      "universitate",
+      "service"
+    ],
+    "menuItems": [
+      {
+        "title": "Răspuns instant la mesaje",
+        "subtitle": "Gestionează automat solicitările clienților, 24/7, pe orice platformă."
+      },
+      {
+        "title": "Automatizare conversațională completă",
+        "subtitle": "De la întrebări frecvente până la procesarea comenzilor, fără intervenție umană."
+      },
+      {
+        "title": "Integrare cu platformele tale preferate",
+        "subtitle": "Funcționează perfect cu WhatsApp, Facebook Messenger, Instagram, e-mail și multe altele."
+      },
+      {
+        "title": "Asistență personalizată pentru fiecare client",
+        "subtitle": "Răspunsuri adaptate în funcție de context, limbă și nevoi."
+      },
+      {
+        "title": "Reducerea costurilor operaționale",
+        "subtitle": "Optimizează timpul echipei și elimină nevoia unui operator permanent."
+      }
+    ]
+  },
+  "ROICalculator": {
+    "title": "Calculator Bravin",
+    "subtitle": "Completează 3 câmpuri și vezi costurile reale pe 1–3 ani.",
+    "inputs": {
+      "agents": {
+        "label": "Câți oameni răspund acum la mesaje",
+        "helper": "Câte persoane ai acum în echipa de suport?"
+      },
+      "salary": {
+        "label": "Salariu lunar / agent",
+        "helper": "Se aplică pentru fiecare dintre agenți."
+      },
+      "messages": {
+        "label": "Mesaje pe lună",
+        "helper": "Plan estimat: {plan} — {price}/lună"
+      }
+    },
+    "cards": {
+      "employeesOnlyTitle": "Doar angajați",
+      "withBravinTitle": "Cu Bravin AI",
+      "savingsTitle": "Economii",
+      "oneYear": "/ 1 an",
+      "twoYears": "/ 2 ani",
+      "threeYears": "/ 3 ani",
+      "roi3yNote": "• ROI pe 3 ani: "
+    },
+    "table": {
+      "headers": {
+        "scenario": "Scenariu",
+        "y1": "1 an",
+        "y2": "2 ani",
+        "y3": "3 ani"
+      },
+      "rows": {
+        "employees": "Doar angajați ({agents} × {salary}/lună)",
+        "withBravin": "Cu Bravin (plan {plan})",
+        "netSavings": "Economii nete"
+      }
+    },
+    "plans": {
+      "starter": "Starter",
+      "professional": "Profesional",
+      "business": "Business",
+      "enterprise": "Enterprise"
+    }
+  },
+    "Testimonials": {
+    "title": "Ce spun clienții noștri",
+    "subtitle": "Povești reale de la companii care și-au transformat serviciul clienți cu soluțiile noastre AI",
+    "items": [
+      {
+        "name1": "Sarah Johnson",
+        "role1": "Director Succes Clienți",
+        "company1": "TechFlow Solutions",
+        "quote1": "Chatbotul AI ne-a revoluționat suportul clienți. Timpul de răspuns a scăzut cu 85% și satisfacția clienților a crescut semnificativ.",
+        "metric1": "Timp de răspuns: -85%"
+      },
+      {
+        "name2": "Michael Chen",
+        "role2": "Manager Operațiuni",
+        "company2": "Digital Dynamics",
+        "quote2": "Echipa noastră se concentrează pe probleme complexe, în timp ce AI gestionează solicitările de rutină. E ca și cum am avea suport 24/7 fără costuri suplimentare.",
+        "metric2": "Economii de costuri: 60%"
+      },
+      {
+        "name3": "Emma Rodriguez",
+        "role3": "Director Experiența Clienților",
+        "company3": "InnovateCorp",
+        "quote3": "Implementarea a fost fără fricțiuni, iar rezultatele — imediate. Clienților noștri le plac răspunsurile instant și precise.",
+        "metric3": "Scor CSAT: +40%"
+      },
+      {
+        "name4": "David Thompson",
+        "role4": "Director Vânzări",
+        "company4": "GrowthTech Inc",
+        "quote4": "Am înregistrat o creștere de 300% a conversiei lead-urilor de când am implementat chatul AI. Este incredibil cum califică automat prospectele.",
+        "metric4": "Conversie lead-uri: +300%"
+      },
+      {
+        "name5": "Lisa Park",
+        "role5": "Manager de Produs",
+        "company5": "NextGen Systems",
+        "quote5": "AI înțelege perfect contextul și oferă răspunsuri personalizate. Clienții noștri adesea nici nu își dau seama că discută cu un AI.",
+        "metric5": "Rată de rezolvare: 92%"
+      },
+      {
+        "name6": "Robert Kim",
+        "role6": "Director Tehnic (CTO)",
+        "company6": "ScaleUp Ventures",
+        "quote6": "ROI-ul a devenit pozitiv din prima lună. AI gestionează 80% din solicitări, eliberând echipa pentru inițiative strategice.",
+        "metric6": "ROI: +250%"
+      }
+    ]
+  },
+  "Demo":{
+    "card":"Prezentare Demo",
+    "title":"Experimentează Puterea AI",
+    "subtitle":"Descoperă cum agentul nostru AI poate transforma complet experiența clienților tăi în doar câteva minute.",
+    "button":"Start Demo"
+  }
+  ,
+  "PricingPage": {
+    "title": "Prețuri simple și transparente",
+    "subtitle": "Pornește gratuit, scalează pe măsură ce crești. Fără costuri ascunse, fără surprize.",
+    "toggle": {
+      "monthly": "Lunar",
+      "yearly": "Anual",
+      "discount": "-20%"
+    },
+    "badges": {
+      "recommended": "Recomandat",
+      "enquire": "Cere ofertă",
+      "basic": "Plan Basic",
+      "annual": "Anual"
+    }
+  }
+}

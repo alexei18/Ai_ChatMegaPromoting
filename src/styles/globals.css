@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom keyframes for logo ticker */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* Glow text utility class - now solid black for simplicity */
+.glow-text {
+  color: black;
+  font-weight: 700;
+}
+
+/* Base styles */
+html, body {
+  background-color: white;
+  color: black;
+  overflow-x: hidden; /* Prevent horizontal scroll on mobile */
+}
+
+/* Mobile-first responsive improvements */
+@media (max-width: 640px) {
+  .glow-text {
+    word-break: break-word;
+  }
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .animate-scroll,
+  .animate-bounce,
+  .animate-pulse,
+  .animate-count-up {
+    animation: none;
+  }
+  
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+@keyframes dropdown-smooth {
+  0% { opacity: 0; transform: translateY(-16px); }
+  60% { opacity: 1; transform: translateY(4px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.animate-dropdown-smooth {
+  animation: dropdown-smooth 0.44s cubic-bezier(0.22,1,0.36,1);
+}
+
+
+
+/* Rainbow animated shadow for Get Started button */
+@keyframes rainbow {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+/* For a seamless infinite loop, double the gradient stops and animate from 0% to 200% */
+.rainbow-shadow {
+  background: linear-gradient(90deg, #FF5C5C, #FFB95C, #FFF95C, #5CFF8A, #5CCEFF, #A95CFF, #FF5C5C, #FFB95C, #FFF95C, #5CFF8A, #5CCEFF, #A95CFF, #FF5C5C);
+  background-size: 200% 100%;
+  filter: blur(7px);
+  opacity: 0.85;
+  border-radius: 999px;
+  animation: rainbow 6s linear infinite;
+}
+@keyframes rainbow {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}

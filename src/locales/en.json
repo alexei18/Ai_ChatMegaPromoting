@@ -1,0 +1,419 @@
+{
+  "common": {
+    "signIn": "Sign In",
+    "getStarted": "Get Started"
+  },
+  "Header": {
+  "nav": {
+    "resources": "Resources",
+    "company": "Company",
+    "integrations": "Integrations",
+    "pricing": "Pricing",
+    "items": {
+      "blog": "Blog",
+      "news": "News",
+      "guides": "Guides",
+      "documentation": "Documentation",
+      "faq": "FAQ",
+      "roiCalculator": "ROI Calculator",
+      "about": "About us",
+      "career": "Career",
+      "partners": "Partners",
+      "trustCenter": "Trust Center",
+      "contacts": "Contacts"
+    }
+  },
+  "hover": {
+    "blog": {
+      "title": "Success Stories",
+      "subtitle": "Discover how companies transformed their processes using our AI solutions for extraordinary results."
+    },
+    "news": {
+      "title": "Latest News",
+      "subtitle": "Stay updated with the latest developments in AI and automation from Moldova."
+    },
+    "guides": {
+      "title": "Step-by-Step Learning",
+      "subtitle": "Access detailed guides and tutorials to successfully implement automation in your business."
+    },
+    "documentation": {
+      "title": "Everything You Need to Know",
+      "subtitle": "Find complete answers to all technical questions and implement solutions with ease."
+    },
+    "faq": {
+      "title": "Quick Answers",
+      "subtitle": "Find rapid answers to frequently asked questions about our products and services."
+    },
+    "roiCalculator": {
+      "title": "Calculate the Benefits",
+      "subtitle": "Discover exactly how much time and money you can save by implementing our automation solutions."
+    },
+    "about": {
+      "title": "Our Story",
+      "subtitle": "Learn more about the mission, values, and team behind our innovative AI solutions."
+    },
+    "career": {
+      "title": "Join the Team",
+      "subtitle": "Explore career opportunities and help build the future of AI with us."
+    },
+    "partners": {
+      "title": "Successful Collaborations",
+      "subtitle": "Connect with our partner network and unlock new business opportunities."
+    },
+    "trustCenter": {
+      "title": "Security & Trust",
+      "subtitle": "Learn how we protect your data and comply with the highest security standards."
+    },
+    "contacts": {
+      "title": "Let's Talk",
+      "subtitle": "Get in touch with our team for personalized consulting and dedicated support."
+    }
+  }
+},
+
+
+  "HeroSection": {
+    "news": "News",
+    "virtual_agent": "24/7 Virtual Agent for companies",
+    "title": "Bravin AI for companies",
+    "subtitle": "A virtual agent that instantly responds on web, WhatsApp, Facebook, and email. It reduces support costs and increases conversions — while keeping your brand's voice.",
+    "under_subtitle_cards1": "No code",
+    "under_subtitle_cards2": "Multichannel",
+    "under_subtitle_cards3": "GDPR-ready",
+
+
+
+    "chat": {
+      "rightBoxData": [
+        {
+          "name": "Alex M.",
+          "conversations": [
+            { "sender": "Alex", "message": "Hi, I’d like more details about the products." },
+            { "sender": "Bot", "message": "Of course, Alex! Which type of products would you like more information about? We have phones, laptops, and accessories." },
+            { "sender": "Alex", "message": "I’m especially interested in the phones." },
+            { "sender": "Bot", "message": "Perfect, our phones are Apple models, including the latest iPhone versions. Would you like to know the prices, specifications, or stock availability?" },
+            { "sender": "Alex", "message": "First of all, the prices." },
+            { "sender": "Bot", "message": "iPhone prices range between 12,000 and 25,000 MDL, depending on the model and storage capacity. Would you like me to give you concrete examples for the most popular models?" },
+            { "sender": "Alex", "message": "Yes, please." },
+            { "sender": "Bot", "message": "For example, the iPhone 15 starts at 19,500 MDL for the 128 GB version. The Pro Max model starts at 24,500 MDL." },
+            { "sender": "Alex", "message": "And what warranty do the products come with?" },
+            { "sender": "Bot", "message": "All products come with an official 12-month warranty. In addition, we offer the option to extend the warranty up to 24 months." },
+            { "sender": "Alex", "message": "Great, and how long does delivery take?" },
+            { "sender": "Bot", "message": "If the product is in stock, delivery in Chișinău is the same day, and in the rest of the country within 1–2 working days." },
+            { "sender": "Alex", "message": "Thank you very much for the information!" },
+            { "sender": "Bot", "message": "My pleasure, Alex! If you’d like, I can help you place the order right now." }
+          ]
+        },
+        {
+          "name": "Cristina G.",
+          "conversations": [
+            { "sender": "Cristina", "message": "Hello, I’d like to know if you offer car maintenance services." },
+            { "sender": "Bot", "message": "Hello, Cristina! Yes, we provide full car maintenance services: oil changes, technical inspections, and mechanical repairs." },
+            { "sender": "Cristina", "message": "Great. What kind of technical inspections do you do?" },
+            { "sender": "Bot", "message": "We check the braking system, suspension, battery, filters, fluids, and tires. In addition, we provide full computerized diagnostics." },
+            { "sender": "Cristina", "message": "And how long does a standard inspection take?" },
+            { "sender": "Bot", "message": "A full inspection takes about 60–90 minutes, depending on the car’s condition." },
+            { "sender": "Cristina", "message": "If repairs are needed, how do you proceed?" },
+            { "sender": "Bot", "message": "After diagnostics, we send you a detailed report with recommendations and estimated costs. Repairs are done only after we receive your approval." },
+            { "sender": "Cristina", "message": "Very clear, thank you for the details!" },
+            { "sender": "Bot", "message": "You’re welcome, Cristina! Would you like me to also give you information about our periodic maintenance packages?" }
+          ]
+        },
+        {
+          "name": "Diana R.",
+          "conversations": [
+            { "sender": "Diana", "message": "Hi! I’m looking for web design services for my company." },
+            { "sender": "Bot", "message": "Hello, Diana! Excellent, we provide complete web design and development services. What type of website would you like to create?" },
+            { "sender": "Diana", "message": "I need an e-commerce site for our products." },
+            { "sender": "Bot", "message": "Perfect! For e-commerce, we offer modern platforms with online payments, stock management, and an admin panel. Approximately how many products do you have?" },
+            { "sender": "Diana", "message": "Around 200 products in several categories." },
+            { "sender": "Bot", "message": "Very good! For 200 products, we recommend a robust platform with advanced filtering and SEO optimization. Would you also like integration with your existing systems?" },
+            { "sender": "Diana", "message": "Yes, including with invoicing and accounting systems." },
+            { "sender": "Bot", "message": "Excellent! We can integrate with popular invoicing systems. By when would you like the project to be completed?" }
+          ]
+        },
+        {
+          "name": "Bogdan L.",
+          "conversations": [
+            { "sender": "Bogdan", "message": "Hi! I’m interested in your programming courses." },
+            { "sender": "Bot", "message": "Hello, Bogdan! We have courses for all levels: beginner, intermediate, and advanced. Which programming language are you interested in?" },
+            { "sender": "Bogdan", "message": "JavaScript and React for frontend development." },
+            { "sender": "Bot", "message": "Excellent choice! Our JavaScript + React course lasts 4 months and includes practical projects. Do you have any prior programming experience?" },
+            { "sender": "Bogdan", "message": "I have some experience with basic HTML and CSS." },
+            { "sender": "Bot", "message": "Perfect! With an HTML/CSS foundation, you can start directly with the JavaScript fundamentals module. We also provide individual mentoring sessions." },
+            { "sender": "Bogdan", "message": "Sounds very good! What is the price for the full course?" },
+            { "sender": "Bot", "message": "The full course costs 8,500 MDL, but you can pay in monthly installments of 2,200 MDL. The first lesson is free!" }
+          ]
+        }
+      ]
+    },
+    "mouseResponses": {
+      "left": [
+        "Reply to Messages\nFor Unread messages...",
+        "Read Conversations\nFor Unread messages...",
+        "Analyze Responses\nFor Unread messages...",
+        "Check Client Status\nFor Unread messages..."
+      ],
+      "input": "Write Message to Client",
+      "send": "Send the message",
+      "hoursAgo": "h ago",
+      "minutesAgo": "Now {min} min",
+      "typing": "Typing...",
+      "inputPlaceholder": "Write a message...",
+      "statusRead": "Read",
+      "statusDelivered": "Delivered",
+      "statusSent": "Sent",
+      "sendButton": "Send"
+    }
+  },
+  "LogoTicker": {
+    "usedBy": "Used daily by over 500 global users, from teams of all sizes",
+    "rating": "rating",
+    "supportedBy": "Powered by Kallina AI"
+  },
+
+  "HowitWorks": {
+    "title": "How it works",
+    "subtitle": "Discover how our AI solutions can transform your business",
+    "steps": [
+      {
+        "title": "Connect",
+        "description": "Contact us and together we define the objectives and the type of conversations your AI agent will handle."
+      },
+      {
+        "title": "Choose the platform",
+        "description": "Select the platform (WhatsApp, Facebook Messenger, website, Instagram, etc.) from which you want messages to be managed."
+      },
+      {
+        "title": "AI responds",
+        "description": "Our virtual AI agent instantly and professionally responds to your customers 24/7, without the need for a real person."
+      }
+    ],
+    "Learn-more": "Learn more"
+  },
+  "BlogPage": {
+    "title": "Blog",
+    "subtitle": "Learn more about Bravin through our blog!",
+    "categories": {
+      "title": "Categories",
+      "items": {
+        "latest": "Latest",
+        "insights": "Insights",
+        "company": "Company",
+        "useCases": "Use Cases"
+      }
+    },
+    "featured": {
+      "elevenlabs-hackathon": {
+        "title": "ElevenLabs Hackathon Winners: $20,000 for AI Agents",
+        "description": "How we won first place at the ElevenLabs Hackathon with our voice agent technology and what it means for the future of the industry.",
+        "date": "Nov 15, 2024"
+      },
+      "ebrd-star-venture": {
+        "title": "Selected for the EBRD Star Venture Program",
+        "description": "Aichat.md has been selected for the prestigious EBRD Star Venture program — a recognition that will accelerate our AI development.",
+        "date": "Jul 25, 2024"
+      },
+      "sevan-startup-summit": {
+        "title": "2nd Place at Sevan Startup Summit: $6,000 for Aichat.md",
+        "description": "Our success at Sevan Startup Summit brought international recognition and funding for further development.",
+        "date": "Aug 20, 2024"
+      },
+      "google-cloud-partnership": {
+        "title": "Google Cloud Supports Us: $25K Grant for AI Infrastructure",
+        "description": "A strategic partnership with Google Cloud helps us scale AI infrastructure globally. Details about the $25,000 grant.",
+        "date": "Sep 10, 2024"
+      },
+      "upnext-accelerator": {
+        "title": "UpNext Accelerator Partnership: $10K Start Funding",
+        "description": "Joining the UpNext Accelerator marks a new stage in our growth with $10,000 in startup support.",
+        "date": "Jun 5, 2024"
+      }
+    }
+  },
+  "NewsPage": {
+    "loading": "Loading news…",
+    "title": "News",
+    "subtitle": "Curated articles without the visual noise. Filter and find what matters quickly.",
+    "sortLabel": "Sort",
+    "sortOptions": {
+      "newest": "Newest",
+      "oldest": "Oldest",
+      "title": "Title A–Z"
+    },
+    "search": {
+      "label": "Search",
+      "placeholder": "Search by title or content…"
+    },
+  "categories": "Categories",
+  "tags": "Tags",
+    "clearFilters": "Clear filters",
+    "noMatchesTitle": "No matches found.",
+    "noMatchesSubtitle": "Try adjusting filters or clearing the search.",
+    "itemsLabel": "news",
+    "filtered": "(filtered)",
+    "readMore": "Read more"
+    ,
+    "tagLabels": {
+      "press_online": "Online Press",
+      "video": "Video",
+      "video_live": "Live Video",
+      "social_media": "Social Media",
+      "eu_org": "EU Organization"
+    }
+  },
+  "IndustryModules": {
+    "title": "Bravin for everyone",
+    "subtitle": "Conversational AI solutions tailored for every industry — automate, personalize, and scale customer interactions, no matter the field.",
+    "secondarytitle": "Try now",
+    "industries": [
+      "company",
+      "restaurant",
+      "store",
+      "hotel",
+      "salon",
+      "clinic",
+      "agency",
+      "school",
+      "university",
+      "service"
+    ],
+    "menuItems": [
+      {
+        "title": "Instant message response",
+        "subtitle": "Automatically handle customer requests, 24/7, on any platform."
+      },
+      {
+        "title": "Full conversational automation",
+        "subtitle": "From FAQs to order processing, without human intervention."
+      },
+      {
+        "title": "Integration with your favorite platforms",
+        "subtitle": "Works seamlessly with WhatsApp, Facebook Messenger, Instagram, email, and many more."
+      },
+      {
+        "title": "Personalized assistance for every client",
+        "subtitle": "Responses adapted to context, language, and customer needs."
+      },
+      {
+        "title": "Reduced operational costs",
+        "subtitle": "Optimize team time and eliminate the need for a permanent operator."
+      }
+    ]
+  },
+    "ROICalculator": {
+    "title": "Bravin Calculator",
+    "subtitle": "Fill in 3 fields and see the real costs over 1–3 years.",
+    "inputs": {
+      "agents": {
+        "label": "How many agents currently reply to messages",
+        "helper": "How many people are currently in your support team?"
+      },
+      "salary": {
+        "label": "Monthly salary / agent",
+        "helper": "Applies to each agent."
+      },
+      "messages": {
+        "label": "Messages per month",
+        "helper": "Estimated plan: {plan} — {price}/month"
+      }
+    },
+    "cards": {
+      "employeesOnlyTitle": "Employees only",
+      "withBravinTitle": "With Bravin AI",
+      "savingsTitle": "Savings",
+      "oneYear": "/ 1 year",
+      "twoYears": "/ 2 years",
+      "threeYears": "/ 3 years",
+      "roi3yNote": "• 3-year ROI: "
+    },
+    "table": {
+      "headers": {
+        "scenario": "Scenario",
+        "y1": "1 year",
+        "y2": "2 years",
+        "y3": "3 years"
+      },
+      "rows": {
+        "employees": "Employees only ({agents} × {salary}/month)",
+        "withBravin": "With Bravin (plan {plan})",
+        "netSavings": "Net savings"
+      }
+    },
+    "plans": {
+      "starter": "Starter",
+      "professional": "Professional",
+      "business": "Business",
+      "enterprise": "Enterprise"
+    }
+  },
+  "Testimonials": {
+    "title": "What Our Clients Say",
+    "subtitle": "Real stories from companies that transformed their customer service with our AI solutions",
+    "items": [
+      {
+        "name1": "Sarah Johnson",
+        "role1": "Customer Success Director",
+        "company1": "TechFlow Solutions",
+        "quote1": "The AI chatbot has revolutionized our customer support. Response times dropped by 85% and customer satisfaction increased dramatically.",
+        "metric1": "Response Time: -85%"
+      },
+      {
+        "name2": "Michael Chen",
+        "role2": "Operations Manager",
+        "company2": "Digital Dynamics",
+        "quote2": "Our team now focuses on complex issues while AI handles routine queries. It's like having 24/7 support without the overhead costs.",
+        "metric2": "Cost Savings: 60%"
+      },
+      {
+        "name3": "Emma Rodriguez",
+        "role3": "Head of Customer Experience",
+        "company3": "InnovateCorp",
+        "quote3": "The implementation was seamless and the results were immediate. Our customers love the instant, accurate responses they receive.",
+        "metric3": "CSAT Score: +40%"
+      },
+      {
+        "name4": "David Thompson",
+        "role4": "Sales Director",
+        "company4": "GrowthTech Inc",
+        "quote4": "We've seen a 300% increase in lead conversion since implementing the Bravin AI. It's incredible how it nurtures prospects automatically.",
+        "metric4": "Lead Conversion: +300%"
+      },
+      {
+        "name5": "Lisa Park",
+        "role5": "Product Manager",
+        "company5": "NextGen Systems",
+        "quote5": "The AI understands context perfectly and provides personalized responses. Our customers often don't realize they're chatting with AI.",
+        "metric5": "Resolution Rate: 92%"
+      },
+      {
+        "name6": "Robert Kim",
+        "role6": "Chief Technology Officer",
+        "company6": "ScaleUp Ventures",
+        "quote6": "ROI was positive within the first month. The AI handles 80% of our inquiries, freeing up our team for strategic initiatives.",
+        "metric6": "ROI: +250%"
+      }
+    ]
+  },
+    "Demo": {
+    "card": "Demo Presentation",
+    "title": "Experience the Power of AI",
+    "subtitle": "Discover how our AI agent can completely transform your customer experience in just a few minutes.",
+    "button": "Start Demo"
+  },
+    "PricingPage": {
+      "title": "Simple, Transparent Pricing",
+      "subtitle": "Start free, scale as you grow. No hidden fees, no surprises.",
+      "toggle": {
+        "monthly": "Monthly",
+        "yearly": "Yearly",
+        "discount": "-20%"
+      },
+      "badges": {
+        "recommended": "Recommended",
+        "enquire": "Enquire now",
+        "basic": "Basic Plan",
+        "annual": "Annual"
+      }
+    }
+}
