@@ -37,19 +37,19 @@ export const HowItWorksContainer2: React.FC<HowItWorksContainer1Props> = ({
   ];
 
   return (
-    <div className="w-full h-full relative p-2">
+    <div className="w-full h-full relative p-1 md:p-2">
       {/* Overlay container (height:100%, width:200px, rounded corners) positioned above the inner elements */}
       <div
         aria-hidden="true"
-        className="absolute top-0 bottom-0 left-1/2 transform -translate-x-1/2 w-[320px] rounded-[36px] z-30 pointer-events-none bg-black border border-black"
+        className="absolute top-0 bottom-0 left-1/2 transform -translate-x-1/2 w-[90%] sm:w-[320px] rounded-[36px] z-30 pointer-events-none bg-black border border-black"
       />
       <div
         aria-hidden="true"
-        className="absolute top-[4px] bottom-[4px] left-1/2 transform -translate-x-1/2 w-[310px] rounded-[34px] z-30 pointer-events-none bg-white border border-black"
+        className="absolute top-[4px] bottom-[4px] left-1/2 transform -translate-x-1/2 w-[calc(90%-8px)] sm:w-[310px] rounded-[34px] z-30 pointer-events-none bg-white border border-black"
       />
 
       {/* Two infinite carousels centered in the overlay area */}
-  <div className="absolute left-1/2 transform -translate-x-1/2 top-1/2 -translate-y-1/2 z-40 pointer-events-auto flex flex-col items-center gap-4" style={{ width: 287 }}>
+      <div className="absolute left-1/2 transform -translate-x-1/2 top-1/2 -translate-y-1/2 z-40 pointer-events-auto flex flex-col items-center gap-4 w-[85%] sm:w-[287px]">
         <style dangerouslySetInnerHTML={{ __html: `
           .hw-carousel{ width:100%; overflow:hidden; border-radius:20px }
           .hw-track{ display:flex; align-items:center; gap:8px; }
@@ -86,7 +86,7 @@ export const HowItWorksContainer2: React.FC<HowItWorksContainer1Props> = ({
       </div>
 
       {/* Exclude specific containers locally (14 and 15) regardless of incoming visibleContainers */}
-      <div className="absolute inset-0 grid grid-cols-6 grid-rows-6 gap-1">
+      <div className="absolute inset-0 grid grid-cols-4 grid-rows-9 md:grid-cols-6 md:grid-rows-6 gap-1">
         {(() => {
           // Excluded container IDs (local override) - will be hidden regardless of incoming props
           const excluded = new Set([14, 15, 27, 32, 29, 35, 10, 11]);
@@ -102,8 +102,7 @@ export const HowItWorksContainer2: React.FC<HowItWorksContainer1Props> = ({
               >
                 {isVisible && (
                   <div
-                    className={`w-3/4 h-3/4 rounded flex items-center justify-center relative z-10 transition-all duration-200 ease-in-out group bg-white overflow-hidden ${isContainerActive(num) ? 'scale-110 shadow-lg' : ''} hover:scale-110 hover:shadow-lg ${isContainerActive(num) ? '' : 'border border-gray-200'}`}
-                    style={{ width: isSmall ? 'calc(60% + 5px)' : 'calc(85% + 5px)', height: isSmall ? 'calc(60% + 5px)' : 'calc(85% + 5px)' }}
+                    className={`w-full h-full rounded flex items-center justify-center relative z-10 transition-all duration-200 ease-in-out group bg-white overflow-hidden ${isContainerActive(num) ? 'scale-110 shadow-lg' : ''} hover:scale-110 hover:shadow-lg ${isContainerActive(num) ? '' : 'border border-gray-200'}`}
                   >
                     {(() => {
                       const node = renderIcon(num)

@@ -358,7 +358,7 @@ export const HowItWorksContainer3 = React.forwardRef<HowItWorksContainer3Handle,
   })();
 
   return (
-    <div className="w-full h-full bg-white rounded-2xl relative overflow-visible">
+    <div className="w-full h-full bg-white rounded-2xl relative overflow-hidden">
       {/* Floating mouse image that will animate into the circle then out */}
       <Image
         src="/HeroSection/MouseForRightContainer.png"
@@ -367,6 +367,7 @@ export const HowItWorksContainer3 = React.forwardRef<HowItWorksContainer3Handle,
         width={48}
         height={48}
         style={imgStyle}
+        className="md:block"
       />
 
       {stage === 1 || stage === 0 ? (
@@ -386,45 +387,45 @@ export const HowItWorksContainer3 = React.forwardRef<HowItWorksContainer3Handle,
 
       {/* When the circle has moved away, show three simplified non-interactive boxes centered */}
   {stage === 2 && (
-        <div className="absolute inset-0 z-30 pointer-events-none">
+        <div className="absolute inset-0 z-30 pointer-events-none p-2 md:p-0">
           {/* Minimalist background blobs (subtle, blurred) */}
-          <div style={{ position: 'absolute', left: '18%', top: '6%', width: 280, height: 220, borderRadius: '50%', background: 'radial-gradient(circle at 30% 30%, rgba(99,102,241,0.14), rgba(99,102,241,0) 60%)', filter: 'blur(28px)', zIndex: 5 }} />
-          <div style={{ position: 'absolute', left: '62%', top: '34%', width: 260, height: 220, borderRadius: '50%', background: 'radial-gradient(circle at 30% 30%, rgba(16,185,129,0.12), rgba(16,185,129,0) 60%)', filter: 'blur(28px)', zIndex: 5 }} />
-          <div style={{ position: 'absolute', left: '18%', top: '58%', width: 300, height: 220, borderRadius: '50%', background: 'radial-gradient(circle at 30% 30%, rgba(249,115,22,0.10), rgba(249,115,22,0) 60%)', filter: 'blur(28px)', zIndex: 5 }} />
+          <div className="hidden md:block" style={{ position: 'absolute', left: '18%', top: '6%', width: 280, height: 220, borderRadius: '50%', background: 'radial-gradient(circle at 30% 30%, rgba(99,102,241,0.14), rgba(99,102,241,0) 60%)', filter: 'blur(28px)', zIndex: 5 }} />
+          <div className="hidden md:block" style={{ position: 'absolute', left: '62%', top: '34%', width: 260, height: 220, borderRadius: '50%', background: 'radial-gradient(circle at 30% 30%, rgba(16,185,129,0.12), rgba(16,185,129,0) 60%)', filter: 'blur(28px)', zIndex: 5 }} />
+          <div className="hidden md:block" style={{ position: 'absolute', left: '18%', top: '58%', width: 300, height: 220, borderRadius: '50%', background: 'radial-gradient(circle at 30% 30%, rgba(249,115,22,0.10), rgba(249,115,22,0) 60%)', filter: 'blur(28px)', zIndex: 5 }} />
 
           {/* Box 1 - default left */}
-          <div id="hw-box-1" className="absolute bg-white border border-gray-200 rounded-2xl shadow-md p-4 w-[500px] h-36 text-right overflow-hidden transform transition-all duration-300 hover:-translate-y-1 hover:shadow-xl" style={{ left: '30%', top: '20%', transform: `translate(-50%, -50%) ${box1Exit ? 'translateX(-120%)' : ''}`, transition: 'transform 600ms ease', zIndex: 20 }}>
+          <div id="hw-box-1" className="absolute bg-white border border-gray-200 rounded-2xl shadow-md p-3 md:p-4 w-[90%] max-w-[300px] md:max-w-[500px] h-auto md:h-36 text-right overflow-hidden transform transition-all duration-300 hover:-translate-y-1 hover:shadow-xl" style={{ left: '50%', top: '15%', transform: `translate(-50%, -50%) ${box1Exit ? 'translateX(-120%)' : ''}`, transition: 'transform 600ms ease', zIndex: 20 }}>
             {/* subtle top accent */}
             <div className="absolute left-0 right-0 top-0 h-1 bg-gradient-to-r from-indigo-200 via-pink-100 to-yellow-100" />
             <div className="flex items-start gap-4 pr-4 justify-end">
               {/* icon removed per request */}
               <div className="text-right">
-                <div className="text-2xl font-semibold text-gray-800 leading-tight">Global & Precise</div>
-                <div className="text-xs text-gray-500 mt-2" style={{ marginLeft: 200 }}>Se adaptează oricărei țări, oferind acuratețe maximă și conversații naturale, fără efort.</div>
+                <div className="text-base md:text-2xl font-semibold text-gray-800 leading-tight">Global & Precise</div>
+                <div className="text-xs text-gray-500 mt-2 md:w-1/2 md:ml-auto">Se adaptează oricărei țări, oferind acuratețe maximă și conversații naturale, fără efort.</div>
               </div>
             </div>
           </div>
 
           {/* Box 2 - default center */}
-          <div id="hw-box-2" className="absolute bg-white border border-gray-200 rounded-2xl shadow-md p-4 w-[500px] h-36 text-left overflow-hidden transform transition-all duration-300 hover:-translate-y-1 hover:shadow-xl" style={{ left: '70%', top: '50%', transform: `translate(-50%, -50%) ${box2Exit ? 'translateX(120%)' : ''}`, transition: 'transform 600ms ease', zIndex: 20 }}>
+          <div id="hw-box-2" className="absolute bg-white border border-gray-200 rounded-2xl shadow-md p-3 md:p-4 w-[90%] max-w-[300px] md:max-w-[500px] h-auto md:h-36 text-left overflow-hidden transform transition-all duration-300 hover:-translate-y-1 hover:shadow-xl" style={{ left: '50%', top: '50%', transform: `translate(-50%, -50%) ${box2Exit ? 'translateX(120%)' : ''}`, transition: 'transform 600ms ease', zIndex: 20 }}>
             <div className="absolute left-0 right-0 top-0 h-1 bg-gradient-to-r from-green-200 via-teal-100 to-cyan-100" />
             <div className="flex items-start gap-4 pl-2">
               {/* icon removed per request */}
               <div>
-                <div className="text-2xl font-semibold text-gray-800 leading-tight">Omnichannel & Always-On</div>
-                <div className="text-xs text-gray-500 mt-2" style={{ marginRight: 200 }}>Conectează-te prin orice canal, 24/7, cu integrare completă și disponibilitate permanentă.</div>
+                <div className="text-base md:text-2xl font-semibold text-gray-800 leading-tight">Omnichannel & Always-On</div>
+                <div className="text-xs text-gray-500 mt-2 md:w-1/2">Conectează-te prin orice canal, 24/7, cu integrare completă și disponibilitate permanentă.</div>
               </div>
             </div>
           </div>
 
           {/* Box 3 - default right */}
-          <div id="hw-box-3" className="absolute bg-white border border-gray-200 rounded-2xl shadow-md p-4 w-[500px] h-36 text-right overflow-hidden transform transition-all duration-300 hover:-translate-y-1 hover:shadow-xl" style={{ left: '30%', top: '80%', transform: `translate(-50%, -50%) ${box3Exit ? 'translateX(-120%)' : ''}`, transition: 'transform 600ms ease', zIndex: 20 }}>
+          <div id="hw-box-3" className="absolute bg-white border border-gray-200 rounded-2xl shadow-md p-3 md:p-4 w-[90%] max-w-[300px] md:max-w-[500px] h-auto md:h-36 text-right overflow-hidden transform transition-all duration-300 hover:-translate-y-1 hover:shadow-xl" style={{ left: '50%', top: '85%', transform: `translate(-50%, -50%) ${box3Exit ? 'translateX(-120%)' : ''}`, transition: 'transform 600ms ease', zIndex: 20 }}>
             <div className="absolute left-0 right-0 top-0 h-1 bg-gradient-to-r from-orange-100 via-amber-100 to-red-100" />
             <div className="flex items-start gap-4 pr-4 justify-end">
               {/* icon removed per request */}
               <div className="text-right">
-                <div className="text-2xl font-semibold text-gray-800 leading-tight">Smart Insights</div>
-                <div className="text-xs text-gray-500 mt-2" style={{ marginLeft: 200 }}>Transformă datele în decizii clare prin analize inteligente și recomandări precise în timp real.</div>
+                <div className="text-lg md:text-2xl font-semibold text-gray-800 leading-tight">Smart Insights</div>
+                <div className="text-xs text-gray-500 mt-2 md:w-1/2 md:ml-auto">Transformă datele în decizii clare prin analize inteligente și recomandări precise în timp real.</div>
               </div>
             </div>
           </div>
@@ -436,35 +437,35 @@ export const HowItWorksContainer3 = React.forwardRef<HowItWorksContainer3Handle,
             <div className="absolute inset-0 z-40 pointer-events-none">
               {/* Decorative soft background for Stage 3 */}
               <div style={{ position: 'absolute', inset: 0 }} />
-              <div style={{ position: 'absolute', left: '16%', top: '6%', width: 320, height: 220, borderRadius: '50%', background: 'radial-gradient(circle at 30% 30%, rgba(99,102,241,0.12), rgba(99,102,241,0) 60%)', filter: 'blur(36px)', zIndex: 5, opacity: 0.9 }} />
-              <div style={{ position: 'absolute', left: '64%', top: '34%', width: 280, height: 220, borderRadius: '50%', background: 'radial-gradient(circle at 30% 30%, rgba(16,185,129,0.10), rgba(16,185,129,0) 60%)', filter: 'blur(36px)', zIndex: 5, opacity: 0.9 }} />
-              <div style={{ position: 'absolute', left: '18%', top: '58%', width: 300, height: 220, borderRadius: '50%', background: 'radial-gradient(circle at 30% 30%, rgba(249,115,22,0.08), rgba(249,115,22,0) 60%)', filter: 'blur(36px)', zIndex: 5, opacity: 0.9 }} />
+              <div className="hidden md:block" style={{ position: 'absolute', left: '16%', top: '6%', width: 320, height: 220, borderRadius: '50%', background: 'radial-gradient(circle at 30% 30%, rgba(99,102,241,0.12), rgba(99,102,241,0) 60%)', filter: 'blur(36px)', zIndex: 5, opacity: 0.9 }} />
+              <div className="hidden md:block" style={{ position: 'absolute', left: '64%', top: '34%', width: 280, height: 220, borderRadius: '50%', background: 'radial-gradient(circle at 30% 30%, rgba(16,185,129,0.10), rgba(16,185,129,0) 60%)', filter: 'blur(36px)', zIndex: 5, opacity: 0.9 }} />
+              <div className="hidden md:block" style={{ position: 'absolute', left: '18%', top: '58%', width: 300, height: 220, borderRadius: '50%', background: 'radial-gradient(circle at 30% 30%, rgba(249,115,22,0.08), rgba(249,115,22,0) 60%)', filter: 'blur(36px)', zIndex: 5, opacity: 0.9 }} />
 
               {/* Subtle grid overlay for texture */}
-              <div style={{ position: 'absolute', inset: 0, backgroundImage: `repeating-linear-gradient(0deg, rgba(0,0,0,0.02) 0 1px, transparent 1px 24px), repeating-linear-gradient(90deg, rgba(0,0,0,0.02) 0 1px, transparent 1px 24px)`, opacity: 0.18 }} />
+              <div className="hidden md:block" style={{ position: 'absolute', inset: 0, backgroundImage: `repeating-linear-gradient(0deg, rgba(0,0,0,0.02) 0 1px, transparent 1px 24px), repeating-linear-gradient(90deg, rgba(0,0,0,0.02) 0 1px, transparent 1px 24px)`, opacity: 0.18 }} />
 
               {/* Circles (kept same size/positions) with updated visual treatment */}
               <div className="absolute" style={{ left: '30%', top: '20%', transform: 'translate(-50%, -50%)' }}>
-                <span className={`relative w-[120px] h-[120px] inline-flex items-center justify-center rounded-full bg-gradient-to-br from-gray-100 to-gray-200 shadow-2xl ring-1 ring-gray-300 overflow-hidden ${stage3Fade ? 'opacity-0' : 'opacity-100'}`}>
-                  <Image src="/HowItWorksSectin/ProfilePicture1.png" alt="" fill sizes="120px"/>
+                <span className={`relative w-[90px] h-[90px] md:w-[120px] md:h-[120px] inline-flex items-center justify-center rounded-full bg-gradient-to-br from-gray-100 to-gray-200 shadow-2xl ring-1 ring-gray-300 overflow-hidden ${stage3Fade ? 'opacity-0' : 'opacity-100'}`}>
+                  <Image src="/HowItWorksSectin/ProfilePicture1.png" alt="" fill sizes="(max-width: 768px) 90px, 120px"/>
                 </span>
               </div>
 
               <div className="absolute" style={{ left: '70%', top: '40%', transform: 'translate(-50%, -50%)' }}>
-                <span className={`relative w-[120px] h-[120px] inline-flex items-center justify-center rounded-full bg-gradient-to-br from-gray-100 to-gray-200 shadow-2xl ring-1 ring-gray-300 overflow-hidden ${stage3Fade ? 'opacity-0' : 'opacity-100'}`}>
-                  <Image src="/HowItWorksSectin/ProfilePicture2.png" alt="" fill sizes="120px"/>
+                <span className={`relative w-[90px] h-[90px] md:w-[120px] md:h-[120px] inline-flex items-center justify-center rounded-full bg-gradient-to-br from-gray-100 to-gray-200 shadow-2xl ring-1 ring-gray-300 overflow-hidden ${stage3Fade ? 'opacity-0' : 'opacity-100'}`}>
+                  <Image src="/HowItWorksSectin/ProfilePicture2.png" alt="" fill sizes="(max-width: 768px) 90px, 120px"/>
                 </span>
               </div>
 
               <div className="absolute" style={{ left: '70%', top: '80%', transform: 'translate(-50%, -50%)' }}>
-                <span className={`relative w-[120px] h-[120px] inline-flex items-center justify-center rounded-full bg-gradient-to-br from-gray-100 to-gray-200 shadow-2xl ring-1 ring-gray-300 overflow-hidden ${stage3Fade ? 'opacity-0' : 'opacity-100'}`}>
-                  <Image src="/HowItWorksSectin/ProfilePicture3.png" alt="" fill sizes="120px"/>
+                <span className={`relative w-[90px] h-[90px] md:w-[120px] md:h-[120px] inline-flex items-center justify-center rounded-full bg-gradient-to-br from-gray-100 to-gray-200 shadow-2xl ring-1 ring-gray-300 overflow-hidden ${stage3Fade ? 'opacity-0' : 'opacity-100'}`}>
+                  <Image src="/HowItWorksSectin/ProfilePicture3.png" alt="" fill sizes="(max-width: 768px) 90px, 120px"/>
                 </span>
               </div>
 
               <div className="absolute" style={{ left: '30%', top: '60%', transform: 'translate(-50%, -50%)' }}>
-                <span className={`relative w-[120px] h-[120px] inline-flex items-center justify-center rounded-full bg-gradient-to-br from-gray-100 to-gray-200 shadow-2xl ring-1 ring-gray-300 overflow-hidden ${stage3Fade ? 'opacity-0' : 'opacity-100'}`}>
-                  <Image src="/HowItWorksSectin/ProfilePicture4.png" alt="" fill sizes="120px"/>
+                <span className={`relative w-[90px] h-[90px] md:w-[120px] md:h-[120px] inline-flex items-center justify-center rounded-full bg-gradient-to-br from-gray-100 to-gray-200 shadow-2xl ring-1 ring-gray-300 overflow-hidden ${stage3Fade ? 'opacity-0' : 'opacity-100'}`}>
+                  <Image src="/HowItWorksSectin/ProfilePicture4.png" alt="" fill sizes="(max-width: 768px) 90px, 120px"/>
                 </span>
               </div>
             </div>
@@ -474,33 +475,33 @@ export const HowItWorksContainer3 = React.forwardRef<HowItWorksContainer3Handle,
         {stage === 4 && (
           <div className="absolute inset-0 z-50">
             {/* stage4-container holds absolute boxes that you can reposition freely */}
-            <div id="stage4-container" className="absolute inset-0">
-              <div id="hw-stage4-box-1" className="absolute bg-white border border-gray-200 rounded-2xl shadow-md p-6 h-[480px] w-[590px] pointer-events-auto" style={{ left: '1%', top: '15%' }}>
+            <div id="stage4-container" className="absolute inset-0 p-2">
+              <div id="hw-stage4-box-1" className="absolute bg-white border border-gray-200 rounded-2xl shadow-md h-full w-full pointer-events-auto">
                 <div className="text-2xl font-semibold text-gray-800"></div>
               </div>
 
-              <div id="hw-stage4-box-2" className="absolute bg-gray-100 border border-gray-300 rounded-2xl shadow-md p-6 h-[100px] w-[250px] pointer-events-auto flex items-center justify-center text-center" style={{ left: '2%', top: '20%', transition: 'transform 600ms ease, opacity 600ms ease', transform: stage4Box2Hidden ? 'translateY(-120%)' : 'translateY(0)', opacity: stage4Box2Hidden ? 0 : 1 }}>
-                <div className="text-[13px] font-semibold text-gray-800 leading-snug">Bună ziua! Vreau să cumpăr un telefon nou. Care sunt modelele disponibile în acest moment?</div>
+              <div id="hw-stage4-box-2" className="absolute bg-gray-100 border border-gray-300 rounded-2xl shadow-md p-3 w-[60%] pointer-events-auto flex items-center justify-center text-center top-[20%] left-[5%]" style={{ transition: 'transform 600ms ease, opacity 600ms ease', transform: stage4Box2Hidden ? 'translateY(-120%)' : 'translateY(0)', opacity: stage4Box2Hidden ? 0 : 1 }}>
+                <div className="text-[11px] md:text-[13px] font-semibold text-gray-800 leading-snug">Bună ziua! Vreau să cumpăr un telefon nou. Care sunt modelele disponibile în acest moment?</div>
               </div>
 
-              <div id="hw-stage4-box-3" className="absolute bg-blue-100 border border-blue-300 rounded-2xl shadow-md p-6 h-[100px] w-[300px] pointer-events-auto flex items-center justify-center text-center" style={{ left: '45%', top: '40%', transition: 'transform 600ms ease', transform: stage4Box3Raised ? 'translateY(-70%)' : 'translateY(0)' }}>
-                <div className="text-[13px] font-semibold text-gray-800 leading-snug">Bună ziua! Avem în stoc cele mai recente modele de la Apple, Samsung și Xiaomi. Care marcă vă interesează?</div>
+              <div id="hw-stage4-box-3" className="absolute bg-blue-100 border border-blue-300 rounded-2xl shadow-md p-3 w-[70%] pointer-events-auto flex items-center justify-center text-center top-[40%] right-[5%]" style={{ transition: 'transform 600ms ease', transform: stage4Box3Raised ? 'translateY(-70%)' : 'translateY(0)' }}>
+                <div className="text-[11px] md:text-[13px] font-semibold text-gray-800 leading-snug">Bună ziua! Avem în stoc cele mai recente modele de la Apple, Samsung și Xiaomi. Care marcă vă interesează?</div>
               </div>
 
-              <div id="hw-stage4-box-4" className="absolute bg-gray-100 border border-gray-300 rounded-2xl shadow-md p-6 h-[100px] w-[350px] pointer-events-auto flex items-center justify-center text-center" style={{ left: '2%', top: '60%', transition: 'transform 600ms ease', transform: stage4Box4Raised ? 'translateY(-70%)' : 'translateY(0)' }}>
-                <div className="text-[13px] font-semibold text-gray-800 leading-snug">Mă interesează un iPhone. Care sunt modelele noi disponibile?</div>
+              <div id="hw-stage4-box-4" className="absolute bg-gray-100 border border-gray-300 rounded-2xl shadow-md p-3 w-[80%] pointer-events-auto flex items-center justify-center text-center top-[60%] left-[5%]" style={{ transition: 'transform 600ms ease', transform: stage4Box4Raised ? 'translateY(-70%)' : 'translateY(0)' }}>
+                <div className="text-[11px] md:text-[13px] font-semibold text-gray-800 leading-snug">Mă interesează un iPhone. Care sunt modelele noi disponibile?</div>
               </div>
 
-              <div id="hw-stage4-box-5" className="absolute bg-white border border-gray-200 rounded-2xl shadow-md p-6 h-[50px] w-[450px] pointer-events-auto" style={{ left: '3%', bottom: '0.5%', transition: 'transform 600ms ease' }}>
+              <div id="hw-stage4-box-5" className="absolute bg-white border border-gray-200 rounded-2xl shadow-md p-3 h-auto md:h-[50px] w-[90%] pointer-events-auto bottom-[2%] left-[5%]" style={{ transition: 'transform 600ms ease' }}>
               </div>
 
-              <div id="hw-stage4-box-6" className="absolute bg-blue-400 border border-blue-200 rounded-2xl shadow-md p-6 h-[50px] w-[105px] pointer-events-auto" style={{ right: '7%', bottom: '0.5%' }}>
+              <div id="hw-stage4-box-6" className="absolute bg-blue-400 border border-blue-200 rounded-2xl shadow-md p-3 h-auto md:h-[50px] w-[25%] pointer-events-auto bottom-[2%] right-[5%]" style={{}}>
               </div>
 
               {/* New box that appears at the position/dimensions of box-3 when choreography triggers */}
               {stage4ShowNewBox && (
-                <div id="hw-stage4-newbox" className="absolute bg-blue-100 border border-blue-300 rounded-2xl shadow-md p-6 h-[100px] w-[300px] pointer-events-auto flex items-center justify-center text-center" style={{ left: '45%', top: '70%', transition: 'opacity 400ms ease' }}>
-                  <div className="text-[13px] font-semibold text-gray-800 leading-snug">Avem iPhone 15, iPhone 15 Plus, iPhone 15 Pro și iPhone 15 Pro Max.</div>
+                <div id="hw-stage4-newbox" className="absolute bg-blue-100 border border-blue-300 rounded-2xl shadow-md p-3 w-[70%] pointer-events-auto flex items-center justify-center text-center top-[70%] right-[5%]" style={{ transition: 'opacity 400ms ease' }}>
+                  <div className="text-[11px] md:text-[13px] font-semibold text-gray-800 leading-snug">Avem iPhone 15, iPhone 15 Plus, iPhone 15 Pro și iPhone 15 Pro Max.</div>
                 </div>
               )}
             </div>

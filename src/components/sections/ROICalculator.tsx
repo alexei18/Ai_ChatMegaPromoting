@@ -287,6 +287,7 @@ export default function ROICalculator() {
   const handleHumanMessagesChange = (v: number) => {
     const vRounded = Math.round(v);
     setMessagesPerDay(vRounded);
+    setAiMessagesPerDay(vRounded); // <-- Add this line to sync AI messages
     if (vRounded > 1600) {
       setEnterpriseOwner('human');
     } else if (enterpriseOwner === 'human') {

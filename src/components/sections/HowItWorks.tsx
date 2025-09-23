@@ -728,33 +728,31 @@ export default function HowItWorks() {
                 {isMobile && (
                   <div className="mt-8 rounded-3xl overflow-hidden aspect-square w-full">
                     {i === 0 ? (
-                      <div className="w-full h-full relative p-2">
-                        <div className="absolute inset-0 grid grid-cols-6 grid-rows-6 gap-1">
-                          {Array.from({ length: 36 }, (_, idx) => {
-                            const isVisible = visibleContainers.includes(idx + 1);
-                            return (
-                              <div
-                                key={idx}
-                                className={`flex items-center justify-center text-xs font-bold text-blue-800 rounded transition-colors duration-200 ${isVisible ? '' : 'opacity-0'}`}
-                              >
-                                {isVisible && (
-                                  <div
-                                    className={`w-3/4 h-3/4 rounded flex items-center justify-center relative z-10 transition-all duration-300 group bg-white ${isContainerActive(idx + 1) ? 'scale-110 shadow-lg' : ''} hover:scale-110 hover:shadow-lg ${isContainerActive(idx + 1) ? '' : 'border border-gray-200'}`}
-                                    style={{ width: 'calc(75% + 5px)', height: 'calc(75% + 5px)' }}
-                                  >
-                                    {renderIcon(idx + 1)}
-                                  </div>
-                                )}
-                              </div>
-                            );
-                          })}
-                        </div>
-                      </div>
-                    ) : (
-                      <div
-                        className="w-full h-full"
-                        style={{ backgroundImage: `url(${stepImages[i]})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
+                      <HowItWorksContainer1
+                        visibleContainers={visibleContainers}
+                        isContainerActive={isContainerActive}
+                        renderIcon={renderIcon}
+                        line1Ref={line1Ref}
+                        line2Ref={line2Ref}
+                        line2ContinuedRef={line2ContinuedRef}
+                        line3Ref={line3Ref}
+                        line4Ref={line4Ref}
+                        line5Ref={line5Ref}
+                        line5ContinuedRef={line5ContinuedRef}
+                        line6Ref={line6Ref}
                       />
+                    ) : i === 1 ? (
+                      <HowItWorksContainer2
+                        visibleContainers={visibleContainers}
+                        isContainerActive={isContainerActive}
+                        renderIcon={renderIcon}
+                        line1_2Ref={line1_2Ref}
+                        line2_2Ref={line2_2Ref}
+                        line5_2Ref={line5_2Ref}
+                        line6_2Ref={line6_2Ref}
+                      />
+                    ) : (
+                      <HowItWorksContainer3 backgroundImage={stepImages[i]} resetKey={container3ResetKey} />
                     )}
                   </div>
                 )}

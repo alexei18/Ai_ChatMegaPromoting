@@ -30,8 +30,8 @@ export const HowItWorksContainer1: React.FC<HowItWorksContainer1Props> = ({
   line6Ref
 }) => {
   return (
-    <div className="w-full h-full relative p-2">
-      <div className="absolute inset-0 grid grid-cols-6 grid-rows-6 gap-1">
+    <div className="w-full h-full relative p-1 md:p-2">
+      <div className="absolute inset-0 grid grid-cols-4 grid-rows-9 md:grid-cols-6 md:grid-rows-6 gap-1">
         {Array.from({ length: 36 }, (_, gridIdx) => {
           const num = gridIdx + 1;
           const isVisible = visibleContainers.includes(num);
@@ -42,8 +42,7 @@ export const HowItWorksContainer1: React.FC<HowItWorksContainer1Props> = ({
             >
               {isVisible && (
                 <div
-                  className={`w-3/4 h-3/4 rounded flex items-center justify-center relative z-10 transition-all duration-200 ease-in-out group bg-white border border-gray-200 ${isContainerActive(num) ? 'scale-110 shadow-lg' : ''} hover:scale-110 hover:shadow-lg`}
-                  style={{ width: 'calc(85% + 5px)', height: 'calc(85% + 5px)' }}
+                  className={`w-full h-full rounded flex items-center justify-center relative z-10 transition-all duration-200 ease-in-out group bg-white border border-gray-200 ${isContainerActive(num) ? 'scale-110 shadow-lg' : ''} hover:scale-110 hover:shadow-lg`}
                 >
                   {renderIcon(num)}
                 </div>
