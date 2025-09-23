@@ -86,7 +86,7 @@ export const HowItWorksContainer2: React.FC<HowItWorksContainer1Props> = ({
       </div>
 
       {/* Exclude specific containers locally (14 and 15) regardless of incoming visibleContainers */}
-      <div className="absolute inset-0 grid grid-cols-4 grid-rows-9 md:grid-cols-6 md:grid-rows-6 gap-1">
+      <div className="absolute inset-0 grid grid-cols-6 grid-rows-6 gap-1">
         {(() => {
           // Excluded container IDs (local override) - will be hidden regardless of incoming props
           const excluded = new Set([14, 15, 27, 32, 29, 35, 10, 11]);

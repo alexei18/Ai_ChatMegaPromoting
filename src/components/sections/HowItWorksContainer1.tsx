@@ -31,7 +31,7 @@ export const HowItWorksContainer1: React.FC<HowItWorksContainer1Props> = ({
 }) => {
   return (
     <div className="w-full h-full relative p-1 md:p-2">
-      <div className="absolute inset-0 grid grid-cols-4 grid-rows-9 md:grid-cols-6 md:grid-rows-6 gap-1">
+      <div className="absolute inset-0 grid grid-cols-6 grid-rows-6 gap-1">
         {Array.from({ length: 36 }, (_, gridIdx) => {
           const num = gridIdx + 1;
           const isVisible = visibleContainers.includes(num);
