@@ -787,14 +787,12 @@ export default function HowItWorks() {
                       visibleContainers={visibleContainers}
                       isContainerActive={isContainerActive}
                       renderIcon={renderIcon}
-                      line1Ref={line1Ref}
-                      line2Ref={line2Ref}
-                      line2ContinuedRef={line2ContinuedRef}
-                      line3Ref={line3Ref}
-                      line4Ref={line4Ref}
-                      line5Ref={line5Ref}
-                      line5ContinuedRef={line5ContinuedRef}
-                      line6Ref={line6Ref}
+                      line1Animating={line1Animating}
+                      line2Animating={line2Animating}
+                      line3Animating={line3Animating}
+                      line4Animating={line4Animating}
+                      line5Animating={line5Animating}
+                      line6Animating={line6Animating}
                     />
                   )}
                   {idx === 1 && (
@@ -802,10 +800,10 @@ export default function HowItWorks() {
                       visibleContainers={visibleContainers}
                       isContainerActive={isContainerActive}
                       renderIcon={renderIcon}
-                      line1_2Ref={line1_2Ref}
-                      line2_2Ref={line2_2Ref}
-                      line5_2Ref={line5_2Ref}
-                      line6_2Ref={line6_2Ref}
+                      line1Animating={line1Animating}
+                      line2Animating={line2Animating}
+                      line5Animating={line5Animating}
+                      line6Animating={line6Animating}
                     />
                   )}
                   {idx === 2 && (
