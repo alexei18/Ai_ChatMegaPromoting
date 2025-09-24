@@ -105,7 +105,7 @@ export const HowItWorksContainer2: React.FC<HowItWorksContainer2Props> = ({
       {visibleContainers.map((num) => (
         <motion.div
           key={num}
-          ref={(el) => (iconRefs.current[num] = el)}
+          ref={(el) => { iconRefs.current[num] = el; }}
           className={`flex items-center justify-center text-xs font-bold text-blue-800 rounded`}
           style={{
             gridColumn: `${(num - 1) % 6 + 1} / span 1`,
