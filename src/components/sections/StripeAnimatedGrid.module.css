@@ -1,0 +1,100 @@
+.container {
+    position: relative;
+    /* Key Change: Fluid width with a max size and locked aspect ratio */
+    width: 90vw;
+    max-width: 600px;
+    aspect-ratio: 1 / 1; 
+
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    /* Key Change: Gap scales with the screen size */
+    gap: 3vmin;
+}
+
+.icon {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+    opacity: 0.2;
+    transition: all 0.5s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    z-index: 10;
+}
+
+.icon.active,
+.icon:hover {
+    opacity: 1;
+    transform: scale(1.05);
+}
+
+.icon .label {
+    margin-top: 8px;
+    /* Key Change: Fluid font size that adapts to screen size */
+    font-size: clamp(10px, 2.2vmin, 14px);
+    font-weight: 600;
+    color: #424770;
+    opacity: 0;
+    transition: opacity 0.3s ease 0.2s;
+}
+
+.icon.active .label,
+.icon:hover .label {
+    opacity: 1;
+}
+
+.icon .logo {
+     /* Key Change: SVG logo scales relative to its parent icon box */
+    width: 35%;
+    height: auto;
+}
+
+#svg-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.line {
+    stroke-width: 2.5;
+    fill: none;
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: draw-line 1.2s cubic-bezier(0.45, 0, 0.55, 1) forwards;
+}
+
+@keyframes draw-line {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+#icon-connect { grid-column: 1; grid-row: 3; }
+#icon-capital { grid-column: 3; grid-row: 1; }
+#icon-treasury { grid-column: 4; grid-row: 2; }
+#icon-terminal { grid-column: 2; grid-row: 4; }
+#icon-payments { grid-column: 2; grid-row: 2; }
+#icon-tax { grid-column: 2; grid-row: 1; }
+#icon-radar { grid-column: 3; grid-row: 3; } 
+#icon-billing { grid-column: 1; grid-row: 2; }
+#icon-invoicing { grid-column: 3; grid-row: 2; }
+#icon-issuing { grid-column: 3; grid-row: 4; }
+#icon-checkout { grid-column: 2; grid-row: 4; }
+
+.faded-icon {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+    opacity: 0.15;
+    grid-column: var(--gc);
+    grid-row: var(--gr);
+}
