@@ -117,7 +117,14 @@ const StripeAnimatedGrid = () => {
     const runScene = (advance = true) => {
       requestAnimationFrame(() => {
         Object.values(icons).forEach(icon => icon?.classList.remove(styles.active));
-        if (svgCanvas) svgCanvas.innerHTML = '<defs></defs>';
+        if (svgCanvas) {
+          const lines = svgCanvas.querySelectorAll(`.${styles.line}`);
+          lines.forEach(line => line.remove());
+          const defs = svgCanvas.querySelector('defs');
+          if (defs) {
+            defs.innerHTML = '';
+          }
+        }
         scenes[currentScene]();
         if (advance) {
           currentScene = (currentScene + 1) % scenes.length;
@@ -149,7 +156,7 @@ const StripeAnimatedGrid = () => {
 
   return (
     <div className={styles.container} ref={containerRef}>
-      <svg id="svg-canvas" ref={svgCanvasRef}></svg>
+      <svg className={styles.svgCanvas} ref={svgCanvasRef}></svg>
 
       <div className={styles['faded-icon']} style={{ '--gc': 2, '--gr': 1 } as React.CSSProperties}></div>
       <div className={styles['faded-icon']} style={{ '--gc': 1, '--gr': 1 } as React.CSSProperties}></div>
