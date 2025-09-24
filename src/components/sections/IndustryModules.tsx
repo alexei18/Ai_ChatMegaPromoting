@@ -303,14 +303,14 @@ export default function IndustryCards() {
           Bravin for
           <br className="hidden md:block" /> everyone
         </h1>
-        <p className="mt-4 max-w-[560px] text-[18px] md:text-[20px] leading-relaxed text-slate-600">
+        <p className="mt-4 max-w-[640px] text-[18px] md:text-[20px] leading-relaxed text-slate-600">
           Conversational AI solutions tailored for every industry — automate,
           personalize, and scale customer interactions, no matter the field.
         </p>
       </div>
 
       {/* Tabs pill */}
-      <div className="mb-10">
+      <div className="mb-10 flex justify-center">
         <div className="inline-flex w-full md:w-auto items-center gap-1 rounded-full bg-slate-100 p-1 md:p-2 overflow-x-auto">
           {TABS.map(({ key, label }) => (
             <button

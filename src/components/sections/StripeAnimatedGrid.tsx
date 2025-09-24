@@ -174,47 +174,47 @@ const StripeAnimatedGrid = () => {
       <div className={styles['faded-icon']} style={{ '--gc': 3, '--gr': 4 } as React.CSSProperties}></div>
       <div className={styles['faded-icon']} style={{ '--gc': 4, '--gr': 4 } as React.CSSProperties}></div>
 
-      <div className={styles.icon} id={styles['icon-connect']} ref={el => iconRefs.current['icon-connect'] = el}>
+      <div className={styles.icon} id={styles['icon-connect']} ref={el => { iconRefs.current['icon-connect'] = el; }}>
         <svg className={styles.logo} viewBox="0 0 32 32"><circle cx="12" cy="16" r="4" fill="#00d4ff"></circle><circle cx="20" cy="16" r="4" fill="#0a2540" opacity="0.6"></circle></svg>
         <span className={styles.label}>Connect</span>
       </div>
-      <div className={styles.icon} id={styles['icon-capital']} ref={el => iconRefs.current['icon-capital'] = el}>
+      <div className={styles.icon} id={styles['icon-capital']} ref={el => { iconRefs.current['icon-capital'] = el; }}>
         <svg className={styles.logo} viewBox="0 0 32 32"><path d="M16 4l8 8h-6v16h-4V12H8z" fill="#3ecf8e"></path><path d="M12 12h8v4h-8z" fill="#00d4ff"></path></svg>
         <span className={styles.label}>Capital</span>
       </div>
-      <div className={styles.icon} id={styles['icon-treasury']} ref={el => iconRefs.current['icon-treasury'] = el}>
+      <div className={styles.icon} id={styles['icon-treasury']} ref={el => { iconRefs.current['icon-treasury'] = el; }}>
         <svg className={styles.logo} viewBox="0 0 32 32"><path d="M12 8h8v16h-8z" fill="#00d4ff"></path><path d="M20 8h4v16h-4z" fill="#3ecf8e"></path></svg>
         <span className={styles.label}>Treasury</span>
       </div>
-      <div className={styles.icon} id={styles['icon-terminal']} ref={el => iconRefs.current['icon-terminal'] = el}>
+      <div className={styles.icon} id={styles['icon-terminal']} ref={el => { iconRefs.current['icon-terminal'] = el; }}>
         <svg className={styles.logo} viewBox="0 0 32 32"><path d="M8 12h16v4H8z" fill="#8ce8f3"></path><path d="M8 18h16v4H8z" fill="#6a1ee4"></path></svg>
         <span className={styles.label}>Terminal</span>
       </div>
-      <div className={styles.icon} id={styles['icon-payments']} ref={el => iconRefs.current['icon-payments'] = el}>
+      <div className={styles.icon} id={styles['icon-payments']} ref={el => { iconRefs.current['icon-payments'] = el; }}>
         <svg className={styles.logo} viewBox="0 0 32 32"><path d="M16 4l-12 12 12 12 5-5-7-7 7-7z" fill="#6a1ee4"></path><path d="M16 16l7 7 5-5-12-12z" fill="#8ce8f3"></path></svg>
         <span className={styles.label}>Payments</span>
       </div>
-      <div className={styles.icon} id={styles['icon-tax']} ref={el => iconRefs.current['icon-tax'] = el}>
+      <div className={styles.icon} id={styles['icon-tax']} ref={el => { iconRefs.current['icon-tax'] = el; }}>
         <svg className={styles.logo} viewBox="0 0 32 32"><path d="M16 4A12 12 0 004 16a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0016 4zm0 2a10 10 0 0110 10h-2a8 8 0 00-8-8V6z" fill="#6a1ee4"></path><path d="M16 6a10 10 0 018.6 14.9l-2.8-2.8A6 6 0 0016 10V6z" fill="#ff69b4"></path></svg>
         <span className={styles.label}>Tax</span>
       </div>
-      <div className={styles.icon} id={styles['icon-radar']} ref={el => iconRefs.current['icon-radar'] = el}>
+      <div className={styles.icon} id={styles['icon-radar']} ref={el => { iconRefs.current['icon-radar'] = el; }}>
         <svg className={styles.logo} viewBox="0 0 32 32"><path d="M16 4L4 28h24L16 4zm0 4.5L22.5 24H9.5L16 8.5z" fill="#ff69b4"></path><path d="M16 12l-6 10h12l-6-10z" fill="#6a1ee4"></path></svg>
         <span className={styles.label}>Radar</span>
       </div>
-      <div className={styles.icon} id={styles['icon-billing']} ref={el => iconRefs.current['icon-billing'] = el}>
+      <div className={styles.icon} id={styles['icon-billing']} ref={el => { iconRefs.current['icon-billing'] = el; }}>
         <svg className={styles.logo} viewBox="0 0 32 32"><circle cx="16" cy="12" r="6" fill="#f6a44c"></circle><rect x="10" y="20" width="12" height="4" fill="#3ecf8e"></rect></svg>
         <span className={styles.label}>Billing</span>
       </div>
-      <div className={styles.icon} id={styles['icon-invoicing']} ref={el => iconRefs.current['icon-invoicing'] = el}>
+      <div className={styles.icon} id={styles['icon-invoicing']} ref={el => { iconRefs.current['icon-invoicing'] = el; }}>
         <svg className={styles.logo} viewBox="0 0 32 32"><path d="M8 8h16v4H8z" fill="#3ecf8e"></path><path d="M8 14h16v4H8z" fill="#3ecf8e"></path><path d="M8 20h8v4H8z" fill="#3ecf8e"></path></svg>
         <span className={styles.label}>Invoicing</span>
       </div>
-      <div className={styles.icon} id={styles['icon-issuing']} ref={el => iconRefs.current['icon-issuing'] = el}>
+      <div className={styles.icon} id={styles['icon-issuing']} ref={el => { iconRefs.current['icon-issuing'] = el; }}>
         <svg className={styles.logo} viewBox="0 0 32 32"><path d="M8 8h16v8H8z" fill="#6a1ee4"></path><path d="M8 18h16v4H8z" fill="#ff69b4"></path></svg>
         <span className={styles.label}>Issuing</span>
       </div>
-      <div className={styles.icon} id={styles['icon-checkout']} ref={el => iconRefs.current['icon-checkout'] = el}>
+      <div className={styles.icon} id={styles['icon-checkout']} ref={el => { iconRefs.current['icon-checkout'] = el; }}>
         <svg className={styles.logo} viewBox="0 0 32 32"><path d="M4 8l12 16 12-16H4zm2.5 2h19L16 20.5 6.5 10z" fill="#6a1ee4"></path><path d="M16 24l-4-4h8l-4 4z" fill="#8ce8f3"></path></svg>
         <span className={styles.label}>Checkout</span>
       </div>

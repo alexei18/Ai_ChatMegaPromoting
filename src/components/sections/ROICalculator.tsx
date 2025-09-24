@@ -345,6 +345,34 @@ export default function ROICalculator() {
   const monthlySavings = useAnimatedNumber(Math.max(0, Math.round(humanRes.monthlyCost - aiRes.monthlyCost)));
   const annualSavings = useAnimatedNumber(Math.max(0, Math.round((humanRes.monthlyCost - aiRes.monthlyCost) * 12)));
 
+  const getHumanCostColor = (cost: number) => {
+    if (cost <= 1000) return '#FFFFFF'; // White
+    if (cost > 1000 && cost <= 50000) {
+      const percentage = (cost - 1000) / (50000 - 1000);
+      // Transition from white to yellow
+      const green = 255;
+      const blue = 255 - Math.floor(255 * percentage);
+      return `rgb(255, ${green}, ${blue})`;
+    }
+    if (cost > 50000) {
+      const percentage = Math.min(1, (cost - 50000) / (125000 - 50000));
+      // Transition from yellow to red
+      const green = 255 - Math.floor(255 * percentage);
+      return `rgb(255, ${green}, 0)`;
+    }
+    return '#FF0000'; // Red
+  };
+
+  const getSavingsGlowStyle = (savings: number) => {
+    if (savings <= 0) return {};
+    const intensity = Math.min(1, savings / 50000); // Cap intensity at 50k savings
+    const blur = Math.round(intensity * 20);
+    const color = `rgba(255, 255, 255, ${intensity * 0.7})`;
+    return {
+      textShadow: `0 0 ${blur}px ${color}`,
+    };
+  };
+
   return (
     <div className="relative overflow-hidden bg-black w-full text-white pt-[150px] pb-[100px] md:pb-[130px]">
       {/* Angled top divider (~30°), rising to the right */}
@@ -397,45 +425,48 @@ export default function ROICalculator() {
               </div>
             </div>
 
-            <div className="flex items-baseline gap-6">
+              <div className="flex flex-col md:flex-row md:items-baseline justify-between gap-6">
               <div>
                 <div className="uppercase text-xs tracking-wider text-white/80">Total lunar</div>
-                <motion.div className="text-3xl md:text-5xl font-semibold tabular-nums">${monthlyHuman}</motion.div>
+                <motion.div
+                  className="text-3xl md:text-5xl font-semibold tabular-nums"
+                  style={{ color: getHumanCostColor(monthlyHuman) }}
+                >
+                  ${monthlyHuman}
+                </motion.div>
                 <div className="text-xs text-white/80 mt-1">Salariu × Agenți</div>
               </div>
-              <div className="flex items-center gap-3">
-                <div className="opacity-70">
-                  <div className="uppercase text-xs tracking-wider text-white/80">Pe zi</div>
-                  <div className="text-lg md:text-xl font-medium tabular-nums">${Math.round((salaryMonthly * Math.max(1, Math.floor(teamCount))) / workdaysPerMonth)}</div>
-                </div>
-                <AnimatePresence>
-                  {enterpriseOwner === 'human' && messagesPerDay > 1600 && (
-                    <motion.div
-                      key="human-enterprise"
-                      initial={{ opacity: 0, y: 8 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 8 }}
-                      transition={{ duration: 0.35, ease: "easeOut" }}
-                      className="ml-6"
-                    >
-                      <div className="relative inline-block">
-                        <button aria-label="Enterprise contact" className="relative z-10 rounded-full bg-white text-black flex items-center justify-center px-4 py-2 text-sm md:text-base font-semibold shadow-sm border border-white hover:scale-105 transition-transform">Enterprise?</button>
-                        {/* Rainbow shadow (same as Hero) */}
-                        <span aria-hidden="true" className="pointer-events-none absolute left-1/2 top-full -translate-x-1/2 -translate-y-1 w-[90%] h-2 z-0 rainbow-shadow" />
-                      </div>
-                      <motion.div
-                        initial={{ opacity: 0, y: 6 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: 6 }}
-                        transition={{ duration: 0.3, ease: "easeOut", delay: 0.06 }}
-                        className="text-xs text-white/80 mt-3"
-                      >
-                        Let&apos;s Discuss about your investments
-                      </motion.div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+              <div className="opacity-70">
+                <div className="uppercase text-xs tracking-wider text-white/80">Pe zi</div>
+                <div className="text-lg md:text-xl font-medium tabular-nums">${Math.round((salaryMonthly * Math.max(1, Math.floor(teamCount))) / workdaysPerMonth)}</div>
               </div>
+              <AnimatePresence>
+                {enterpriseOwner === 'human' && messagesPerDay > 1600 && (
+                  <motion.div
+                    key="human-enterprise"
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 8 }}
+                    transition={{ duration: 0.35, ease: "easeOut" }}
+                    className="mt-4 md:mt-0"
+                  >
+                    <div className="relative inline-block">
+                      <button aria-label="Enterprise contact" className="relative z-10 rounded-full bg-white text-black flex items-center justify-center px-4 py-2 text-sm md:text-base font-semibold shadow-sm border border-white hover:scale-105 transition-transform">Enterprise?</button>
+                      {/* Rainbow shadow (same as Hero) */}
+                      <span aria-hidden="true" className="pointer-events-none absolute left-1/2 top-full -translate-x-1/2 -translate-y-1 w-[90%] h-2 z-0 rainbow-shadow" />
+                    </div>
+                    <motion.div
+                      initial={{ opacity: 0, y: 6 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 6 }}
+                      transition={{ duration: 0.3, ease: "easeOut", delay: 0.06 }}
+                      className="text-xs text-white/80 mt-3"
+                    >
+                      Let&apos;s Discuss about your investments
+                    </motion.div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           </Panel>
 
@@ -475,44 +506,42 @@ export default function ROICalculator() {
               </div>
             </div>
 
-            <div className="flex items-baseline gap-6">
+            <div className="flex flex-col md:flex-row md:items-baseline justify-between gap-6">
               <div>
                 <div className="uppercase text-xs tracking-wider text-white/80">Total lunar</div>
                 <motion.div className="text-3xl md:text-5xl font-semibold tabular-nums">{agentCustom ? "Custom" : `$${monthlyAI}`}</motion.div>
               </div>
-              <div className="flex items-center gap-3">
-                <div>
-                  <div className="opacity-70 uppercase text-xs tracking-wider text-white/80">Pe zi</div>
-                  <div className="opacity-70 text-lg md:text-xl font-medium tabular-nums">${Math.round(agentPrice / workdaysPerMonth)}</div>
-                </div>
-                <AnimatePresence>
-                  {enterpriseOwner === 'ai' && aiMessagesPerDay > 1600 && (
-                    <motion.div
-                      key="ai-enterprise"
-                      initial={{ opacity: 0, y: 8 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 8 }}
-                      transition={{ duration: 0.35, ease: "easeOut" }}
-                      className="ml-6"
-                    >
-                      <div className="relative inline-block">
-                        <button aria-label="Enterprise contact" className="relative z-10 rounded-full bg-white text-black flex items-center justify-center px-4 py-2 text-sm md:text-base font-semibold shadow-sm border border-white hover:scale-105 transition-transform">Enterprise?</button>
-                        {/* Rainbow shadow (same as Hero) */}
-                        <span aria-hidden="true" className="pointer-events-none absolute left-1/2 top-full -translate-x-1/2 -translate-y-1 w-[90%] h-2 z-0 rainbow-shadow" />
-                      </div>
-                      <motion.div
-                        initial={{ opacity: 0, y: 6 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: 6 }}
-                        transition={{ duration: 0.3, ease: "easeOut", delay: 0.06 }}
-                        className="text-xs text-white/80 mt-3"
-                      >
-                        Let&apos;s Discuss about your investments
-                      </motion.div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+              <div className="opacity-70">
+                <div className="uppercase text-xs tracking-wider text-white/80">Pe zi</div>
+                <div className="text-lg md:text-xl font-medium tabular-nums">${Math.round(agentPrice / workdaysPerMonth)}</div>
               </div>
+              <AnimatePresence>
+                {enterpriseOwner === 'ai' && aiMessagesPerDay > 1600 && (
+                  <motion.div
+                    key="ai-enterprise"
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 8 }}
+                    transition={{ duration: 0.35, ease: "easeOut" }}
+                    className="mt-4 md:mt-0"
+                  >
+                    <div className="relative inline-block">
+                      <button aria-label="Enterprise contact" className="relative z-10 rounded-full bg-white text-black flex items-center justify-center px-4 py-2 text-sm md:text-base font-semibold shadow-sm border border-white hover:scale-105 transition-transform">Enterprise?</button>
+                      {/* Rainbow shadow (same as Hero) */}
+                      <span aria-hidden="true" className="pointer-events-none absolute left-1/2 top-full -translate-x-1/2 -translate-y-1 w-[90%] h-2 z-0 rainbow-shadow" />
+                    </div>
+                    <motion.div
+                      initial={{ opacity: 0, y: 6 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 6 }}
+                      transition={{ duration: 0.3, ease: "easeOut", delay: 0.06 }}
+                      className="text-xs text-white/80 mt-3"
+                    >
+                      Let&apos;s Discuss about your investments
+                    </motion.div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           </Panel>
         </div>
@@ -527,7 +556,12 @@ export default function ROICalculator() {
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
               <div>
               <div className="uppercase text-xs tracking-wider text-white/80">Economii lunare estimate</div>
-              <div className="text-4xl md:text-6xl font-semibold tabular-nums">${monthlySavings}</div>
+              <div
+                className="text-4xl md:text-6xl font-semibold tabular-nums"
+                style={getSavingsGlowStyle(monthlySavings)}
+              >
+                ${monthlySavings}
+              </div>
             </div>
             <div className="opacity-80">
               <div className="uppercase text-xs tracking-wider text-white/80">Economii anuale estimate</div>
