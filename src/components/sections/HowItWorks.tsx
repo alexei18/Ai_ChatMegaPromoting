@@ -728,19 +728,7 @@ export default function HowItWorks() {
                 {isMobile && (
                   <div className="mt-8 rounded-3xl overflow-hidden aspect-square w-full">
                     {i === 0 ? (
-                      <HowItWorksContainer1
-                        visibleContainers={visibleContainers}
-                        isContainerActive={isContainerActive}
-                        renderIcon={renderIcon}
-                        line1Ref={line1Ref}
-                        line2Ref={line2Ref}
-                        line2ContinuedRef={line2ContinuedRef}
-                        line3Ref={line3Ref}
-                        line4Ref={line4Ref}
-                        line5Ref={line5Ref}
-                        line5ContinuedRef={line5ContinuedRef}
-                        line6Ref={line6Ref}
-                      />
+                      <HowItWorksContainer1 />
                     ) : i === 1 ? (
                       <HowItWorksContainer2
                         visibleContainers={visibleContainers}
@@ -783,17 +771,7 @@ export default function HowItWorks() {
                   aria-hidden={idx !== activeStep}
                 >
                   {idx === 0 && (
-                    <HowItWorksContainer1
-                      visibleContainers={visibleContainers}
-                      isContainerActive={isContainerActive}
-                      renderIcon={renderIcon}
-                      line1Animating={line1Animating}
-                      line2Animating={line2Animating}
-                      line3Animating={line3Animating}
-                      line4Animating={line4Animating}
-                      line5Animating={line5Animating}
-                      line6Animating={line6Animating}
-                    />
+                    <HowItWorksContainer1 />
                   )}
                   {idx === 1 && (
                     <HowItWorksContainer2
