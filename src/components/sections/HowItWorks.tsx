@@ -734,10 +734,10 @@ export default function HowItWorks() {
                         visibleContainers={visibleContainers}
                         isContainerActive={isContainerActive}
                         renderIcon={renderIcon}
-                        line1_2Ref={line1_2Ref}
-                        line2_2Ref={line2_2Ref}
-                        line5_2Ref={line5_2Ref}
-                        line6_2Ref={line6_2Ref}
+                        line1Animating={line1Animating}
+                        line2Animating={line2Animating}
+                        line5Animating={line5Animating}
+                        line6Animating={line6Animating}
                       />
                     ) : (
                       <HowItWorksContainer3 backgroundImage={stepImages[i]} resetKey={container3ResetKey} />
