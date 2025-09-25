@@ -60,19 +60,40 @@ const StripeAnimatedGrid = () => {
       svgCanvas!.appendChild(path);
     }
 
-    function drawSmartLine(from: string, to: string, color1: string, color2: string) {
+    function drawSmartLine(from: string, to: string, color1: string, color2: string, lineIndex: number, totalLines: number) {
       const fromEl = icons[from as keyof typeof icons];
       const toEl = icons[to as keyof typeof icons];
       if (!fromEl || !toEl) return;
 
       const cornerRadius = container!.offsetWidth * 0.04;
-      const p1 = getCenter(fromEl);
-      const p2 = getCenter(toEl);
-      if (p1.x === 0 && p1.y === 0) return;
-      const gradId = `grad-${from}-${to}`;
+      const p1_center = getCenter(fromEl);
+      const p2_center = getCenter(toEl);
+      if ((p1_center.x === 0 && p1_center.y === 0) || (p2_center.x === 0 && p2_center.y === 0)) return;
+
+      let p1 = { ...p1_center };
+      const p2 = { ...p2_center };
+
+      const offsetAmount = 5; // The pixel spacing between lines
+
+      if (totalLines > 1) {
+        const dx = p2.x - p1.x;
+        const dy = p2.y - p1.y;
+        const length = Math.sqrt(dx * dx + dy * dy);
+        if (length > 0) {
+          const perpX = -dy / length;
+          const perpY = dx / length;
+          const invertedLineIndex = totalLines - 1 - lineIndex;
+          const offset = (invertedLineIndex - (totalLines - 1) / 2) * offsetAmount;
+          p1.x += offset * perpX;
+          p1.y += offset * perpY;
+        }
+      }
+
+      const gradId = `grad-${from}-${to}-${lineIndex}`;
       const defs = svgCanvas!.querySelector('defs') || document.createElementNS(namespace, 'defs');
       if (!svgCanvas!.contains(defs)) svgCanvas!.prepend(defs);
       createGradient(defs, gradId, p1, p2, color1, color2);
+
       if (Math.abs(p1.x - p2.x) < 5 || Math.abs(p1.y - p2.y) < 5) {
         createPath(`M ${p1.x} ${p1.y} L ${p2.x} ${p2.y}`, gradId);
       } else {
@@ -84,32 +105,42 @@ const StripeAnimatedGrid = () => {
       }
     }
 
-const scenes = [
-      () => {
-        ['connect', 'treasury', 'capital'].forEach(id => icons[id as keyof typeof icons]?.classList.add(styles.active));
-        drawSmartLine('connect', 'treasury', '#00d4ff', '#3ecf8e');
-        drawSmartLine('treasury', 'capital', '#3ecf8e', '#6a1ee4');
+    const scenes = [
+      {
+        active: ['connect', 'treasury', 'capital'],
+        lines: [
+          { from: 'connect', to: 'treasury', colors: ['#00d4ff', '#3ecf8e'] },
+          { from: 'treasury', to: 'capital', colors: ['#3ecf8e', '#6a1ee4'] },
+        ],
       },
-      () => {
-        ['connect', 'terminal', 'capital'].forEach(id => icons[id as keyof typeof icons]?.classList.add(styles.active));
-        drawSmartLine('connect', 'terminal', '#00d4ff', '#8ce8f3');
-        drawSmartLine('terminal', 'capital', '#8ce8f3', '#6a1ee4');
+      {
+        active: ['connect', 'terminal', 'capital'],
+        lines: [
+          { from: 'connect', to: 'terminal', colors: ['#00d4ff', '#8ce8f3'] },
+          { from: 'terminal', to: 'capital', colors: ['#8ce8f3', '#6a1ee4'] },
+        ],
       },
-      () => {
-        ['capital', 'billing', 'invoicing'].forEach(id => icons[id as keyof typeof icons]?.classList.add(styles.active));
-        drawSmartLine('capital', 'billing', '#6a1ee4', '#f6a44c');
-        drawSmartLine('billing', 'invoicing', '#f6a44c', '#3ecf8e');
+      {
+        active: ['capital', 'billing', 'invoicing'],
+        lines: [
+          { from: 'capital', to: 'billing', colors: ['#6a1ee4', '#f6a44c'] },
+          { from: 'billing', to: 'invoicing', colors: ['#f6a44c', '#3ecf8e'] },
+        ],
       },
-      () => {
-        ['capital', 'payments', 'tax', 'radar'].forEach(id => icons[id as keyof typeof icons]?.classList.add(styles.active));
-        drawSmartLine('capital', 'payments', '#6a1ee4', '#8ce8f3');
-        drawSmartLine('capital', 'tax', '#6a1ee4', '#ff69b4');
-        drawSmartLine('capital', 'radar', '#6a1ee4', '#f6a44c');
+      {
+        active: ['capital', 'payments', 'tax', 'radar'],
+        lines: [
+          { from: 'capital', to: 'payments', colors: ['#6a1ee4', '#8ce8f3'] },
+          { from: 'capital', to: 'tax', colors: ['#6a1ee4', '#ff69b4'] },
+          { from: 'capital', to: 'radar', colors: ['#6a1ee4', '#f6a44c'] },
+        ],
       },
-      () => {
-        ['capital', 'issuing', 'checkout'].forEach(id => icons[id as keyof typeof icons]?.classList.add(styles.active));
-        drawSmartLine('capital', 'issuing', '#6a1ee4', '#ff69b4');
-        drawSmartLine('issuing', 'checkout', '#ff69b4', '#00d4ff');
+      {
+        active: ['capital', 'issuing', 'checkout'],
+        lines: [
+          { from: 'capital', to: 'issuing', colors: ['#6a1ee4', '#ff69b4'] },
+          { from: 'issuing', to: 'checkout', colors: ['#ff69b4', '#00d4ff'] },
+        ],
       },
     ];
 
@@ -125,7 +156,22 @@ const scenes = [
             defs.innerHTML = '';
           }
         }
-        scenes[currentScene]();
+
+        const scene = scenes[currentScene];
+        scene.active.forEach(id => icons[id as keyof typeof icons]?.classList.add(styles.active));
+
+        const linesFromCount: { [key: string]: { from: string, to: string, colors: string[] }[] } = {};
+        scene.lines.forEach(line => {
+          if (!linesFromCount[line.from]) linesFromCount[line.from] = [];
+          linesFromCount[line.from].push(line);
+        });
+
+        scene.lines.forEach(line => {
+          const totalLines = linesFromCount[line.from].length;
+          const lineIndex = linesFromCount[line.from].indexOf(line);
+          drawSmartLine(line.from, line.to, line.colors[0], line.colors[1], lineIndex, totalLines);
+        });
+
         if (advance) {
           currentScene = (currentScene + 1) % scenes.length;
         }
