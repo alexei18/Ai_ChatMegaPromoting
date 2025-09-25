@@ -5,7 +5,8 @@
       "Bash(copy:*)",
       "Bash(cp:*)",
       "Bash(git remote set-url:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(find:*)"
     ],
     "deny": []
   }
