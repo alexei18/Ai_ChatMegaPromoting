@@ -3,7 +3,9 @@
   "permissions": {
     "allow": [
       "Bash(copy:*)",
-      "Bash(cp:*)"
+      "Bash(cp:*)",
+      "Bash(git remote set-url:*)",
+      "Bash(git add:*)"
     ],
     "deny": []
   }
