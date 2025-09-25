@@ -3,7 +3,7 @@
 const nextConfig = {
   // nimic special aici; App Router e implicit în Next 13+
   images: {
-    domains: [],
+    domains: ['images.pexels.com'],
     unoptimized: false,
   },
   eslint: {

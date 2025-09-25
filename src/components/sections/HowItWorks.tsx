@@ -275,15 +275,8 @@ export default function HowItWorks() {
   useEffect(() => {
     const calcOffset = () => {
       if (typeof window === 'undefined') return;
-      const h = window.innerHeight;
-      // More lift (negative translate) on shorter heights
-      let offset = 0;
-      if (h < 650) offset = -90;
-      else if (h < 720) offset = -70;
-      else if (h < 800) offset = -55;
-      else if (h < 900) offset = -40;
-      else offset = -24; // subtle lift on tall screens
-      setPanelYOffset(offset);
+      // Move up to center the animations
+      setPanelYOffset(-115);
     };
     calcOffset();
     window.addEventListener('resize', calcOffset);
@@ -763,7 +756,7 @@ export default function HowItWorks() {
               style={{ transform: `translateY(${panelYOffset}px)` }}
               className="absolute inset-0"
             >
-              <div ref={imageLayerRef} className="absolute inset-0 rounded-3xl overflow-hidden">
+              <div ref={imageLayerRef} className="absolute inset-0 rounded-3xl overflow-visible">
               {stepImages.map((src, idx) => (
                 <div
                   key={src}
