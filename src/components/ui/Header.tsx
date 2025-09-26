@@ -118,7 +118,7 @@ const sponsorsData = [
 const duplicatedSponsors = [...sponsorsData, ...sponsorsData, ...sponsorsData];
   
 
-export default function NavigationHeaderPillStatic({
+export default React.memo(function NavigationHeaderPillStatic({
   logoSrc,
   logoAlt = 'Bravin AI',
   leftImageSrc,
@@ -597,53 +597,51 @@ export default function NavigationHeaderPillStatic({
                   </button>
                   
                   {/* Language Dropdown */}
-                  <AnimatePresence>
-                    {isLanguageDropdownOpen && (
-                      <motion.div
-                        initial={{ opacity: 0, y: -10, scale: 0.95 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                        transition={{ duration: 0.2, ease: 'easeOut' }}
-                        className="absolute top-full right-0 mt-2 w-32 bg-white/95 backdrop-blur-xl border border-white/20 rounded-xl shadow-2xl overflow-hidden z-50"
-                      >
-                        <div className="py-1">
-                          <button
-                            onClick={() => {
-                              changeLanguage('RO');
-                              setIsLanguageDropdownOpen(false);
-                            }}
-                            className={`w-full px-4 py-2.5 text-left text-sm font-medium transition-all duration-200 hover:bg-black/5 ${
-                              currentLanguage === 'RO' ? 'text-black bg-black/5' : 'text-gray-700'
-                            }`}
-                          >
-                            Română
-                          </button>
-                          <button
-                            onClick={() => {
-                              changeLanguage('EN');
-                              setIsLanguageDropdownOpen(false);
-                            }}
-                            className={`w-full px-4 py-2.5 text-left text-sm font-medium transition-all duration-200 hover:bg-black/5 ${
-                              currentLanguage === 'EN' ? 'text-black bg-black/5' : 'text-gray-700'
-                            }`}
-                          >
-                            English
-                          </button>
-                          <button
-                            onClick={() => {
-                              changeLanguage('RU');
-                              setIsLanguageDropdownOpen(false);
-                            }}
-                            className={`w-full px-4 py-2.5 text-left text-sm font-medium transition-all duration-200 hover:bg-black/5 ${
-                              currentLanguage === 'RU' ? 'text-black bg-black/5' : 'text-gray-700'
-                            }`}
-                          >
-                            Русский
-                          </button>
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                  {isLanguageDropdownOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                      transition={{ duration: 0.2, ease: 'easeOut' }}
+                      className="absolute top-full right-0 mt-2 w-32 bg-white/95 backdrop-blur-xl border border-white/20 rounded-xl shadow-2xl overflow-hidden z-50"
+                    >
+                      <div className="py-1">
+                        <button
+                          onClick={() => {
+                            changeLanguage('RO');
+                            setIsLanguageDropdownOpen(false);
+                          }}
+                          className={`w-full px-4 py-2.5 text-left text-sm font-medium transition-all duration-200 hover:bg-black/5 ${
+                            currentLanguage === 'RO' ? 'text-black bg-black/5' : 'text-gray-700'
+                          }`}
+                        >
+                          Română
+                        </button>
+                        <button
+                          onClick={() => {
+                            changeLanguage('EN');
+                            setIsLanguageDropdownOpen(false);
+                          }}
+                          className={`w-full px-4 py-2.5 text-left text-sm font-medium transition-all duration-200 hover:bg-black/5 ${
+                            currentLanguage === 'EN' ? 'text-black bg-black/5' : 'text-gray-700'
+                          }`}
+                        >
+                          English
+                        </button>
+                        <button
+                          onClick={() => {
+                            changeLanguage('RU');
+                            setIsLanguageDropdownOpen(false);
+                          }}
+                          className={`w-full px-4 py-2.5 text-left text-sm font-medium transition-all duration-200 hover:bg-black/5 ${
+                            currentLanguage === 'RU' ? 'text-black bg-black/5' : 'text-gray-700'
+                          }`}
+                        >
+                          Русский
+                        </button>
+                      </div>
+                    </motion.div>
+                  )}
                 </div>
                 <Link
                   href="https://aichat.md/en/register"
@@ -886,4 +884,4 @@ export default function NavigationHeaderPillStatic({
         )}
     </header>
   )
-}
+})
