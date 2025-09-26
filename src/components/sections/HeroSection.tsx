@@ -555,7 +555,7 @@ function HeroSectionLeftClean({ lang }: HeroProps) {
         {/* Decorative colored blobs (violet, yellow, blue) behind the chat container */}
         <div aria-hidden className="absolute inset-0 -z-10 pointer-events-none">
           <span
-            className="absolute rounded-full blur-3xl transition-all duration-500 ease-out"
+            className={`absolute rounded-full transition-all duration-500 ease-out ${isSafariOptimized ? '' : 'blur-3xl'}`}
             style={{
               left: '8%',
               top: '-2%',
@@ -563,11 +563,12 @@ function HeroSectionLeftClean({ lang }: HeroProps) {
               height: isInsideBigContainer ? 420 : 340,
               transform: isInsideBigContainer ? 'scale(1.08)' : 'scale(1)',
               background: 'radial-gradient(circle at 30% 30%, rgba(236,72,153,0.26), rgba(236,72,153,0.9) 60%, transparent 45%)',
-              opacity: isInsideBigContainer ? 1 : 0.92,
+              opacity: isInsideBigContainer ? (isSafariOptimized ? 0.7 : 1) : (isSafariOptimized ? 0.6 : 0.92),
+              willChange: 'transform, opacity',
             }}
           />
           <span
-            className="absolute rounded-full blur-3xl transition-all duration-600 ease-out"
+            className={`absolute rounded-full transition-all duration-600 ease-out ${isSafariOptimized ? '' : 'blur-3xl'}`}
             style={{
               right: '2%',
               top: '8%',
@@ -575,11 +576,12 @@ function HeroSectionLeftClean({ lang }: HeroProps) {
               height: isInsideBigContainer ? 420 : 340,
               transform: isInsideBigContainer ? 'scale(1.02)' : 'scale(1)',
               background: 'radial-gradient(circle at 60% 40%, rgba(250,204,21,0.76), rgba(250,204,21,0.98) 60%, transparent 25%)',
-              opacity: isInsideBigContainer ? 1 : 0.9,
+              opacity: isInsideBigContainer ? (isSafariOptimized ? 0.7 : 1) : (isSafariOptimized ? 0.6 : 0.9),
+              willChange: 'transform, opacity',
             }}
           />
           <span
-            className="absolute rounded-full blur-3xl transition-all duration-700 ease-out"
+            className={`absolute rounded-full transition-all duration-700 ease-out ${isSafariOptimized ? '' : 'blur-3xl'}`}
             style={{
               left: '-4%',
               top: '8%',
@@ -587,7 +589,8 @@ function HeroSectionLeftClean({ lang }: HeroProps) {
               height: isInsideBigContainer ? 360 : 300,
               transform: isInsideBigContainer ? 'scale(1)' : 'scale(1)',
               background: 'radial-gradient(circle at 40% 60%, rgba(59,130,246,0.26), rgba(59,130,246,0.98) 60%, transparent 48%)',
-              opacity: isInsideBigContainer ? 1 : 0.9,
+              opacity: isInsideBigContainer ? (isSafariOptimized ? 0.7 : 1) : (isSafariOptimized ? 0.6 : 0.9),
+              willChange: 'transform, opacity',
             }}
           />
         </div>
@@ -1074,6 +1077,7 @@ function HeroSectionLeftClean({ lang }: HeroProps) {
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
+              style={{ willChange: 'transform, opacity' }}
               className={`mb-5 inline-flex items-center gap-2 border border-black/10 px-3 py-1.5 shadow-sm rounded-md ${
                 isSafariOptimized 
                   ? 'bg-white/90' 
@@ -1090,6 +1094,7 @@ function HeroSectionLeftClean({ lang }: HeroProps) {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.05 }}
+              style={{ willChange: 'transform, opacity' }}
               className="text-left text-5xl sm:text-6xl md:text-7xl leading-[1.06] font-extrabold tracking-tight text-gray-900"
             >
               {translations?.HeroSection?.title}
@@ -1100,6 +1105,7 @@ function HeroSectionLeftClean({ lang }: HeroProps) {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
+              style={{ willChange: 'transform, opacity' }}
               className="mt-5 max-w-xl text-left text-base md:text-lg text-gray-600"
             >
               {translations?.HeroSection?.subtitle}
