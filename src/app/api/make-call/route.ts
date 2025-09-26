@@ -1,7 +1,20 @@
 // src/app/api/make-call/route.ts
 import { NextResponse } from 'next/server';
+import { NextRequest } from 'next/server';
 
-export async function POST(request: Request) {
+// In-memory store for rate limiting
+const ipCallTimestamps = new Map<string, number>();
+
+export async function POST(request: NextRequest) {
+  const ip = request.ip ?? request.headers.get('x-forwarded-for') ?? 'unknown';
+
+  const lastCallTimestamp = ipCallTimestamps.get(ip);
+  const now = Date.now();
+
+  if (lastCallTimestamp && now - lastCallTimestamp < 60 * 1000) {
+    return NextResponse.json({ error: 'You can only make one call per minute.' }, { status: 429 });
+  }
+
   const { to_number } = await request.json();
 
   if (!to_number) {
@@ -34,6 +47,9 @@ export async function POST(request: Request) {
       console.error('ElevenLabs API error:', errorBody);
       return NextResponse.json({ error: 'Failed to initiate call' }, { status: response.status });
     }
+
+    // If the call was successful, update the timestamp
+    ipCallTimestamps.set(ip, now);
 
     const body = await response.json();
     return NextResponse.json(body);

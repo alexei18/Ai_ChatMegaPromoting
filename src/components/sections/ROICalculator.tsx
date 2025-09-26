@@ -109,7 +109,7 @@ const Pill: React.FC<{ text: string; dot?: boolean; muted?: boolean }> = ({ text
 
 const Panel: React.FC<{ title: string; subtitle?: string; children: React.ReactNode }> = ({ title, subtitle, children }) => (
   <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35 }}
-    className="flex flex-col justify-between h-full rounded-2xl p-6 md:p-8 bg-white/70 dark:bg-neutral-900/70 backdrop-blur border border-neutral-200/60 dark:border-neutral-800/60 shadow-sm">
+    className="flex flex-col justify-between h-full rounded-2xl p-6 md:p-8 bg-[#101010] border border-neutral-200/60 dark:border-neutral-800/60 shadow-sm">
     <div className="mb-6">
   <h3 className="text-lg md:text-xl font-semibold tracking-tight text-white">{title}</h3>
   {subtitle && <p className="text-sm text-white/80 mt-1">{subtitle}</p>}

@@ -1034,7 +1034,7 @@ function HeroSectionLeftClean({ lang }: HeroProps) {
   return (
     <section
       ref={ref}
-  className="bg-white relative min-h-[78vh] flex items-center overflow-hidden px-6 md:px-10 pt-32 sm:pt-20 md:pt-28 pb-4 md:pb-6"
+  className="bg-white relative min-h-[78vh] flex items-center overflow-visible px-6 md:px-10 pt-32 sm:pt-20 md:pt-28 pb-4 md:pb-6"
     >
       {/* Fake mouse image absolutely positioned at section level */}
       <AnimatePresence>
