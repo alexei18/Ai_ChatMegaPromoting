@@ -603,7 +603,7 @@ function HeroSectionLeftClean({ lang }: HeroProps) {
           {/* Left small container */}
           <div
             className={`w-[28%] h-full bg-white rounded-l-2xl rounded-tr-none rounded-br-none border border-gray-200 flex flex-col items-stretch justify-start ml-0 relative ${isInsideBigContainer ? 'cursor-none' : ''}`}
-            onMouseEnter={e => { handleBigContainerEnter(); setIsOverLeftContainer(true); }}
+            onMouseEnter={e => { handleBigContainerEnter(e); setIsOverLeftContainer(true); }}
             onMouseLeave={e => { handleBigContainerLeave(); setIsOverLeftContainer(false); }}
             onMouseMove={handleBigContainerMove}
           >
