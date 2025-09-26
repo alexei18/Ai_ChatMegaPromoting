@@ -3,9 +3,9 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 interface ConnectingLineProps {
-  fromRef: React.RefObject<HTMLElement>;
-  toRef: React.RefObject<HTMLElement>;
-  containerRef: React.RefObject<HTMLElement>;
+  fromRef: React.RefObject<HTMLElement | null>;
+  toRef: React.RefObject<HTMLElement | null>;
+  containerRef: React.RefObject<HTMLElement | null>;
   isActive: boolean;
   cornerPreference?: 'horizontal-first' | 'vertical-first';
   cornerRadius?: number;

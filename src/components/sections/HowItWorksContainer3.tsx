@@ -389,9 +389,9 @@ export const HowItWorksContainer3 = React.forwardRef<HowItWorksContainer3Handle,
   {stage === 2 && (
         <div className="absolute inset-0 z-30 pointer-events-none p-2 md:p-0">
           {/* Minimalist background blobs (subtle, blurred) */}
-          <div className="hidden md:block" style={{ position: 'absolute', left: '18%', top: '6%', width: 280, height: 220, borderRadius: '50%', background: 'radial-gradient(circle at 30% 30%, rgba(99,102,241,0.14), rgba(99,102,241,0) 60%)', filter: 'blur(28px)', zIndex: 5 }} />
-          <div className="hidden md:block" style={{ position: 'absolute', left: '62%', top: '34%', width: 260, height: 220, borderRadius: '50%', background: 'radial-gradient(circle at 30% 30%, rgba(16,185,129,0.12), rgba(16,185,129,0) 60%)', filter: 'blur(28px)', zIndex: 5 }} />
-          <div className="hidden md:block" style={{ position: 'absolute', left: '18%', top: '58%', width: 300, height: 220, borderRadius: '50%', background: 'radial-gradient(circle at 30% 30%, rgba(249,115,22,0.10), rgba(249,115,22,0) 60%)', filter: 'blur(28px)', zIndex: 5 }} />
+          <div className="hidden md:block" style={{ position: 'absolute', left: '18%', top: '6%', width: 280, height: 220, borderRadius: '50%', background: 'radial-gradient(circle at 30% 30%, rgba(99,102,241,0.14), rgba(99,102,241,0) 60%)', filter: 'blur(28px)', zIndex: 5, willChange: 'filter' }} />
+          <div className="hidden md:block" style={{ position: 'absolute', left: '62%', top: '34%', width: 260, height: 220, borderRadius: '50%', background: 'radial-gradient(circle at 30% 30%, rgba(16,185,129,0.12), rgba(16,185,129,0) 60%)', filter: 'blur(28px)', zIndex: 5, willChange: 'filter' }} />
+          <div className="hidden md:block" style={{ position: 'absolute', left: '18%', top: '58%', width: 300, height: 220, borderRadius: '50%', background: 'radial-gradient(circle at 30% 30%, rgba(249,115,22,0.10), rgba(249,115,22,0) 60%)', filter: 'blur(28px)', zIndex: 5, willChange: 'filter' }} />
 
           {/* Box 1 - default left */}
           <div id="hw-box-1" className="absolute bg-white border border-gray-200 rounded-2xl shadow-md p-3 md:p-4 w-[90%] max-w-[300px] md:max-w-[500px] h-auto md:h-36 text-right overflow-hidden transform transition-all duration-300 hover:-translate-y-1 hover:shadow-xl" style={{ left: '50%', top: '15%', transform: `translate(-50%, -50%) ${box1Exit ? 'translateX(-120%)' : ''}`, transition: 'transform 600ms ease', zIndex: 20 }}>
@@ -437,34 +437,34 @@ export const HowItWorksContainer3 = React.forwardRef<HowItWorksContainer3Handle,
             <div className="absolute inset-0 z-40 pointer-events-none">
               {/* Decorative soft background for Stage 3 */}
               <div style={{ position: 'absolute', inset: 0 }} />
-              <div className="hidden md:block" style={{ position: 'absolute', left: '16%', top: '6%', width: 320, height: 220, borderRadius: '50%', background: 'radial-gradient(circle at 30% 30%, rgba(99,102,241,0.12), rgba(99,102,241,0) 60%)', filter: 'blur(36px)', zIndex: 5, opacity: 0.9 }} />
-              <div className="hidden md:block" style={{ position: 'absolute', left: '64%', top: '34%', width: 280, height: 220, borderRadius: '50%', background: 'radial-gradient(circle at 30% 30%, rgba(16,185,129,0.10), rgba(16,185,129,0) 60%)', filter: 'blur(36px)', zIndex: 5, opacity: 0.9 }} />
-              <div className="hidden md:block" style={{ position: 'absolute', left: '18%', top: '58%', width: 300, height: 220, borderRadius: '50%', background: 'radial-gradient(circle at 30% 30%, rgba(249,115,22,0.08), rgba(249,115,22,0) 60%)', filter: 'blur(36px)', zIndex: 5, opacity: 0.9 }} />
+              <div className="hidden md:block" style={{ position: 'absolute', left: '16%', top: '6%', width: 320, height: 220, borderRadius: '50%', background: 'radial-gradient(circle at 30% 30%, rgba(99,102,241,0.12), rgba(99,102,241,0) 60%)', filter: 'blur(36px)', zIndex: 5, opacity: 0.9, willChange: 'filter' }} />
+              <div className="hidden md:block" style={{ position: 'absolute', left: '64%', top: '34%', width: 280, height: 220, borderRadius: '50%', background: 'radial-gradient(circle at 30% 30%, rgba(16,185,129,0.10), rgba(16,185,129,0) 60%)', filter: 'blur(36px)', zIndex: 5, opacity: 0.9, willChange: 'filter' }} />
+              <div className="hidden md:block" style={{ position: 'absolute', left: '18%', top: '58%', width: 300, height: 220, borderRadius: '50%', background: 'radial-gradient(circle at 30% 30%, rgba(249,115,22,0.08), rgba(249,115,22,0) 60%)', filter: 'blur(36px)', zIndex: 5, opacity: 0.9, willChange: 'filter' }} />
 
               {/* Subtle grid overlay for texture */}
               <div className="hidden md:block" style={{ position: 'absolute', inset: 0, backgroundImage: `repeating-linear-gradient(0deg, rgba(0,0,0,0.02) 0 1px, transparent 1px 24px), repeating-linear-gradient(90deg, rgba(0,0,0,0.02) 0 1px, transparent 1px 24px)`, opacity: 0.18 }} />
 
               {/* Circles (kept same size/positions) with updated visual treatment */}
               <div className="absolute" style={{ left: '30%', top: '20%', transform: 'translate(-50%, -50%)' }}>
-                <span className={`relative w-[90px] h-[90px] md:w-[120px] md:h-[120px] inline-flex items-center justify-center rounded-full bg-gradient-to-br from-gray-100 to-gray-200 shadow-2xl ring-1 ring-gray-300 overflow-hidden ${stage3Fade ? 'opacity-0' : 'opacity-100'}`}>
+                <span className={`relative w-[90px] h-[90px] md:w-[120px] md:h-[120px] inline-flex items-center justify-center rounded-full bg-gradient-to-br from-gray-100 to-gray-200 shadow-2xl ring-1 ring-gray-300 overflow-hidden ${stage3Fade ? 'opacity-0' : 'opacity-100'}`} style={{position: 'relative'}}>
                   <Image src="/HowItWorksSectin/ProfilePicture1.png" alt="" fill sizes="(max-width: 768px) 90px, 120px"/>
                 </span>
               </div>
 
               <div className="absolute" style={{ left: '70%', top: '40%', transform: 'translate(-50%, -50%)' }}>
-                <span className={`relative w-[90px] h-[90px] md:w-[120px] md:h-[120px] inline-flex items-center justify-center rounded-full bg-gradient-to-br from-gray-100 to-gray-200 shadow-2xl ring-1 ring-gray-300 overflow-hidden ${stage3Fade ? 'opacity-0' : 'opacity-100'}`}>
+                <span className={`relative w-[90px] h-[90px] md:w-[120px] md:h-[120px] inline-flex items-center justify-center rounded-full bg-gradient-to-br from-gray-100 to-gray-200 shadow-2xl ring-1 ring-gray-300 overflow-hidden ${stage3Fade ? 'opacity-0' : 'opacity-100'}`} style={{position: 'relative'}}>
                   <Image src="/HowItWorksSectin/ProfilePicture2.png" alt="" fill sizes="(max-width: 768px) 90px, 120px"/>
                 </span>
               </div>
 
               <div className="absolute" style={{ left: '70%', top: '80%', transform: 'translate(-50%, -50%)' }}>
-                <span className={`relative w-[90px] h-[90px] md:w-[120px] md:h-[120px] inline-flex items-center justify-center rounded-full bg-gradient-to-br from-gray-100 to-gray-200 shadow-2xl ring-1 ring-gray-300 overflow-hidden ${stage3Fade ? 'opacity-0' : 'opacity-100'}`}>
+                <span className={`relative w-[90px] h-[90px] md:w-[120px] md:h-[120px] inline-flex items-center justify-center rounded-full bg-gradient-to-br from-gray-100 to-gray-200 shadow-2xl ring-1 ring-gray-300 overflow-hidden ${stage3Fade ? 'opacity-0' : 'opacity-100'}`} style={{position: 'relative'}}>
                   <Image src="/HowItWorksSectin/ProfilePicture3.png" alt="" fill sizes="(max-width: 768px) 90px, 120px"/>
                 </span>
               </div>
 
               <div className="absolute" style={{ left: '30%', top: '60%', transform: 'translate(-50%, -50%)' }}>
-                <span className={`relative w-[90px] h-[90px] md:w-[120px] md:h-[120px] inline-flex items-center justify-center rounded-full bg-gradient-to-br from-gray-100 to-gray-200 shadow-2xl ring-1 ring-gray-300 overflow-hidden ${stage3Fade ? 'opacity-0' : 'opacity-100'}`}>
+                <span className={`relative w-[90px] h-[90px] md:w-[120px] md:h-[120px] inline-flex items-center justify-center rounded-full bg-gradient-to-br from-gray-100 to-gray-200 shadow-2xl ring-1 ring-gray-300 overflow-hidden ${stage3Fade ? 'opacity-0' : 'opacity-100'}`} style={{position: 'relative'}}>
                   <Image src="/HowItWorksSectin/ProfilePicture4.png" alt="" fill sizes="(max-width: 768px) 90px, 120px"/>
                 </span>
               </div>

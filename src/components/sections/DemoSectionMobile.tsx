@@ -1,7 +1,11 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import SimpleBeamsBackground from '@/components/ui/SimpleBeamsBackground';
+import dynamic from 'next/dynamic';
+
+const SimpleBeamsBackground = dynamic(() => import('@/components/ui/SimpleBeamsBackground'), {
+  ssr: false,
+});
 import en from '@/locales/en.json';
 import ro from '@/locales/ro.json';
 import ru from '@/locales/ru.json';

@@ -1,3 +1,4 @@
+/// <reference path="../../types/three.d.ts" />
 'use client';
 
 import { useRef, useMemo } from 'react';
@@ -60,6 +61,7 @@ function BeamsScene() {
   });
 
   return (
+    // @ts-ignore
     <mesh ref={meshRef} geometry={geometry} material={material} rotation={[-Math.PI / 4, 0, 0]} />
   );
 }
@@ -68,7 +70,9 @@ export default function SimpleBeamsBackground() {
   return (
     <div className="w-full h-full">
       <Canvas className="w-full h-full">
+        {/* @ts-ignore */}
         <ambientLight intensity={0.5} />
+        {/* @ts-ignore */}
         <pointLight position={[10, 10, 10]} />
         <BeamsScene />
       </Canvas>

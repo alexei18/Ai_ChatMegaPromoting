@@ -338,6 +338,7 @@ export default function NavigationHeaderPillStatic({
             backdropFilter: `blur(${blur})`,
             WebkitBackdropFilter: `blur(${blur})`,
             boxShadow: shadow,
+            willChange: 'backdrop-filter, -webkit-backdrop-filter',
             transitionProperty:
               'top, width, border-radius, background-color, backdrop-filter, -webkit-backdrop-filter, box-shadow',
             transitionDuration: '420ms',

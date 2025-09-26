@@ -25,6 +25,7 @@
     overflow: hidden;
     position: relative;
     z-index: 10;
+    will-change: transform, opacity;
 }
 
 .icon.active,
@@ -70,6 +71,7 @@
     stroke-dasharray: 1000;
     stroke-dashoffset: 1000;
     animation: draw-line 1.2s cubic-bezier(0.45, 0, 0.55, 1) forwards;
+    will-change: stroke-dashoffset;
 }
 
 @keyframes draw-line {

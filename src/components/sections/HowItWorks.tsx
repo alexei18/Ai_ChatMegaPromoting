@@ -4,9 +4,11 @@ import roLocale from '../../locales/ro.json';
 import enLocale from '../../locales/en.json';
 import ruLocale from '../../locales/ru.json';
 import { usePathname } from 'next/navigation';
-import HowItWorksContainer1 from './HowItWorksContainer1';
-import HowItWorksContainer2 from './HowItWorksContainer2';
-import HowItWorksContainer3 from './HowItWorksContainer3';
+import dynamic from 'next/dynamic';
+
+const HowItWorksContainer1 = dynamic(() => import('./HowItWorksContainer1'));
+const HowItWorksContainer2 = dynamic(() => import('./HowItWorksContainer2'));
+const HowItWorksContainer3 = dynamic(() => import('./HowItWorksContainer3'));
 
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
@@ -425,7 +427,7 @@ export default function HowItWorks() {
 
   // Helper function to animate a single path
   // containers: list of container ids that this path activation should mark as active
-  const animatePath = (pathRef: React.RefObject<SVGPathElement>, position: string = '+=0.3', containers: number[] = [], onStart?: () => void, onComplete?: () => void) => {
+  const animatePath = (pathRef: React.RefObject<SVGPathElement | null>, position: string = '+=0.3', containers: number[] = [], onStart?: () => void, onComplete?: () => void) => {
       if (pathRef.current) {
         const path = pathRef.current;
         const pathLength = path.getTotalLength();
@@ -503,7 +505,7 @@ export default function HowItWorks() {
     };
 
     // Animate an arbitrary list of refs together (useful when same logical line has multiple DOM instances)
-    const animateRefsTogether = (pathRefs: React.RefObject<SVGPathElement>[], position: string = '+=0.3', containers: number[] = [], onStart?: () => void, onComplete?: () => void) => {
+    const animateRefsTogether = (pathRefs: React.RefObject<SVGPathElement | null>[], position: string = '+=0.3', containers: number[] = [], onStart?: () => void, onComplete?: () => void) => {
       const elems = pathRefs.map(r => r.current).filter(Boolean) as SVGPathElement[];
       if (elems.length === 0) {
         // keep container state in sync

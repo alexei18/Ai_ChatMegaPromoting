@@ -308,4 +308,4 @@ const scenes = [
   );
 };
 
-export default StripeAnimatedGrid;
+export default React.memo(StripeAnimatedGrid);

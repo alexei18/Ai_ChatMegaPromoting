@@ -17,7 +17,7 @@ import roLocale from '../../locales/ro.json'
  */
 type HeroProps = { lang?: string }
 
-export default function HeroSectionLeftClean({ lang }: HeroProps) {
+function HeroSectionLeftClean({ lang }: HeroProps) {
   // Track if the text is fully typed
   const [isTextFullyTyped, setIsTextFullyTyped] = useState(false);
   const ref = useRef<HTMLElement>(null)
@@ -1086,4 +1086,6 @@ export default function HeroSectionLeftClean({ lang }: HeroProps) {
     </section>
   )
 }
+
+export default React.memo(HeroSectionLeftClean);
 

@@ -1,3 +1,5 @@
+import Head from 'next/head';
+
 // Layout for the dynamic [lang] segment.
 // Implements variant 2: pre-generate only the allowed language params and
 // disable any other dynamic values so random strings 404 (better SEO & cleanliness).
@@ -19,5 +21,17 @@ export default function LangLayout({
   children: React.ReactNode;
 }) {
   // Could add per-locale context/providers here if needed later.
-  return <>{children}</>;
+  return (
+    <>
+      <Head>
+        <link
+          rel="preload"
+          href="/HeroSection/BackgroundVideoHeroSection_compressed.mp4"
+          as="video"
+          type="video/mp4"
+        />
+      </Head>
+      {children}
+    </>
+  );
 }
