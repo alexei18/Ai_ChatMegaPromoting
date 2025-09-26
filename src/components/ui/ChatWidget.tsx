@@ -207,7 +207,7 @@ export default function ChatWidget() {
                 <button
                   key={s}
                   onClick={() => handleSuggestionClick(s)}
-                  className="text-[11px] px-3 py-1 rounded-full bg-indigo-500/10 hover:bg-indigo-500/20 border border-indigo-400/30 text-indigo-700 font-medium transition-colors"
+                  className="text-[11px] px-3 py-1 rounded-full bg-gradient-to-r from-indigo-500/10 via-violet-500/10 to-fuchsia-500/10 hover:from-indigo-500/20 hover:via-violet-500/20 hover:to-fuchsia-500/20 border border-indigo-400/30 text-indigo-700 font-medium backdrop-blur-sm transition-colors"
                   type="button"
                 >{s}</button>
               ))}

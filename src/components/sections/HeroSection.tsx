@@ -379,7 +379,7 @@ function HeroSectionLeftClean({ lang }: HeroProps) {
 
   // Random movement for fake mouse, always active when showFakeMouse is true
   useEffect(() => {
-    if (!showFakeMouse || isSafariBrowser) return;
+    if (!showFakeMouse) return;
     let timeout: NodeJS.Timeout;
     let running = true;
     // Secvența fixă: indexii botilor și acțiuni speciale
@@ -559,7 +559,7 @@ function HeroSectionLeftClean({ lang }: HeroProps) {
               top: '-2%',
               width: isInsideBigContainer ? 420 : 340,
               height: isInsideBigContainer ? 420 : 340,
-              transform: `translateZ(0) ${isInsideBigContainer ? 'scale(1.08)' : 'scale(1)'}`,
+              transform: isInsideBigContainer ? 'scale(1.08)' : 'scale(1)',
               background: 'radial-gradient(circle at 30% 30%, rgba(236,72,153,0.26), rgba(236,72,153,0.9) 60%, transparent 45%)',
               opacity: isInsideBigContainer ? (isSafariOptimized ? 0.7 : 1) : (isSafariOptimized ? 0.6 : 0.92),
               willChange: 'transform, opacity',
@@ -572,7 +572,7 @@ function HeroSectionLeftClean({ lang }: HeroProps) {
               top: '8%',
               width: isInsideBigContainer ? 420 : 340,
               height: isInsideBigContainer ? 420 : 340,
-              transform: `translateZ(0) ${isInsideBigContainer ? 'scale(1.02)' : 'scale(1)'}`,
+              transform: isInsideBigContainer ? 'scale(1.02)' : 'scale(1)',
               background: 'radial-gradient(circle at 60% 40%, rgba(250,204,21,0.76), rgba(250,204,21,0.98) 60%, transparent 25%)',
               opacity: isInsideBigContainer ? (isSafariOptimized ? 0.7 : 1) : (isSafariOptimized ? 0.6 : 0.9),
               willChange: 'transform, opacity',
@@ -585,7 +585,7 @@ function HeroSectionLeftClean({ lang }: HeroProps) {
               top: '8%',
               width: isInsideBigContainer ? 360 : 300,
               height: isInsideBigContainer ? 360 : 300,
-              transform: `translateZ(0) ${isInsideBigContainer ? 'scale(1)' : 'scale(1)'}`,
+              transform: isInsideBigContainer ? 'scale(1)' : 'scale(1)',
               background: 'radial-gradient(circle at 40% 60%, rgba(59,130,246,0.26), rgba(59,130,246,0.98) 60%, transparent 48%)',
               opacity: isInsideBigContainer ? (isSafariOptimized ? 0.7 : 1) : (isSafariOptimized ? 0.6 : 0.9),
               willChange: 'transform, opacity',
