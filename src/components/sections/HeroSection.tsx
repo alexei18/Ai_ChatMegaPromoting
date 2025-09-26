@@ -553,7 +553,7 @@ function HeroSectionLeftClean({ lang }: HeroProps) {
         {/* Decorative colored blobs (violet, yellow, blue) behind the chat container */}
         <div aria-hidden className="absolute inset-0 -z-10 pointer-events-none">
           <span
-            className={`absolute rounded-full transition-all duration-500 ease-out ${isSafariOptimized ? '' : 'blur-3xl'}`}
+            className="absolute rounded-full transition-all duration-500 ease-out blur-3xl"
             style={{
               left: '8%',
               top: '-2%',
@@ -566,7 +566,7 @@ function HeroSectionLeftClean({ lang }: HeroProps) {
             }}
           />
           <span
-            className={`absolute rounded-full transition-all duration-600 ease-out ${isSafariOptimized ? '' : 'blur-3xl'}`}
+            className="absolute rounded-full transition-all duration-600 ease-out blur-3xl"
             style={{
               right: '2%',
               top: '8%',
@@ -579,7 +579,7 @@ function HeroSectionLeftClean({ lang }: HeroProps) {
             }}
           />
           <span
-            className={`absolute rounded-full transition-all duration-700 ease-out ${isSafariOptimized ? '' : 'blur-3xl'}`}
+            className="absolute rounded-full transition-all duration-700 ease-out blur-3xl"
             style={{
               left: '-4%',
               top: '8%',
@@ -1166,11 +1166,13 @@ function HeroSectionLeftClean({ lang }: HeroProps) {
                 >
                     {translations?.common?.getStarted}
                 </button>
-                {/* Rainbow shadow using a blurred gradient pseudo-element */}
+                {/* Rainbow shadow using a performant transform animation */}
                 <span
                   aria-hidden="true"
-                  className="pointer-events-none absolute left-1/2 top-full -translate-x-1/2 -translate-y-1 w-full h-2 z-0 rainbow-shadow"
-                />
+                  className="pointer-events-none absolute left-1/2 top-full -translate-x-1/2 -translate-y-1 w-full h-2 z-0 rainbow-shadow-container"
+                >
+                  <span className="rainbow-shadow-mover"></span>
+                </span>
               </div>
             </div>
           </div>

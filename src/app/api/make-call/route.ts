@@ -1,75 +1,45 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { ElevenLabsClient } from "@elevenlabs/elevenlabs-js";
+// src/app/api/make-call/route.ts
+import { NextResponse } from 'next/server';
 
-// Configuration constants from environment variables
-const ELEVENLABS_API_KEY = process.env.ELEVENLABS_API_KEY || 'fake_api_key';
-const AGENT_ID = process.env.AGENT_ID || 'fake_agent_id';
-const AGENT_PHONE_NUMBER_ID = process.env.AGENT_PHONE_NUMBER_ID || 'fake_phone_number_id';
+export async function POST(request: Request) {
+  const { to_number } = await request.json();
 
-// Initialize the ElevenLabs client only if we have real API key
-const client = ELEVENLABS_API_KEY !== 'fake_api_key' 
-  ? new ElevenLabsClient({ apiKey: ELEVENLABS_API_KEY }) 
-  : null;
-
-/**
- * Validates if a phone number is in a valid format
- */
-function validatePhoneNumber(phoneNumber: string): boolean {
-  if (!phoneNumber || phoneNumber.trim() === '') {
-    return false;
+  if (!to_number) {
+    return NextResponse.json({ error: 'Phone number is required' }, { status: 400 });
   }
 
-  // Clean phone number
-  const cleaned = phoneNumber.replace(/[\s\-\(\)]/g, '');
-  
-  // Basic validation: should be at least 7 digits and at most 15 digits
-  const phoneRegex = /^\+?[1-9]\d{6,14}$/;
-  return phoneRegex.test(cleaned);
-}
+  const ELEVENLABS_API_KEY = process.env.ELEVENLABS_API_KEY;
 
-export async function POST(request: NextRequest) {
+  if (!ELEVENLABS_API_KEY) {
+    console.error('ElevenLabs API key is not set');
+    return NextResponse.json({ error: 'Server configuration error' }, { status: 500 });
+  }
+
   try {
-    // Check if we have real API configuration
-    if (!client || ELEVENLABS_API_KEY === 'fake_api_key') {
-      return NextResponse.json(
-        { error: 'API not configured - missing environment variables' },
-        { status: 500 }
-      );
-    }
-
-    const { phoneNumber } = await request.json();
-
-    // Validate phone number
-    if (!validatePhoneNumber(phoneNumber)) {
-      return NextResponse.json(
-        { error: 'Invalid phone number format' },
-        { status: 400 }
-      );
-    }
-
-    // Clean and format phone number
-    const cleanedPhoneNumber = phoneNumber.replace(/[\s\-\(\)]/g, '');
-    const formattedPhoneNumber = cleanedPhoneNumber.startsWith('+') 
-      ? cleanedPhoneNumber 
-      : `+${cleanedPhoneNumber}`;
-
-    console.log('Initiating outbound call to:', formattedPhoneNumber);
-
-    // Make the outbound call
-    await client.conversationalAi.sipTrunk.outboundCall({
-      agentId: AGENT_ID!,
-      agentPhoneNumberId: AGENT_PHONE_NUMBER_ID!,
-      toNumber: formattedPhoneNumber
+    const response = await fetch("https://api.elevenlabs.io/v1/convai/sip-trunk/outbound-call", {
+      method: "POST",
+      headers: {
+        "xi-api-key": ELEVENLABS_API_KEY,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        "agent_id": "agent_8901k2cjdyj9ew08tmznm6h8n56r",
+        "agent_phone_number_id": "phnum_3601k4pxd0csfzp9sphwse784xhd",
+        "to_number": to_number
+      }),
     });
 
-    console.log('Outbound call initiated successfully');
+    if (!response.ok) {
+      const errorBody = await response.text();
+      console.error('ElevenLabs API error:', errorBody);
+      return NextResponse.json({ error: 'Failed to initiate call' }, { status: response.status });
+    }
 
-    return NextResponse.json({ success: true, message: 'Call initiated successfully' });
+    const body = await response.json();
+    return NextResponse.json(body);
+
   } catch (error) {
-    console.error('Error making outbound call:', error);
-    return NextResponse.json(
-      { error: 'Failed to initiate call' },
-      { status: 500 }
-    );
+    console.error('Error making call:', error);
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }

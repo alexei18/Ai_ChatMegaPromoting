@@ -358,16 +358,40 @@ export default function HowItWorks() {
     if (isMobile || !containerRef.current || !rightPanelRef.current) return;
     gsap.registerPlugin(ScrollTrigger);
 
+    const leftColumn = stepRefs.current[0]?.parentElement;
+    if (!leftColumn) return;
+
+    // Set the container to relative to act as a positioning context
+    gsap.set(leftColumn, { position: 'relative' });
+    const columnRect = leftColumn.getBoundingClientRect();
+
+    // Calculate initial positions for absolute positioning
+    const initialPositions = stepRefs.current.map(el => {
+      const rect = el.getBoundingClientRect();
+      return {
+        top: rect.top - columnRect.top,
+        left: rect.left - columnRect.left,
+        width: rect.width,
+        height: rect.height,
+      };
+    });
+
+    // Set all steps to absolute
+    stepRefs.current.forEach((el, i) => {
+      gsap.set(el, {
+        position: 'absolute',
+        top: initialPositions[i].top,
+        left: initialPositions[i].left,
+        width: initialPositions[i].width,
+        height: initialPositions[i].height,
+      });
+    });
+
     // Pin right panel for the height of the left column
     const pinST = ScrollTrigger.create({
       trigger: containerRef.current,
       start: 'top top',
-      end: () => {
-        const containerH = containerRef.current!.offsetHeight;
-        // Use the outer panel height (without translate) for calculation
-        const panelH = rightPanelRef.current!.getBoundingClientRect().height;
-        return `+=${containerH - panelH}`;
-      },
+      end: () => `+=${leftColumn.offsetHeight - window.innerHeight}`,
       pin: rightPanelRef.current,
       pinSpacing: true,
       anticipatePin: 1,
@@ -381,6 +405,11 @@ export default function HowItWorks() {
         end: 'bottom center',
         onEnter: () => setActiveStep(i),
         onEnterBack: () => setActiveStep(i),
+        // Animate opacity and transform for performance
+        animation: gsap.fromTo(el, 
+          { autoAlpha: 0, y: 40 }, 
+          { autoAlpha: 1, y: 0, duration: 0.7, delay: i * 0.08, ease: 'power2.out' }
+        ),
       })
     );
 

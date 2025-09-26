@@ -58,22 +58,28 @@ html, body {
 
 
 
-/* Rainbow animated shadow for Get Started button */
-@keyframes rainbow {
-  0% { background-position: 0% 50%; }
-  100% { background-position: 100% 50%; }
-}
-/* For a seamless infinite loop, double the gradient stops and animate from 0% to 200% */
-.rainbow-shadow {
-  background: linear-gradient(90deg, #FF5C5C, #FFB95C, #FFF95C, #5CFF8A, #5CCEFF, #A95CFF, #FF5C5C, #FFB95C, #FFF95C, #5CFF8A, #5CCEFF, #A95CFF, #FF5C5C);
-  background-size: 200% 100%;
+/* Rainbow animated shadow for Get Started button - High-performance version */
+.rainbow-shadow-container {
   filter: blur(7px);
   opacity: 0.85;
   border-radius: 999px;
-  animation: rainbow 6s linear infinite;
+  overflow: hidden;
 }
-@keyframes rainbow {
-  0% { background-position: 0% 50%; }
-  100% { background-position: 200% 50%; }
+
+.rainbow-shadow-mover {
+  display: block;
+  width: 200%; /* Wider than the container to allow for movement */
+  height: 100%;
+  background: linear-gradient(90deg, #FF5C5C, #FFB95C, #FFF95C, #5CFF8A, #5CCEFF, #A95CFF, #FF5C5C);
+  animation: move-shadow 4s linear infinite;
+}
+
+@keyframes move-shadow {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%); /* Move left by half its own width */
+  }
 }
 

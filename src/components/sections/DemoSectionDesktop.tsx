@@ -6,9 +6,7 @@ import dynamic from 'next/dynamic';
 const SimpleBeamsBackground = dynamic(() => import('@/components/ui/SimpleBeamsBackground'), {
   ssr: false,
 });
-import en from '@/locales/en.json';
-import ro from '@/locales/ro.json';
-import ru from '@/locales/ru.json';
+import KeypadButton from '@/components/ui/KeypadButton';
 
 export default function DemoSectionDesktop() {
   const keypadRef = useRef<HTMLDivElement>(null);
@@ -19,7 +17,32 @@ export default function DemoSectionDesktop() {
   const [holdActive, setHoldActive] = useState(false);
 
   // --- i18n (per-component lightweight) ---
-  const LOCALES: Record<string, any> = { en, ro, ru };
+  const LOCALES: Record<string, any> = { 
+    en: {
+      Demo: {
+        card: 'Demo Presentation',
+        title: 'Experience the Power of AI',
+        subtitle: 'Discover how our AI agent can completely transform your customer experience in just a few minutes.',
+        button: 'Test the Demo'
+      }
+    },
+    ro: {
+      Demo: {
+        card: 'Prezentare Demo',
+        title: 'Experimentează Puterea AI',
+        subtitle: 'Descoperă cum agentul nostru AI poate transforma complet experiența clienților tăi în doar câteva minute.',
+        button: 'Testează Demo-ul'
+      }
+    },
+    ru: {
+      Demo: {
+        card: 'Демо Презентация',
+        title: 'Почувствуйте Силу ИИ',
+        subtitle: 'Откройте для себя, как наш ИИ-агент может полностью преобразить опыт ваших клиентов всего за несколько минут.',
+        button: 'Протестировать Демо'
+      }
+    }
+  };
   const [lang, setLang] = useState<'en' | 'ro' | 'ru'>(() => 'en');
 
   useEffect(() => {
@@ -356,109 +379,63 @@ export default function DemoSectionDesktop() {
                 style={{ gap: `${verticalSpacing}px ${horizontalSpacing}px`, WebkitUserSelect: 'none', userSelect: 'none', WebkitTouchCallout: 'none' }}
                 onContextMenu={e => e.preventDefault()}
               >
-                {/* Helper class string for buttons */}
-                {/** We keep inline classes to avoid extracting a component */}
-
-                {/* Row 1 */}
-                <button aria-label="1" className="group w-20 h-20 rounded-full bg-white/8 hover:bg-white/12 active:bg-white/15 border border-white/20 backdrop-blur-[22px] backdrop-saturate-150 shadow-[0_10px_22px_rgba(0,0,0,0.30)] transition relative text-white">
-                  <span className="pointer-events-none absolute inset-0 rounded-full shadow-[inset_0_0_0_1px_rgba(255,255,255,0.20)]" />
-                  <span onClick={() => handleKeypad('1')} className="relative z-[1] flex flex-col items-center justify-center w-full h-full">
-                    <span className="text-3xl font-medium leading-none drop-shadow">1</span>
-                  </span>
-                </button>
-
-                <button aria-label="2 ABC" className="group w-20 h-20 rounded-full bg-white/8 hover:bg-white/12 active:bg-white/15 border border-white/20 backdrop-blur-[22px] backdrop-saturate-150 shadow-[0_10px_22px_rgba(0,0,0,0.30)] transition relative text-white" onClick={() => handleKeypad('2')}>
-                  <span className="pointer-events-none absolute inset-0 rounded-full shadow-[inset_0_0_0_1px_rgba(255,255,255,0.20)]" />
-                  <span className="relative z-[1] flex flex-col items-center justify-center w-full h-full">
-                    <span className="text-3xl font-medium leading-none drop-shadow">2</span>
-                    <span className="text-[10px] tracking-widest mt-1 text-white/75">ABC</span>
-                  </span>
-                </button>
-
-                <button aria-label="3 DEF" className="group w-20 h-20 rounded-full bg-white/8 hover:bg-white/12 active:bg-white/15 border border-white/20 backdrop-blur-[22px] backdrop-saturate-150 shadow-[0_10px_22px_rgba(0,0,0,0.30)] transition relative text-white" onClick={() => handleKeypad('3')}>
-                  <span className="pointer-events-none absolute inset-0 rounded-full shadow-[inset_0_0_0_1px_rgba(255,255,255,0.20)]" />
-                  <span className="relative z-[1] flex flex-col items-center justify-center w-full h-full">
-                    <span className="text-3xl font-medium leading-none drop-shadow">3</span>
-                    <span className="text-[10px] tracking-widest mt-1 text-white/75">DEF</span>
-                  </span>
-                </button>
-
-                {/* Row 2 */}
-                <button aria-label="4 GHI" className="group w-20 h-20 rounded-full bg-white/8 hover:bg-white/12 active:bg-white/15 border border-white/20 backdrop-blur-[22px] backdrop-saturate-150 shadow-[0_10px_22px_rgba(0,0,0,0.30)] transition relative text-white" onClick={() => handleKeypad('4')}>
-                  <span className="pointer-events-none absolute inset-0 rounded-full shadow-[inset_0_0_0_1px_rgba(255,255,255,0.20)]" />
-                  <span className="relative z-[1] flex flex-col items-center justify-center w-full h-full">
-                    <span className="text-3xl font-medium leading-none drop-shadow">4</span>
-                    <span className="text-[10px] tracking-widest mt-1 text-white/75">GHI</span>
-                  </span>
-                </button>
-
-                <button aria-label="5 JKL" className="group w-20 h-20 rounded-full bg-white/8 hover:bg-white/12 active:bg-white/15 border border-white/20 backdrop-blur-[22px] backdrop-saturate-150 shadow-[0_10px_22px_rgba(0,0,0,0.30)] transition relative text-white" onClick={() => handleKeypad('5')}>
-                  <span className="pointer-events-none absolute inset-0 rounded-full shadow-[inset_0_0_0_1px_rgba(255,255,255,0.20)]" />
-                  <span className="relative z-[1] flex flex-col items-center justify-center w-full h-full">
-                    <span className="text-3xl font-medium leading-none drop-shadow">5</span>
-                    <span className="text-[10px] tracking-widest mt-1 text-white/75">JKL</span>
-                  </span>
-                </button>
-
-                <button aria-label="6 MNO" className="group w-20 h-20 rounded-full bg-white/8 hover:bg-white/12 active:bg-white/15 border border-white/20 backdrop-blur-[22px] backdrop-saturate-150 shadow-[0_10px_22px_rgba(0,0,0,0.30)] transition relative text-white" onClick={() => handleKeypad('6')}>
-                  <span className="pointer-events-none absolute inset-0 rounded-full shadow-[inset_0_0_0_1px_rgba(255,255,255,0.20)]" />
-                  <span className="relative z-[1] flex flex-col items-center justify-center w-full h-full">
-                    <span className="text-3xl font-medium leading-none drop-shadow">6</span>
-                    <span className="text-[10px] tracking-widest mt-1 text-white/75">MNO</span>
-                  </span>
-                </button>
-
-                {/* Row 3 */}
-                <button aria-label="7 PQRS" className="group w-20 h-20 rounded-full bg-white/8 hover:bg-white/12 active:bg-white/15 border border-white/20 backdrop-blur-[22px] backdrop-saturate-150 shadow-[0_10px_22px_rgba(0,0,0,0.30)] transition relative text-white" onClick={() => handleKeypad('7')}>
-                  <span className="pointer-events-none absolute inset-0 rounded-full shadow-[inset_0_0_0_1px_rgba(255,255,255,0.20)]" />
-                  <span className="relative z-[1] flex flex-col items-center justify-center w-full h-full">
-                    <span className="text-3xl font-medium leading-none drop-shadow">7</span>
-                    <span className="text-[10px] tracking-widest mt-1 text-white/75">PQRS</span>
-                  </span>
-                </button>
-
-                <button aria-label="8 TUV" className="group w-20 h-20 rounded-full bg-white/8 hover:bg-white/12 active:bg-white/15 border border-white/20 backdrop-blur-[22px] backdrop-saturate-150 shadow-[0_10px_22px_rgba(0,0,0,0.30)] transition relative text-white" onClick={() => handleKeypad('8')}>
-                  <span className="pointer-events-none absolute inset-0 rounded-full shadow-[inset_0_0_0_1px_rgba(255,255,255,0.20)]" />
-                  <span className="relative z-[1] flex flex-col items-center justify-center w-full h-full">
-                    <span className="text-3xl font-medium leading-none drop-shadow">8</span>
-                    <span className="text-[10px] tracking-widest mt-1 text-white/75">TUV</span>
-                  </span>
-                </button>
-
-                <button aria-label="9 WXYZ" className="group w-20 h-20 rounded-full bg-white/8 hover:bg-white/12 active:bg-white/15 border border-white/20 backdrop-blur-[22px] backdrop-saturate-150 shadow-[0_10px_22px_rgba(0,0,0,0.30)] transition relative text-white" onClick={() => handleKeypad('9')}>
-                  <span className="pointer-events-none absolute inset-0 rounded-full shadow-[inset_0_0_0_1px_rgba(255,255,255,0.20)]" />
-                  <span className="relative z-[1] flex flex-col items-center justify-center w-full h-full">
-                    <span className="text-3xl font-medium leading-none drop-shadow">9</span>
-                    <span className="text-[10px] tracking-widest mt-1 text-white/75">WXYZ</span>
-                  </span>
-                </button>
-
-                {/* Row 4 */}
-                <button aria-label="asterisk" className="group w-20 h-20 rounded-full bg-white/8 hover:bg-white/12 active:bg-white/15 border border-white/20 backdrop-blur-[22px] backdrop-saturate-150 shadow-[0_10px_22px_rgba(0,0,0,0.30)] transition relative text-white" onClick={() => handleKeypad('*')}>
-                  <span className="pointer-events-none absolute inset-0 rounded-full shadow-[inset_0_0_0_1px_rgba(255,255,255,0.20)]" />
-                  <span className="relative z-[1] flex items-center justify-center w-full h-full text-3xl leading-none">*</span>
-                </button>
+                <KeypadButton ariaLabel="1" label="1" onClick={() => handleKeypad('1')} />
+                <KeypadButton ariaLabel="2 ABC" label="2" subLabel="ABC" onClick={() => handleKeypad('2')} />
+                <KeypadButton ariaLabel="3 DEF" label="3" subLabel="DEF" onClick={() => handleKeypad('3')} />
+                <KeypadButton ariaLabel="4 GHI" label="4" subLabel="GHI" onClick={() => handleKeypad('4')} />
+                <KeypadButton ariaLabel="5 JKL" label="5" subLabel="JKL" onClick={() => handleKeypad('5')} />
+                <KeypadButton ariaLabel="6 MNO" label="6" subLabel="MNO" onClick={() => handleKeypad('6')} />
+                <KeypadButton ariaLabel="7 PQRS" label="7" subLabel="PQRS" onClick={() => handleKeypad('7')} />
+                <KeypadButton ariaLabel="8 TUV" label="8" subLabel="TUV" onClick={() => handleKeypad('8')} />
+                <KeypadButton ariaLabel="9 WXYZ" label="9" subLabel="WXYZ" onClick={() => handleKeypad('9')} />
+                <KeypadButton ariaLabel="asterisk" label="*" onClick={() => handleKeypad('*')} />
 
                 <div className="flex flex-col items-center">
-                  <button
-                    aria-label="0 plus"
-                    className="group w-20 h-20 rounded-full bg-white/8 hover:bg-white/12 active:bg-white/15 border border-white/20 backdrop-blur-[22px] backdrop-saturate-150 shadow-[0_10px_22px_rgba(0,0,0,0.30)] transition relative text-white"
+                  <KeypadButton
+                    ariaLabel="0 plus"
+                    label="0"
+                    subLabel="+"
                     onMouseDown={handleZeroMouseDown}
                     onMouseUp={handleZeroMouseUp}
                     onTouchStart={handleZeroMouseDown}
                     onTouchEnd={handleZeroMouseUp}
-                  >
-                    <span className="pointer-events-none absolute inset-0 rounded-full shadow-[inset_0_0_0_1px_rgba(255,255,255,0.20)]" />
-                    <span className="relative z-[1] flex flex-col items-center justify-center w-full h-full">
-                      <span className="text-3xl font-medium leading-none drop-shadow">0</span>
-                      <span className="text-[10px] tracking-widest mt-1">+</span>
-                    </span>
-                  </button>
+                  />
 
                   {/* Call button (keep tint but dim border/highlight) */}
                   <button
                     aria-label="call"
                     className="mt-[20px] w-20 h-20 rounded-full bg-green-400/25 hover:bg-green-400/35 active:bg-green-400/45 border border-white/20 backdrop-blur-[22px] backdrop-saturate-150 flex items-center justify-center shadow-[0_12px_26px_rgba(0,0,0,0.35)] relative"
+                    onClick={async () => {
+                      if (!inputValue.trim()) {
+                        alert('Please enter a phone number');
+                        return;
+                      }
+                      
+                      try {
+                        const response = await fetch('/api/make-call', {
+                          method: 'POST',
+                          headers: {
+                            'Content-Type': 'application/json',
+                          },
+                          body: JSON.stringify({
+                            to_number: inputValue.trim()
+                          }),
+                        });
+
+                        const result = await response.json();
+                        
+                        if (response.ok) {
+                          alert('Call initiated successfully!');
+                          console.log('Call result:', result);
+                        } else {
+                          alert('Failed to initiate call: ' + (result.error || 'Unknown error'));
+                          console.error('Call error:', result);
+                        }
+                      } catch (error) {
+                        alert('Error making call: ' + error);
+                        console.error('Call error:', error);
+                      }
+                    }}
                   >
                     <span className="pointer-events-none absolute inset-0 rounded-full shadow-[inset_0_0_0_1px_rgba(255,255,255,0.25)]" />
                     <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg" className="w-10 h-10 mx-auto my-auto translate-y-[3px] drop-shadow">
@@ -468,10 +445,7 @@ export default function DemoSectionDesktop() {
                 </div>
 
                 <div className="flex flex-col items-center">
-                  <button aria-label="hash" className="group w-20 h-20 rounded-full bg-white/8 hover:bg-white/12 active:bg-white/15 border border-white/20 backdrop-blur-[22px] backdrop-saturate-150 shadow-[0_10px_22px_rgba(0,0,0,0.30)] transition relative text-white" onClick={() => handleKeypad('#')}>
-                    <span className="pointer-events-none absolute inset-0 rounded-full shadow-[inset_0_0_0_1px_rgba(255,255,255,0.20)]" />
-                    <span className="relative z-[1] flex items-center justify-center w-full h-full text-3xl leading-none">#</span>
-                  </button>
+                  <KeypadButton ariaLabel="hash" label="#" onClick={() => handleKeypad('#')} />
 
                   {/* Backspace */}
                   <div className="mt-[20px] h-20 flex items-center justify-center">
