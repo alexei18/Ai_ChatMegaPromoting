@@ -411,6 +411,37 @@ export default function DemoSectionDesktop() {
                         return;
                       }
                       
+                      // Format Moldova phone number: remove leading 0 and add +373
+                      const formatMoldovaNumber = (number: string) => {
+                        // Remove all non-digit characters
+                        const cleaned = number.replace(/\D/g, '');
+                        
+                        // If number starts with 0, remove it and add +373
+                        if (cleaned.startsWith('0')) {
+                          return '+373' + cleaned.substring(1);
+                        }
+                        
+                        // If number already starts with 373, add +
+                        if (cleaned.startsWith('373')) {
+                          return '+' + cleaned;
+                        }
+                        
+                        // If number doesn't have country code, assume Moldova and add +373
+                        if (cleaned.length === 8) {
+                          return '+373' + cleaned;
+                        }
+                        
+                        // Return as is if it already has + or other format
+                        if (number.startsWith('+')) {
+                          return number;
+                        }
+                        
+                        // Default: add +373 prefix
+                        return '+373' + cleaned;
+                      };
+                      
+                      const formattedNumber = formatMoldovaNumber(inputValue.trim());
+                      
                       try {
                         const response = await fetch('/api/make-call', {
                           method: 'POST',
@@ -418,7 +449,7 @@ export default function DemoSectionDesktop() {
                             'Content-Type': 'application/json',
                           },
                           body: JSON.stringify({
-                            to_number: inputValue.trim()
+                            to_number: formattedNumber
                           }),
                         });
 
@@ -427,6 +458,7 @@ export default function DemoSectionDesktop() {
                         if (response.ok) {
                           alert('Call initiated successfully!');
                           console.log('Call result:', result);
+                          console.log('Formatted number:', formattedNumber);
                         } else {
                           alert('Failed to initiate call: ' + (result.error || 'Unknown error'));
                           console.error('Call error:', result);
