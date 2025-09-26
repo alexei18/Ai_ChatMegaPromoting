@@ -56,6 +56,13 @@ function HeroSectionLeftClean({ lang }: HeroProps) {
   const [messageStatus, setMessageStatus] = useState<('sent' | 'delivered' | 'read' | 'new')[][]>([[], [], [], []]); // Status pentru fiecare mesaj
   const [showNewMessageNotification, setShowNewMessageNotification] = useState([false, false, false, false]); // Notificare mesaj nou
   const [lastBotMessageTime, setLastBotMessageTime] = useState([0, 0, 0, 0]); // Timpul ultimului mesaj de la bot
+  
+  // Mouse interaction states - must be declared early
+  const [isInsideBigContainer, setIsInsideBigContainer] = useState(false);
+  const [isUserMouseActive, setIsUserMouseActive] = useState(false);
+  const realMouseX = useMotionValue(0);
+  const realMouseY = useMotionValue(0);
+  const mouseActivityTimer = useRef<NodeJS.Timeout | null>(null);
   // Ascunde mouse-ul fake și bubble-ul la scroll, reapare după 400ms fără scroll
   useEffect(() => {
     // Populate lastActivity with current timestamps after mount (client only) to avoid SSR mismatch.
@@ -379,7 +386,7 @@ function HeroSectionLeftClean({ lang }: HeroProps) {
 
   // Random movement for fake mouse, always active when showFakeMouse is true
   useEffect(() => {
-    if (!showFakeMouse) return;
+    if (!showFakeMouse || (isSafariBrowser && isUserMouseActive)) return;
     let timeout: NodeJS.Timeout;
     let running = true;
     // Secvența fixă: indexii botilor și acțiuni speciale
@@ -512,12 +519,40 @@ function HeroSectionLeftClean({ lang }: HeroProps) {
       running = false;
       clearTimeout(timeout);
     };
-  }, [showFakeMouse, isSafariBrowser]);
+  }, [showFakeMouse, isSafariBrowser, isUserMouseActive]);
 
-  // Show only the image mouse and hide everything else when hovering big container (including all nested elements)
-  const [isInsideBigContainer, setIsInsideBigContainer] = useState(false);
-  const realMouseX = useMotionValue(0);
-  const realMouseY = useMotionValue(0);
+  // Track user mouse activity in Safari specifically
+  
+  const handleGlobalMouseMove = useCallback(() => {
+    if (isSafariBrowser) {
+      setIsUserMouseActive(true);
+      setShowFakeMouse(false);
+      
+      // Clear existing timer
+      if (mouseActivityTimer.current) {
+        clearTimeout(mouseActivityTimer.current);
+      }
+      
+      // Reset fake mouse after 3 seconds of no movement
+      mouseActivityTimer.current = setTimeout(() => {
+        setIsUserMouseActive(false);
+        setShowFakeMouse(true);
+      }, 3000);
+    }
+  }, [isSafariBrowser]);
+
+  // Global mouse movement listener for Safari
+  useEffect(() => {
+    if (isSafariBrowser) {
+      window.addEventListener('mousemove', handleGlobalMouseMove);
+      return () => {
+        window.removeEventListener('mousemove', handleGlobalMouseMove);
+        if (mouseActivityTimer.current) {
+          clearTimeout(mouseActivityTimer.current);
+        }
+      };
+    }
+  }, [isSafariBrowser, handleGlobalMouseMove]);
 
   const handleBigContainerEnter = (e: React.MouseEvent<any>) => {
     setIsInsideBigContainer(true);
@@ -529,7 +564,7 @@ function HeroSectionLeftClean({ lang }: HeroProps) {
   const handleBigContainerLeave = () => {
     setIsInsideBigContainer(false);
     setShowRealMouseImage(false);
-    if (!isSafariBrowser) {
+    if (!isSafariBrowser && !isUserMouseActive) {
       setShowFakeMouse(true);
     }
   };
@@ -1003,7 +1038,7 @@ function HeroSectionLeftClean({ lang }: HeroProps) {
     >
       {/* Fake mouse image absolutely positioned at section level */}
       <AnimatePresence>
-        {showFakeMouse && !isInsideBigContainer && !hideOnScroll && (
+        {showFakeMouse && !isInsideBigContainer && !hideOnScroll && !(isSafariBrowser && isUserMouseActive) && (
           <>
             <motion.div
               style={{
