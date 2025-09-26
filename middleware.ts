@@ -29,6 +29,11 @@ function pickFromAcceptLanguage(header: string | null): Lang | null {
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
+  // Explicitly ignore favicon requests
+  if (pathname === '/favicon.ico') {
+    return NextResponse.next();
+  }
+
   // Ignore next internals & static assets
   if (pathname.startsWith('/_next') || pathname.startsWith('/api') || pathname.match(/\.[a-zA-Z0-9]{2,4}$/)) {
     return NextResponse.next();
@@ -79,5 +84,5 @@ function redirectWithCookie(req: NextRequest, lang: Lang, originalPath: string) 
 }
 
 export const config = {
-  matcher: ['/((?!_next/|favicon|robots|sitemap|.*\.(?:png|jpg|jpeg|gif|svg|webp|ico|mp4|txt)).*)'],
+  matcher: ['/((?!_next/|favicon.ico|robots|sitemap|.*\.(?:png|jpg|jpeg|gif|svg|webp|ico|mp4|txt)).*)'],
 };
