@@ -7,21 +7,61 @@ import { Cookie } from "lucide-react";
 /**
  * CookiesConsent
  * - Shows once per browser (localStorage flag)
+ * - On mobile, only shows when user scrolls to the second section (HowItWorks)
+ * - On desktop, shows immediately if not accepted
  * - Playful, animated, fixed container
  */
 export default function CookiesConsent() {
   const [show, setShow] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [hasScrolledToSecondSection, setHasScrolledToSecondSection] = useState(false);
 
   useEffect(() => {
     setMounted(true);
+    
+    // Check if mobile
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
     try {
       const accepted = localStorage.getItem("cookies-consent");
-      if (!accepted) setShow(true);
+      if (!accepted) {
+        if (window.innerWidth >= 768) {
+          // Desktop: show immediately
+          setShow(true);
+        } else {
+          // Mobile: wait for scroll to second section
+          const handleScroll = () => {
+            const howItWorksSection = document.querySelector('[data-section="how-it-works"]');
+            if (howItWorksSection) {
+              const rect = howItWorksSection.getBoundingClientRect();
+              if (rect.top <= window.innerHeight * 0.5 && !hasScrolledToSecondSection) {
+                setHasScrolledToSecondSection(true);
+                setShow(true);
+                window.removeEventListener('scroll', handleScroll);
+              }
+            }
+          };
+          
+          window.addEventListener('scroll', handleScroll);
+          return () => {
+            window.removeEventListener('scroll', handleScroll);
+            window.removeEventListener('resize', checkMobile);
+          };
+        }
+      }
     } catch {
       // ignore
     }
-  }, []);
+    
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+    };
+  }, [hasScrolledToSecondSection]);
 
   const accept = () => {
     try {

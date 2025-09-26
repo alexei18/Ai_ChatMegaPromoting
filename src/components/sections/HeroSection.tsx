@@ -224,6 +224,24 @@ function HeroSectionLeftClean({ lang }: HeroProps) {
     let overInput = false;
     let overSend = false;
     let overLeft = false;
+    
+    // Only check if we're inside the hero section
+    const heroSection = ref.current;
+    if (!heroSection) return;
+    
+    const heroRect = heroSection.getBoundingClientRect();
+    const isInHeroSection = mousePos.x >= heroRect.left && 
+                           mousePos.x <= heroRect.right && 
+                           mousePos.y >= heroRect.top && 
+                           mousePos.y <= heroRect.bottom;
+    
+    if (!isInHeroSection) {
+      if (isOverInput) setIsOverInput(false);
+      if (isOverSend) setIsOverSend(false);
+      if (isOverLeftContainer) setIsOverLeftContainer(false);
+      return;
+    }
+    
     // Check input
     const input = inputRef.current;
     if (input) {
@@ -366,10 +384,15 @@ function HeroSectionLeftClean({ lang }: HeroProps) {
         // Select bot
         const boxIdx = action;
         const btn = rightBoxRefs[boxIdx].current;
-        if (btn) {
+        const heroSection = ref.current;
+        if (btn && heroSection) {
           const rect = btn.getBoundingClientRect();
-          const x = rect.left + rect.width / 2;
-          const y = rect.top + rect.height / 2;
+          const heroRect = heroSection.getBoundingClientRect();
+          
+          // Ensure mouse stays within hero section bounds
+          const x = Math.max(heroRect.left + 10, Math.min(rect.left + rect.width / 2, heroRect.right - 10));
+          const y = Math.max(heroRect.top + 10, Math.min(rect.top + rect.height / 2, heroRect.bottom - 10));
+          
           setMousePos({ x, y });
           setTimeout(() => {
             setIsClicking(true);
@@ -392,10 +415,15 @@ function HeroSectionLeftClean({ lang }: HeroProps) {
         const prevAction = sequence[step - 1];
         const currentBotIndex = typeof prevAction === 'number' ? prevAction : selectedBox;
         const input = inputRef.current;
-        if (input) {
+        const heroSection = ref.current;
+        if (input && heroSection) {
           const rect = input.getBoundingClientRect();
-          const x = rect.left + rect.width / 2;
-          const y = rect.top + rect.height / 2;
+          const heroRect = heroSection.getBoundingClientRect();
+          
+          // Ensure mouse stays within hero section bounds
+          const x = Math.max(heroRect.left + 10, Math.min(rect.left + rect.width / 2, heroRect.right - 10));
+          const y = Math.max(heroRect.top + 10, Math.min(rect.top + rect.height / 2, heroRect.bottom - 10));
+          
           console.log('🎯 Moving mouse to input at coordinates:', { x, y });
           setMousePos({ x, y });
           setTimeout(() => {
@@ -434,10 +462,15 @@ function HeroSectionLeftClean({ lang }: HeroProps) {
         const boxIdx = lastTargetBotRef.current;
         if (selectedBox !== boxIdx) setSelectedBox(boxIdx);
         const btn = sendBtnRef.current;
-        if (btn) {
+        const heroSection = ref.current;
+        if (btn && heroSection) {
           const rect = btn.getBoundingClientRect();
-          const x = rect.left + rect.width / 2;
-          const y = rect.top + rect.height / 2;
+          const heroRect = heroSection.getBoundingClientRect();
+          
+          // Ensure mouse stays within hero section bounds
+          const x = Math.max(heroRect.left + 10, Math.min(rect.left + rect.width / 2, heroRect.right - 10));
+          const y = Math.max(heroRect.top + 10, Math.min(rect.top + rect.height / 2, heroRect.bottom - 10));
+          
           setMousePos({ x, y });
           setTimeout(() => {
             setIsClicking(true);

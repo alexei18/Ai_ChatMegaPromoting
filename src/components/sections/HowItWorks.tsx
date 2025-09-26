@@ -627,7 +627,7 @@ export default function HowItWorks() {
   }, [activeStep]);
 
   return (
-  <section className="relative w-full bg-white py-16 md:py-24 overflow-hidden" ref={containerRef}>
+  <section className="relative w-full bg-white py-16 md:py-24 overflow-hidden" ref={containerRef} data-section="how-it-works">
       {/* Fixed grid confined to this section's visible slice */}
       {gridBox.visible && (
         <div
