@@ -92,11 +92,13 @@ export default function CookiesConsent() {
           className="fixed z-[1000] left-4 right-4 bottom-4 sm:left-6 sm:right-auto sm:bottom-6 sm:max-w-md"
           style={{ pointerEvents: "auto" }}
         >
-          <div className={`relative overflow-hidden rounded-3xl border border-white/30 shadow-2xl ${
-            isSafariOptimized 
-              ? 'bg-gradient-to-br from-pink-500 via-amber-400 to-indigo-500' 
-              : 'bg-gradient-to-br from-pink-500/90 via-amber-400/90 to-indigo-500/90 backdrop-blur-xl'
-          }`}>
+          <div 
+            className="relative overflow-hidden rounded-3xl border border-white/30 shadow-2xl"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3e%3cdefs%3e%3clinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3e%3cstop offset='0%25' style='stop-color:%23ec4899'/%3e%3cstop offset='50%25' style='stop-color:%23f59e0b'/%3e%3cstop offset='100%25' style='stop-color:%234f46e5'/%3e%3c/linearGradient%3e%3c/defs%3e%3crect fill='url(%23g)' width='100' height='100'/%3e%3c/svg%3e")`,
+              backgroundSize: 'cover',
+            }}
+          >
             {/* playful floating shapes */}
             {!isSafariOptimized && (
               <>

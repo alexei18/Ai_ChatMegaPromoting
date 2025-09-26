@@ -545,10 +545,10 @@ function HeroSectionLeftClean({ lang }: HeroProps) {
       : 'w-full h-[min(72vw,380px)]';
     return (
       <div
-          className={`${wrapperSizing} bg-white rounded-2xl border border-gray-400 shadow-lg flex items-center justify-center ml-auto relative ${isInsideBigContainer ? 'cursor-none' : ''}`}
-          onMouseEnter={handleBigContainerEnter}
-          onMouseLeave={handleBigContainerLeave}
-          onMouseMove={handleBigContainerMove}
+          className={`${wrapperSizing} bg-white rounded-2xl border border-gray-400 shadow-lg flex items-center justify-center ml-auto relative ${isInsideBigContainer && !isSafariBrowser ? 'cursor-none' : ''}`}
+          onMouseEnter={!isSafariBrowser ? handleBigContainerEnter : undefined}
+          onMouseLeave={!isSafariBrowser ? handleBigContainerLeave : undefined}
+          onMouseMove={!isSafariBrowser ? handleBigContainerMove : undefined}
         >
         {/* Decorative colored blobs (violet, yellow, blue) behind the chat container */}
         <div aria-hidden className="absolute inset-0 -z-10 pointer-events-none">
