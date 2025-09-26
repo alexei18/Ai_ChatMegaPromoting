@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Cookie } from "lucide-react";
+import { shouldUseSafariOptimizations } from "../../utils/browserDetection";
 
 /**
  * CookiesConsent
@@ -16,9 +17,11 @@ export default function CookiesConsent() {
   const [mounted, setMounted] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [hasScrolledToSecondSection, setHasScrolledToSecondSection] = useState(false);
+  const [isSafariOptimized, setIsSafariOptimized] = useState(false);
 
   useEffect(() => {
     setMounted(true);
+    setIsSafariOptimized(shouldUseSafariOptimizations());
     
     // Check if mobile
     const checkMobile = () => {
@@ -85,26 +88,34 @@ export default function CookiesConsent() {
           className="fixed z-[1000] left-4 right-4 bottom-4 sm:left-6 sm:right-auto sm:bottom-6 sm:max-w-md"
           style={{ pointerEvents: "auto" }}
         >
-          <div className="relative overflow-hidden rounded-3xl border border-white/30 bg-gradient-to-br from-pink-500/90 via-amber-400/90 to-indigo-500/90 backdrop-blur-xl shadow-2xl">
+          <div className={`relative overflow-hidden rounded-3xl border border-white/30 shadow-2xl ${
+            isSafariOptimized 
+              ? 'bg-gradient-to-br from-pink-500 via-amber-400 to-indigo-500' 
+              : 'bg-gradient-to-br from-pink-500/90 via-amber-400/90 to-indigo-500/90 backdrop-blur-xl'
+          }`}>
             {/* playful floating shapes */}
-            <motion.span
-              aria-hidden
-              className="pointer-events-none absolute -top-6 -right-6 h-24 w-24 rounded-full bg-white/20 blur-sm"
-              animate={{ rotate: [0, 15, -10, 0], scale: [1, 1.05, 0.98, 1] }}
-              transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
-            />
-            <motion.span
-              aria-hidden
-              className="pointer-events-none absolute -bottom-8 -left-8 h-28 w-28 rounded-full bg-white/15 blur"
-              animate={{ rotate: [0, -10, 10, 0], scale: [1, 1.08, 0.96, 1] }}
-              transition={{ repeat: Infinity, duration: 7, ease: "easeInOut" }}
-            />
+            {!isSafariOptimized && (
+              <>
+                <motion.span
+                  aria-hidden
+                  className="pointer-events-none absolute -top-6 -right-6 h-24 w-24 rounded-full bg-white/20 blur-sm"
+                  animate={{ rotate: [0, 15, -10, 0], scale: [1, 1.05, 0.98, 1] }}
+                  transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
+                />
+                <motion.span
+                  aria-hidden
+                  className="pointer-events-none absolute -bottom-8 -left-8 h-28 w-28 rounded-full bg-white/15 blur"
+                  animate={{ rotate: [0, -10, 10, 0], scale: [1, 1.08, 0.96, 1] }}
+                  transition={{ repeat: Infinity, duration: 7, ease: "easeInOut" }}
+                />
+              </>
+            )}
 
             <div className="flex items-start gap-3 p-4 sm:p-5 text-white">
               <motion.div
                 className="shrink-0 mt-0.5"
-                animate={{ rotate: [0, -8, 8, 0] }}
-                transition={{ repeat: Infinity, duration: 4.5, ease: "easeInOut" }}
+                animate={isSafariOptimized ? {} : { rotate: [0, -8, 8, 0] }}
+                transition={isSafariOptimized ? {} : { repeat: Infinity, duration: 4.5, ease: "easeInOut" }}
               >
                 <div className="grid place-items-center h-10 w-10 rounded-full bg-white/25 border border-white/30 shadow">
                   <Cookie className="h-6 w-6" />

@@ -1,9 +1,10 @@
 'use client'
 
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState, useMemo, useCallback } from 'react'
 import Image from 'next/image'
 import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion'
 import { tr } from 'framer-motion/client';
+import { shouldUseSafariOptimizations, isSafari } from '../../utils/browserDetection';
 
 // Locales (structured under HeroSection)
 import enLocale from '../../locales/en.json'
@@ -21,6 +22,13 @@ function HeroSectionLeftClean({ lang }: HeroProps) {
   // Track if the text is fully typed
   const [isTextFullyTyped, setIsTextFullyTyped] = useState(false);
   const ref = useRef<HTMLElement>(null)
+  
+  // Safari optimization flags
+  const [isSafariOptimized, setIsSafariOptimized] = useState(false);
+  
+  useEffect(() => {
+    setIsSafariOptimized(shouldUseSafariOptimizations());
+  }, []);
 
   // Pick translations based on provided lang prop (server-rendered) or fallback to path/client detection.
   const locales: Record<string, any> = { en: enLocale, ru: ruLocale, ro: roLocale };
@@ -268,6 +276,12 @@ function HeroSectionLeftClean({ lang }: HeroProps) {
   // Smoothly interpolate bubble position to follow mousePos
   const [bubblePos, setBubblePos] = useState<{x:number,y:number}>({x: mousePos.x, y: mousePos.y});
   useEffect(() => {
+    if (isSafariOptimized) {
+      // Safari optimization: reduce animation frequency
+      setBubblePos({ x: mousePos.x, y: mousePos.y });
+      return;
+    }
+    
     let animationFrame: number;
     function animate() {
       setBubblePos(prev => {
@@ -281,7 +295,7 @@ function HeroSectionLeftClean({ lang }: HeroProps) {
     }
     animate();
     return () => cancelAnimationFrame(animationFrame);
-  }, [mousePos.x, mousePos.y]);
+  }, [mousePos.x, mousePos.y, isSafariOptimized]);
 
   const MouseResponses = ({ text }: { text: string }) => {
     return (
@@ -376,6 +390,9 @@ function HeroSectionLeftClean({ lang }: HeroProps) {
     // Secvența fixă: indexii botilor și acțiuni speciale
     const sequence = [0, 2, 1, 'input', 'send', 3, 'input', 'send', 1, 0, 'input', 'send', 3, 2, 'input', 'send'];
     let step = 0;
+    
+    // Safari optimization: slower, less frequent animations
+    const safariSpeedMultiplier = isSafariOptimized ? 1.5 : 1;
 
     function nextStep() {
       if (!running) return;
@@ -401,7 +418,7 @@ function HeroSectionLeftClean({ lang }: HeroProps) {
               setSelectedBox(boxIdx);
               lastTargetBotRef.current = boxIdx;
               step++;
-              timeout = setTimeout(nextStep, 900);
+              timeout = setTimeout(nextStep, 900 * safariSpeedMultiplier);
             }, 180);
           }, 500);
         } else {
@@ -439,16 +456,16 @@ function HeroSectionLeftClean({ lang }: HeroProps) {
                   console.log('⏭️ Already awaiting send, skipping typing for bot:', currentBotIndex);
                   step++;
                   if (step >= sequence.length) step = 0;
-                  timeout = setTimeout(nextStep, 400);
+                  timeout = setTimeout(nextStep, 400 * safariSpeedMultiplier);
                 } else {
                   fakeMouseType(currentBotIndex, () => {
                     console.log('✅ Typing sequence completed for bot (ready to send):', currentBotIndex);
                     step++; // advance to 'send'
                     if (step >= sequence.length) step = 0;
-                    timeout = setTimeout(nextStep, 600); // Short delay before send
+                    timeout = setTimeout(nextStep, 600 * safariSpeedMultiplier); // Short delay before send
                   });
                 }
-              }, 500); // Delay scurt după click
+              }, 500 * safariSpeedMultiplier); // Delay scurt după click
             }, 250); // Click duration pe input
           }, 1000); // Delay mai mare pentru a ajunge la input
         } else {
@@ -484,7 +501,7 @@ function HeroSectionLeftClean({ lang }: HeroProps) {
               // Continue sequence - logica de adăugare a mesajului utilizatorului este doar în butonul Trimite
               step++;
               if (step >= sequence.length) step = 0;
-              timeout = setTimeout(nextStep, 2000);
+              timeout = setTimeout(nextStep, 2000 * safariSpeedMultiplier);
             }, 200); // Click duration
           }, 900); // Hover + travel duration
         } else {
@@ -984,8 +1001,11 @@ function HeroSectionLeftClean({ lang }: HeroProps) {
               top: mousePos.y - 0,
               pointerEvents: 'none',
               zIndex: 9000,
-              transition: 'left 0.5s cubic-bezier(0.4,0,0.2,1), top 0.5s cubic-bezier(0.4,0,0.2,1)',
+              transition: isSafariOptimized 
+                ? 'left 0.3s ease-out, top 0.3s ease-out' 
+                : 'left 0.5s cubic-bezier(0.4,0,0.2,1), top 0.5s cubic-bezier(0.4,0,0.2,1)',
               filter: isClicking ? 'brightness(0.8)' : 'none',
+              willChange: isSafariOptimized ? 'auto' : 'transform',
             }}
           />
           {/* Bubble for fake mouse, context-aware */}
@@ -1012,15 +1032,20 @@ function HeroSectionLeftClean({ lang }: HeroProps) {
       )}
       {/* Background Video (section only) */}
       <div className="absolute inset-0 w-full h-full -z-10">
-        <video
-          className="w-full h-full object-cover"
-          src={"/HeroSection/BackgroundVideoHeroSection_compressed.mp4"}
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="auto"
-        />
+        {isSafariOptimized ? (
+          // Safari fallback: use static image instead of video
+          <div className="w-full h-full bg-gradient-to-br from-gray-50 via-white to-gray-100"></div>
+        ) : (
+          <video
+            className="w-full h-full object-cover"
+            src={"/HeroSection/BackgroundVideoHeroSection_compressed.mp4"}
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="metadata"
+          />
+        )}
         {/* White overlay */}
         <div className="absolute inset-0 w-full h-full bg-white/50 pointer-events-none" />
         {/* Bottom SVG background image */}
@@ -1044,7 +1069,11 @@ function HeroSectionLeftClean({ lang }: HeroProps) {
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="mb-5 inline-flex items-center gap-2 border border-black/10 bg-white/70 px-3 py-1.5 backdrop-blur-md shadow-sm rounded-md"
+              className={`mb-5 inline-flex items-center gap-2 border border-black/10 px-3 py-1.5 shadow-sm rounded-md ${
+                isSafariOptimized 
+                  ? 'bg-white/90' 
+                  : 'bg-white/70 backdrop-blur-md'
+              }`}
             >
               <span className="text-[11px] font-medium tracking-wide text-gray-700">{translations?.HeroSection?.news}</span>
               <span className="h-1 w-1 rounded-full bg-gray-400" />

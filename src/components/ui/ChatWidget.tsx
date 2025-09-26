@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { shouldUseSafariOptimizations } from '../utils/browserDetection'
 
 interface Message {
   id: string
@@ -22,10 +23,15 @@ export default function ChatWidget() {
   ])
   const [inputValue, setInputValue] = useState('')
   const [isTyping, setIsTyping] = useState(false)
+  const [isSafariOptimized, setIsSafariOptimized] = useState(false)
   
   // State for showing/hiding the info containers
   const [showDesktopInfo, setShowDesktopInfo] = useState(true)
   const [showMobileInfo, setShowMobileInfo] = useState(true)
+  
+  useEffect(() => {
+    setIsSafariOptimized(shouldUseSafariOptimizations());
+  }, []);
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
   const chatWindowRef = useRef<HTMLDivElement>(null)
@@ -172,7 +178,11 @@ export default function ChatWidget() {
       <AnimatePresence>
         {showDesktopInfo && (
           <motion.div
-            className="hidden sm:flex fixed right-6 bottom-[7.2rem] w-[410px] bg-white/80 backdrop-blur-xl border border-white/50 shadow-[0_4px_30px_-4px_rgba(0,0,0,0.08)] rounded-3xl z-[9500] p-5 flex-col gap-3"
+            className={`hidden sm:flex fixed right-6 bottom-[7.2rem] w-[410px] border border-white/50 shadow-[0_4px_30px_-4px_rgba(0,0,0,0.08)] rounded-3xl z-[9500] p-5 flex-col gap-3 ${
+              isSafariOptimized 
+                ? 'bg-white/95' 
+                : 'bg-white/80 backdrop-blur-xl'
+            }`}
             initial={{ opacity: 0, y: 16, scale: 0.94 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 16, scale: 0.94 }}
@@ -210,7 +220,11 @@ export default function ChatWidget() {
       <AnimatePresence>
         {showMobileInfo && (
           <motion.div
-            className="flex sm:hidden fixed right-3 bottom-[4.4rem] w-[88vw] bg-white/85 backdrop-blur-xl border border-white/50 rounded-2xl shadow-lg z-[9500] p-3 flex-col gap-2"
+            className={`flex sm:hidden fixed right-3 bottom-[4.4rem] w-[88vw] border border-white/50 rounded-2xl shadow-lg z-[9500] p-3 flex-col gap-2 ${
+              isSafariOptimized 
+                ? 'bg-white/95' 
+                : 'bg-white/85 backdrop-blur-xl'
+            }`}
             initial={{ opacity: 0, y: 12, scale: 0.92 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 12, scale: 0.92 }}
