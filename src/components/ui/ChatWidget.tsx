@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { shouldUseSafariOptimizations } from '../utils/browserDetection'
+import { shouldUseSafariOptimizations } from '../../utils/browserDetection'
 
 interface Message {
   id: string
