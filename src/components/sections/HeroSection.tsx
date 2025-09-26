@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useState, useMemo, useCallback } from 'react'
 import Image from 'next/image'
-import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion'
+import { motion, useMotionValue, useTransform, useSpring, AnimatePresence } from 'framer-motion'
 import { tr } from 'framer-motion/client';
 import { shouldUseSafariOptimizations, isSafari } from '../../utils/browserDetection';
 
@@ -277,44 +277,36 @@ function HeroSectionLeftClean({ lang }: HeroProps) {
   }, [mousePos.x, mousePos.y, showFakeMouse]);
 
   // Smoothly interpolate bubble position to follow mousePos
-  const [bubblePos, setBubblePos] = useState<{x:number,y:number}>({x: mousePos.x, y: mousePos.y});
+  const smoothBubblePos = {
+    x: useSpring(mousePos.x + 18, { stiffness: 300, damping: 30, mass: 0.5 }),
+    y: useSpring(mousePos.y - 30, { stiffness: 300, damping: 30, mass: 0.5 }),
+  };
+
   useEffect(() => {
-    if (isSafariOptimized) {
-      // Safari optimization: reduce animation frequency
-      setBubblePos({ x: mousePos.x, y: mousePos.y });
-      return;
-    }
-    
-    let animationFrame: number;
-    function animate() {
-      setBubblePos(prev => {
-        const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
-        return {
-          x: lerp(prev.x, mousePos.x, 0.18),
-          y: lerp(prev.y, mousePos.y, 0.18),
-        };
-      });
-      animationFrame = requestAnimationFrame(animate);
-    }
-    animate();
-    return () => cancelAnimationFrame(animationFrame);
-  }, [mousePos.x, mousePos.y, isSafariOptimized]);
+    smoothBubblePos.x.set(mousePos.x + 18);
+    smoothBubblePos.y.set(mousePos.y - 30);
+  }, [mousePos.x, mousePos.y]);
+
 
   const MouseResponses = ({ text }: { text: string }) => {
     return (
-      <div
+      <motion.div
         style={{
           position: 'fixed',
-          left: bubblePos.x + 18,
-          top: bubblePos.y - 30,
+          x: smoothBubblePos.x,
+          y: smoothBubblePos.y,
+          left: 0,
+          top: 0,
           zIndex: 9000,
           pointerEvents: 'none',
           minWidth: 220, // Increased minWidth to accommodate longer messages
           maxWidth: 220,
           minHeight: 60, // Added minHeight to prevent vertical shifts
-          transition: 'none',
-          visibility: text ? 'visible' : 'hidden',
         }}
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.9 }}
+        transition={{ duration: 0.2 }}
         className="bg-white rounded-xl rounded-l-md shadow px-3 py-2 text-sm text-gray-800 border border-gray-200"
       >
         {text.split('\n').map((line, idx) => (
@@ -323,7 +315,7 @@ function HeroSectionLeftClean({ lang }: HeroProps) {
           {idx !== text.split('\n').length - 1 && <br />}
           </React.Fragment>
         ))}
-      </div>
+      </motion.div>
     );
   };
 
@@ -524,10 +516,15 @@ function HeroSectionLeftClean({ lang }: HeroProps) {
 
   // Show only the image mouse and hide everything else when hovering big container (including all nested elements)
   const [isInsideBigContainer, setIsInsideBigContainer] = useState(false);
-  const handleBigContainerEnter = () => {
+  const realMouseX = useMotionValue(0);
+  const realMouseY = useMotionValue(0);
+
+  const handleBigContainerEnter = (e: React.MouseEvent<any>) => {
     setIsInsideBigContainer(true);
     setShowRealMouseImage(true);
     setShowFakeMouse(false);
+    realMouseX.set(e.clientX);
+    realMouseY.set(e.clientY);
   };
   const handleBigContainerLeave = () => {
     setIsInsideBigContainer(false);
@@ -537,7 +534,8 @@ function HeroSectionLeftClean({ lang }: HeroProps) {
     }
   };
   const handleBigContainerMove = (e: React.MouseEvent<any>) => {
-    setRealMousePos({ x: e.clientX, y: e.clientY });
+    realMouseX.set(e.clientX);
+    realMouseY.set(e.clientY);
   };
 
   // Helper to render the responsive chat container for desktop or mobile
@@ -561,7 +559,7 @@ function HeroSectionLeftClean({ lang }: HeroProps) {
               top: '-2%',
               width: isInsideBigContainer ? 420 : 340,
               height: isInsideBigContainer ? 420 : 340,
-              transform: isInsideBigContainer ? 'scale(1.08)' : 'scale(1)',
+              transform: `translateZ(0) ${isInsideBigContainer ? 'scale(1.08)' : 'scale(1)'}`,
               background: 'radial-gradient(circle at 30% 30%, rgba(236,72,153,0.26), rgba(236,72,153,0.9) 60%, transparent 45%)',
               opacity: isInsideBigContainer ? (isSafariOptimized ? 0.7 : 1) : (isSafariOptimized ? 0.6 : 0.92),
               willChange: 'transform, opacity',
@@ -574,7 +572,7 @@ function HeroSectionLeftClean({ lang }: HeroProps) {
               top: '8%',
               width: isInsideBigContainer ? 420 : 340,
               height: isInsideBigContainer ? 420 : 340,
-              transform: isInsideBigContainer ? 'scale(1.02)' : 'scale(1)',
+              transform: `translateZ(0) ${isInsideBigContainer ? 'scale(1.02)' : 'scale(1)'}`,
               background: 'radial-gradient(circle at 60% 40%, rgba(250,204,21,0.76), rgba(250,204,21,0.98) 60%, transparent 25%)',
               opacity: isInsideBigContainer ? (isSafariOptimized ? 0.7 : 1) : (isSafariOptimized ? 0.6 : 0.9),
               willChange: 'transform, opacity',
@@ -587,7 +585,7 @@ function HeroSectionLeftClean({ lang }: HeroProps) {
               top: '8%',
               width: isInsideBigContainer ? 360 : 300,
               height: isInsideBigContainer ? 360 : 300,
-              transform: isInsideBigContainer ? 'scale(1)' : 'scale(1)',
+              transform: `translateZ(0) ${isInsideBigContainer ? 'scale(1)' : 'scale(1)'}`,
               background: 'radial-gradient(circle at 40% 60%, rgba(59,130,246,0.26), rgba(59,130,246,0.98) 60%, transparent 48%)',
               opacity: isInsideBigContainer ? (isSafariOptimized ? 0.7 : 1) : (isSafariOptimized ? 0.6 : 0.9),
               willChange: 'transform, opacity',
@@ -990,54 +988,83 @@ function HeroSectionLeftClean({ lang }: HeroProps) {
     );
   };
 
+  const smoothMouseX = useSpring(mousePos.x - 30, { stiffness: 500, damping: 40 });
+  const smoothMouseY = useSpring(mousePos.y, { stiffness: 500, damping: 40 });
+
+  useEffect(() => {
+    smoothMouseX.set(mousePos.x - 30);
+    smoothMouseY.set(mousePos.y);
+  }, [mousePos.x, mousePos.y]);
+
   return (
     <section
       ref={ref}
   className="bg-white relative min-h-[78vh] flex items-center overflow-hidden px-6 md:px-10 pt-32 sm:pt-20 md:pt-28 pb-4 md:pb-6"
     >
       {/* Fake mouse image absolutely positioned at section level */}
-      {showFakeMouse && !isInsideBigContainer && !hideOnScroll && (
-        <>
-          <Image
-            src="/HeroSection/MouseForRightContainer.png"
-            alt="Mouse"
-            width={22}
-            height={22}
+      <AnimatePresence>
+        {showFakeMouse && !isInsideBigContainer && !hideOnScroll && (
+          <>
+            <motion.div
+              style={{
+                position: 'fixed',
+                left: 0,
+                top: 0,
+                x: smoothMouseX,
+                y: smoothMouseY,
+                pointerEvents: 'none',
+                zIndex: 9000,
+              }}
+              animate={{ filter: isClicking ? 'brightness(0.8)' : 'none' }}
+              transition={{ duration: 0.1 }}
+            >
+              <Image
+                src="/HeroSection/MouseForRightContainer.png"
+                alt="Mouse"
+                width={22}
+                height={22}
+              />
+            </motion.div>
+            
+            <AnimatePresence>
+              {(isOverSend || isOverInput || isOverLeftContainer) && (
+                <MouseResponses
+                  text={isOverSend ? mouseResponseSend : isOverInput ? mouseResponseInput : isOverLeftContainer ? mouseResponsesLeft[mouseResponseIdx] : ''}
+                />
+              )}
+            </AnimatePresence>
+          </>
+        )}
+      </AnimatePresence>
+      {/* Real mouse image when hovering right container */}
+      <AnimatePresence>
+        {showRealMouseImage && (
+          <motion.div
             style={{
               position: 'fixed',
-              left: mousePos.x - 30,
-              top: mousePos.y - 0,
+              left: 0,
+              top: 0,
+              x: realMouseX,
+              y: realMouseY,
+              translateX: '-50%',
+              translateY: '-50%',
               pointerEvents: 'none',
               zIndex: 9000,
-              transition: isSafariOptimized 
-                ? 'left 0.3s ease-out, top 0.3s ease-out' 
-                : 'left 0.5s cubic-bezier(0.4,0,0.2,1), top 0.5s cubic-bezier(0.4,0,0.2,1)',
-              filter: isClicking ? 'brightness(0.8)' : 'none',
-              willChange: isSafariOptimized ? 'auto' : 'transform',
             }}
-          />
-          {/* Bubble for fake mouse, context-aware */}
-          <MouseResponses 
-            text={isOverSend ? mouseResponseSend : isOverInput ? mouseResponseInput : isOverLeftContainer ? mouseResponsesLeft[mouseResponseIdx] : ''}
-          />
-        </>
-      )}
-      {/* Real mouse image when hovering right container */}
-      {showRealMouseImage && (
-        <Image
-          src="/HeroSection/MouseForRightContainer.png"
-          alt="Mouse"
-          width={22}
-          height={22}
-          style={{
-            position: 'fixed',
-            left: realMousePos.x - 11,
-            top: realMousePos.y - 11,
-            pointerEvents: 'none',
-            zIndex: 9000,
-          }}
-        />
-      )}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            transition={{ duration: 0.2 }}
+          >
+            <Image
+              src="/HeroSection/MouseForRightContainer.png"
+              alt="Mouse"
+              width={22}
+              height={22}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
       {/* Background Video (section only) */}
       <div className="absolute inset-0 w-full h-full -z-10">
         {isSafariOptimized ? (

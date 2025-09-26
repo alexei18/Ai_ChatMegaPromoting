@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Cookie } from "lucide-react";
 import { shouldUseSafariOptimizations } from "../../utils/browserDetection";
+import { throttle } from "@/lib/utils";
 
 /**
  * CookiesConsent
@@ -27,8 +28,11 @@ export default function CookiesConsent() {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
     };
+    
+    const throttledCheckMobile = throttle(checkMobile, 200);
+    
     checkMobile();
-    window.addEventListener('resize', checkMobile);
+    window.addEventListener('resize', throttledCheckMobile);
     
     try {
       const accepted = localStorage.getItem("cookies-consent");
@@ -53,7 +57,7 @@ export default function CookiesConsent() {
           window.addEventListener('scroll', handleScroll);
           return () => {
             window.removeEventListener('scroll', handleScroll);
-            window.removeEventListener('resize', checkMobile);
+            window.removeEventListener('resize', throttledCheckMobile);
           };
         }
       }
@@ -62,7 +66,7 @@ export default function CookiesConsent() {
     }
     
     return () => {
-      window.removeEventListener('resize', checkMobile);
+      window.removeEventListener('resize', throttledCheckMobile);
     };
   }, [hasScrolledToSecondSection]);
 

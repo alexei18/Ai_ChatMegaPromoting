@@ -1,11 +1,10 @@
-'use client'
-
-import { useEffect, useState } from 'react'
-import { useParams } from 'next/navigation'
+import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import stiriData from '@/data/stiri.json'
+import path from 'path'
+import fs from 'fs/promises'
 
-// Types for the news article structure
+export const revalidate = 3600; // Revalidate every hour
+
 interface NewsArticle {
   id: string
   title: string
@@ -20,106 +19,68 @@ interface NewsArticle {
   contentType?: string
 }
 
-export default function NewsArticlePage() {
-  const params = useParams()
-  const [article, setArticle] = useState<NewsArticle | null>(null)
-  const [loading, setLoading] = useState(true)
-  const [notFound, setNotFound] = useState(false)
+async function getArticle(id: string): Promise<NewsArticle | null> {
+  const filePath = path.join(process.cwd(), 'src', 'data', 'stiri.json');
+  try {
+    const fileContent = await fs.readFile(filePath, 'utf-8');
+    const stiriData = JSON.parse(fileContent);
 
-  useEffect(() => {
-    const loadArticle = () => {
-      try {
-        const safeJSON = <T,>(value: any): T | undefined => {
-          if (!value || typeof value !== 'string') return undefined
-          try { return JSON.parse(value) as T } catch { return undefined }
-        }
-        const slugify = (str: string) => str
-          .toLowerCase()
-          .normalize('NFD')
-          .replace(/[\u0300-\u036f]/g, '')
-          .replace(/[^a-z0-9]+/g, '-')
-          .replace(/^-+|-+$/g, '')
-        const raw: any[] = Array.isArray(stiriData) ? stiriData as any[] : []
-        const mapped: NewsArticle[] = raw.map((r, idx) => {
-          const title: string = r.titlu_seo || r.meta_title || `articol-${idx+1}`
-          const id = slugify(title)
-          const htmlContent: string | undefined = r.continut_html || undefined
-          const contentPrincipal: string | undefined = r.continut_principal || undefined
-          const tagsArr = safeJSON<string[]>(r.tags) || safeJSON<string[]>(r.keywords_principale) || []
-          const cats = safeJSON<string[]>(r.categorii) || []
-          const metaObj = safeJSON<any>(r.metadata) || {}
-          const sourceUrl: string | undefined = r.sursa_originala || undefined
-          let sourceDomain: string | undefined
-          if (sourceUrl) {
-            try { sourceDomain = new URL(sourceUrl).hostname.replace(/^www\./,'') } catch { /* noop */ }
-          }
-          const plain = (htmlContent || contentPrincipal || '').replace(/<[^>]+>/g,' ')
-          const words = plain.split(/\s+/).filter(Boolean).length
-          const readingTimeMinutes = metaObj.reading_time ? parseInt(String(metaObj.reading_time).match(/\d+/)?.[0] || '0',10) || Math.max(1, Math.round(words/200)) : Math.max(1, Math.round(words/200))
-          return {
-            id,
-            title,
-            htmlContent: htmlContent || undefined,
-            content: htmlContent ? undefined : contentPrincipal,
-            category: cats[0],
-            tags: tagsArr,
-            sourceDomain,
-            metaDescription: r.meta_description || metaObj.metaDescription,
-            readingTimeMinutes,
-            difficulty: metaObj.difficulty,
-            contentType: metaObj.content_type
-          }
-        })
-        const found = mapped.find(a => a.id === params.id)
-        if (found) {
-          setArticle(found)
-        } else {
-          setNotFound(true)
-        }
-      } catch (e) {
-        console.error('Error parsing stiri.json', e)
-        setNotFound(true)
-      } finally {
-        setLoading(false)
-      }
+    const safeJSON = <T,>(value: any): T | undefined => {
+      if (!value || typeof value !== 'string') return undefined
+      try { return JSON.parse(value) as T } catch { return undefined }
     }
+    const slugify = (str: string) => str
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '')
 
-    if (params.id) {
-      loadArticle()
-    }
-  }, [params.id])
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Se încarcă articolul...</p>
-        </div>
-      </div>
-    )
+    const raw: any[] = Array.isArray(stiriData) ? stiriData : [];
+    const mapped: NewsArticle[] = raw.map((r, idx) => {
+        const title: string = r.titlu_seo || r.meta_title || `articol-${idx+1}`
+        const slug = slugify(title)
+        const htmlContent: string | undefined = r.continut_html || undefined
+        const contentPrincipal: string | undefined = r.continut_principal || undefined
+        const tagsArr = safeJSON<string[]>(r.tags) || safeJSON<string[]>(r.keywords_principale) || []
+        const cats = safeJSON<string[]>(r.categorii) || []
+        const metaObj = safeJSON<any>(r.metadata) || {}
+        const sourceUrl: string | undefined = r.sursa_originala || undefined
+        let sourceDomain: string | undefined
+        if (sourceUrl) {
+          try { sourceDomain = new URL(sourceUrl).hostname.replace(/^www\./,'') } catch { /* noop */ }
+        }
+        const plain = (htmlContent || contentPrincipal || '').replace(/<[^>]+>/g,' ')
+        const words = plain.split(/\s+/).filter(Boolean).length
+        const readingTimeMinutes = metaObj.reading_time ? parseInt(String(metaObj.reading_time).match(/\d+/)?.[0] || '0',10) || Math.max(1, Math.round(words/200)) : Math.max(1, Math.round(words/200))
+        return {
+          id: slug,
+          title,
+          htmlContent: htmlContent || undefined,
+          content: htmlContent ? undefined : contentPrincipal,
+          category: cats[0],
+          tags: tagsArr,
+          sourceDomain,
+          metaDescription: r.meta_description || metaObj.metaDescription,
+          readingTimeMinutes,
+          difficulty: metaObj.difficulty,
+          contentType: metaObj.content_type
+        }
+    });
+    
+    const found = mapped.find(a => a.id === id);
+    return found || null;
+  } catch (error) {
+    console.error('Failed to read or parse news data for article:', error);
+    return null;
   }
+}
 
-  if (notFound || !article) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center max-w-md mx-auto px-4">
-          <div className="mb-8">
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">404</h1>
-            <h2 className="text-2xl font-semibold text-gray-700 mb-4">Articolul nu a fost găsit</h2>
-            <p className="text-gray-600 mb-8">
-              Ne pare rău, dar articolul pe care îl căutați nu există sau a fost mutat.
-            </p>
-          </div>
-          <Link 
-            href="/news" 
-            className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors duration-200"
-          >
-            ← Înapoi la Noutăți
-          </Link>
-        </div>
-      </div>
-    )
+export default async function NewsArticlePage({ params }: { params: { id: string } }) {
+  const article = await getArticle(params.id);
+
+  if (!article) {
+    notFound();
   }
 
   return (

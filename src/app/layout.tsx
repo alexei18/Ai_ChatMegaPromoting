@@ -3,8 +3,17 @@ import { Inter } from 'next/font/google';
 import '@/styles/globals.css';
 import ConditionalHeader from '@/components/ui/ConditionalHeader';
 import Footer from '@/components/sections/Footer';
-import ChatWidget from '@/components/ui/ChatWidget';
-import CookiesConsent from '@/components/ui/CookiesConsent';
+import dynamic from 'next/dynamic';
+
+const ChatWidget = dynamic(() => import('@/components/ui/ChatWidget'), {
+  ssr: false,
+  loading: () => null,
+});
+
+const CookiesConsent = dynamic(() => import('@/components/ui/CookiesConsent'), {
+  ssr: false,
+  loading: () => null,
+});
 
 const inter = Inter({
   subsets: ['latin'],
