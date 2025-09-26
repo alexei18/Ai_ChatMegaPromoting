@@ -101,7 +101,7 @@ const Slider: React.FC<SliderProps> = ({
 );
 
 const Pill: React.FC<{ text: string; dot?: boolean; muted?: boolean }> = ({ text, dot, muted }) => (
-  <div className={`inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs border ${muted ? "bg-neutral-100/60 dark:bg-neutral-900/60 border-neutral-200 dark:border-neutral-800 text-white/80" : "bg-white/70 dark:bg-neutral-900/70 border-neutral-200/60 dark:border-neutral-800/60"}`}>
+  <div className={`inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs border ${muted ? "bg-neutral-800 border-neutral-200 dark:border-neutral-800 text-white/80" : "bg-neutral-800 border-neutral-200/60 dark:border-neutral-800/60"}`}>
     {/* dot intentionally not rendered to remove small gray circle */}
     <span>{text}</span>
   </div>
@@ -405,7 +405,7 @@ export default function ROICalculator() {
                 max={500}
                 value={teamCount}
                 onChange={(e) => setTeamCount(clamp(parseInt(e.target.value || "1", 10) || 1, 1, 500))}
-                className="h-8 w-20 rounded-md border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/70 px-2 text-sm tabular-nums"
+                className="h-8 w-20 rounded-md border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-800 px-2 text-sm tabular-nums"
               />
             </div>
 
@@ -551,7 +551,7 @@ export default function ROICalculator() {
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.45, delay: 0.05 }}
-          className="mt-8 md:mt-12 rounded-2xl border border-neutral-200/60 dark:border-neutral-800/60 p-6 md:p-8 bg-neutral-50/60 dark:bg-black/40"
+          className="mt-8 md:mt-12 rounded-2xl border border-neutral-200/60 dark:border-neutral-800/60 p-6 md:p-8 dark:bg-[#101010]"
         >
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
               <div>
@@ -570,7 +570,7 @@ export default function ROICalculator() {
           </div>
 
           <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-neutral-700 dark:text-neutral-300">
-            <div className="p-4 rounded-xl bg-white/60 dark:bg-neutral-900/60 border border-neutral-200/60 dark:border-neutral-800/60">
+            <div className="p-4 rounded-xl dark:bg-neutral-900 border border-neutral-200/60 dark:border-neutral-800/60">
               <div className="uppercase tracking-wider text-xs text-white/80">Baze de calcul</div>
               <ul className="mt-2 space-y-1 list-disc list-inside">
                 <li>{workdaysPerMonth} zile/lună</li>
@@ -581,14 +581,14 @@ export default function ROICalculator() {
                 {/* <li>1 agent/200 mesaje</li> */}
               </ul>
             </div>
-            <div className="p-4 rounded-xl bg-white/60 dark:bg-neutral-900/60 border border-neutral-200/60 dark:border-neutral-800/60">
+            <div className="p-4 rounded-xl dark:bg-neutral-900 border border-neutral-200/60 dark:border-neutral-800/60">
               <div className="uppercase text-xs tracking-wider text-white/80">Note</div>
               <ul className="mt-2 space-y-1 list-disc list-inside">
                 <li><em>Eficiență</em> = % mesaje rezolvate complet, nu doar citite.</li>
                 <li><em>Mesaje/zi</em> include orele de vârf</li>
               </ul>
             </div>
-            <div className="p-4 rounded-xl bg-white/60 dark:bg-neutral-900/60 border border-neutral-200/60 dark:border-neutral-800/60">
+            <div className="p-4 rounded-xl dark:bg-neutral-900 border border-neutral-200/60 dark:border-neutral-800/60">
               <div className="uppercase text-xs tracking-wider text-white/80">Sfaturi</div>
               <ul className="mt-2 space-y-1 list-disc list-inside">
                 <li>Pornește de la date reale.</li>
