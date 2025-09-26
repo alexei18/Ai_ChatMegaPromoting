@@ -145,7 +145,7 @@ function HeroSectionLeftClean({ lang }: HeroProps) {
     intervals.push(messageInterval);
     
     return () => intervals.forEach(interval => clearInterval(interval));
-  }, []);
+  }, [rightBoxData, isTypingSimulation, selectedBox]);
 
   // Resetează unread count când selectezi un chat
   useEffect(() => {

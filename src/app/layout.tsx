@@ -6,7 +6,11 @@ import Footer from '@/components/sections/Footer';
 import ChatWidget from '@/components/ui/ChatWidget';
 import CookiesConsent from '@/components/ui/CookiesConsent';
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  preload: true,
+});
 
 export const metadata: Metadata = {
   title: 'Bravin AI',

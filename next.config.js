@@ -1,5 +1,8 @@
-/** @type {import('next').NextConfig} */
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+});
 
+/** @type {import('next').NextConfig} */
 const nextConfig = {
   // nimic special aici; App Router e implicit în Next 13+
   images: {
@@ -14,9 +17,11 @@ const nextConfig = {
     // Permite build-ul pe Vercel chiar daca exista erori TypeScript
     ignoreBuildErrors: false,
   },
+  swcMinify: true,
   experimental: {
     // Optimizari pentru Vercel
-    optimizePackageImports: ['framer-motion', 'gsap', 'lucide-react'],
+    optimizePackageImports: ['framer-motion', 'gsap', 'lucide-react', '@react-three/fiber', '@react-three/drei'],
   },
 };
-module.exports = nextConfig;
+
+module.exports = withBundleAnalyzer(nextConfig);
