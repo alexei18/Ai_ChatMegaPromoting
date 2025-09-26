@@ -57,12 +57,6 @@ function HeroSectionLeftClean({ lang }: HeroProps) {
   useEffect(() => {
     // Populate lastActivity with current timestamps after mount (client only) to avoid SSR mismatch.
     setLastActivity([Date.now(), Date.now() - 300000, Date.now() - 120000, Date.now() - 60000]);
-    
-    // Safari optimization: disable scroll-based hiding
-    if (isSafariOptimized) {
-      return;
-    }
-    
     let timeout: NodeJS.Timeout;
     function onScroll() {
       setHideOnScroll(true);
@@ -74,7 +68,7 @@ function HeroSectionLeftClean({ lang }: HeroProps) {
       window.removeEventListener('scroll', onScroll);
       clearTimeout(timeout);
     };
-  }, [isSafariOptimized]);
+  }, []);
 
   // Inițializează primul mesaj pentru fiecare container când se încarcă componenta
   useEffect(() => {
@@ -97,17 +91,12 @@ function HeroSectionLeftClean({ lang }: HeroProps) {
 
   // Simulare activitate realistă - typing indicators, status updates, mesaje noi
   useEffect(() => {
-    // Safari optimization: disable heavy simulations
-    if (isSafariOptimized) {
-      return;
-    }
-    
     const intervals: NodeJS.Timeout[] = [];
     
-    // Simulare typing pentru fiecare chat la intervale diferite (reduced frequency)
+    // Simulare typing pentru fiecare chat la intervale diferite
     rightBoxData.forEach((_, idx) => {
       const typingInterval = setInterval(() => {
-        if (Math.random() < 0.15 && !isTypingSimulation[idx]) { // Reduced from 30% to 15%
+        if (Math.random() < 0.3 && !isTypingSimulation[idx]) { // 30% șansă să înceapă typing
           setIsTypingSimulation(prev => {
             const newTyping = [...prev];
             newTyping[idx] = true;
@@ -123,47 +112,48 @@ function HeroSectionLeftClean({ lang }: HeroProps) {
             });
           }, 2000 + Math.random() * 3000);
         }
-      }, 16000 + Math.random() * 14000); // Increased from 8-15s to 16-30s
+      }, 8000 + Math.random() * 7000); // Între 8-15 secunde
       
       intervals.push(typingInterval);
     });
     
-    // Simulare schimbări de status online/offline (much less frequent)
+    // Simulare schimbări de status online/offline
     const statusInterval = setInterval(() => {
       setOnlineStatus(prev => {
         const newStatus = [...prev];
         const randomIndex = Math.floor(Math.random() * 4);
-        newStatus[randomIndex] = Math.random() > 0.8; // Reduced chance
+        newStatus[randomIndex] = Math.random() > 0.7; // 30% șansă să schimbe statusul
         return newStatus;
       });
-    }, 30000); // Increased from 15s to 30s
+    }, 15000); // La fiecare 15 secunde
     
     intervals.push(statusInterval);
     
-    // Simulare mesaje noi - incrementează unread count (much less frequent)
+    // Simulare mesaje noi - incrementează unread count
     const messageInterval = setInterval(() => {
-      if (Math.random() < 0.1) { // Reduced from 20% to 10%
+      if (Math.random() < 0.2) { // 20% șansă să primești mesaj nou
         const randomUser = Math.floor(Math.random() * 4);
         setUnreadCount(prev => {
           const newCount = [...prev];
-          if (randomUser !== selectedBox) {
-            newCount[randomUser] = Math.min(newCount[randomUser] + 1, 9);
+          if (randomUser !== selectedBox) { // Nu adăuga mesaje necitite pentru chat-ul activ
+            newCount[randomUser] = Math.min(newCount[randomUser] + 1, 9); // Max 9 mesaje
           }
           return newCount;
         });
         
+        // Actualizează ultima activitate
         setLastActivity(prev => {
           const newActivity = [...prev];
           newActivity[randomUser] = Date.now();
           return newActivity;
         });
       }
-    }, 20000); // Increased from 10s to 20s
+    }, 10000); // La fiecare 10 secunde
     
     intervals.push(messageInterval);
     
     return () => intervals.forEach(interval => clearInterval(interval));
-  }, [rightBoxData, isTypingSimulation, selectedBox, isSafariOptimized]);
+  }, [rightBoxData, isTypingSimulation, selectedBox]);
 
   // Resetează unread count când selectezi un chat
   useEffect(() => {
@@ -178,13 +168,6 @@ function HeroSectionLeftClean({ lang }: HeroProps) {
   const [isMobile, setIsMobile] = useState(false);
   useEffect(() => {
     if (typeof window === 'undefined') return;
-    
-    // Safari optimization: single detection, no listeners
-    if (isSafariOptimized) {
-      setIsMobile(window.innerWidth < 768);
-      return;
-    }
-    
     const mq = window.matchMedia('(max-width: 767px)');
     const handler = (e: MediaQueryListEvent | MediaQueryList) => setIsMobile('matches' in e ? e.matches : (e as MediaQueryList).matches);
     setIsMobile(mq.matches);
@@ -192,7 +175,7 @@ function HeroSectionLeftClean({ lang }: HeroProps) {
     return () => {
       if (mq.removeEventListener) mq.removeEventListener('change', handler as (ev: MediaQueryListEvent) => any); else mq.removeListener(handler as any);
     };
-  }, [isSafariOptimized]);
+  }, []);
 
   const [showRealMouseImage, setShowRealMouseImage] = useState(false)
   const [realMousePos, setRealMousePos] = useState({ x: 0, y: 0 })
@@ -401,12 +384,6 @@ function HeroSectionLeftClean({ lang }: HeroProps) {
 
   // Random movement for fake mouse, always active when showFakeMouse is true
   useEffect(() => {
-    // Safari optimization: disable mouse animation entirely
-    if (isSafariOptimized) {
-      setShowFakeMouse(false);
-      return;
-    }
-    
     if (!showFakeMouse) return;
     let timeout: NodeJS.Timeout;
     let running = true;
@@ -415,7 +392,7 @@ function HeroSectionLeftClean({ lang }: HeroProps) {
     let step = 0;
     
     // Safari optimization: slower, less frequent animations
-    const safariSpeedMultiplier = 1;
+    const safariSpeedMultiplier = isSafariOptimized ? 1.5 : 1;
 
     function nextStep() {
       if (!running) return;
@@ -540,7 +517,7 @@ function HeroSectionLeftClean({ lang }: HeroProps) {
       running = false;
       clearTimeout(timeout);
     };
-  }, [showFakeMouse, isSafariOptimized]);
+  }, [showFakeMouse]);
 
   // Show only the image mouse and hide everything else when hovering big container (including all nested elements)
   const [isInsideBigContainer, setIsInsideBigContainer] = useState(false);
@@ -563,24 +540,6 @@ function HeroSectionLeftClean({ lang }: HeroProps) {
     const wrapperSizing = variant === 'desktop'
       ? 'w-[min(90vw,700px)] h-[clamp(320px,40vw,420px)]'
       : 'w-full h-[min(72vw,380px)]';
-      
-    // Safari optimization: render simple static version
-    if (isSafariOptimized) {
-      return (
-        <div className={`${wrapperSizing} bg-white rounded-2xl border border-gray-300 shadow-md flex items-center justify-center ml-auto relative`}>
-          <div className="text-center p-8">
-            <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-              </svg>
-            </div>
-            <h3 className="text-lg font-semibold text-gray-800 mb-2">AI Chat Assistant</h3>
-            <p className="text-sm text-gray-600">Automated customer support<br/>24/7 availability</p>
-          </div>
-        </div>
-      );
-    }
-    
     return (
       <div
           className={`${wrapperSizing} bg-white rounded-2xl border border-gray-400 shadow-lg flex items-center justify-center ml-auto relative ${isInsideBigContainer ? 'cursor-none' : ''}`}
@@ -589,46 +548,44 @@ function HeroSectionLeftClean({ lang }: HeroProps) {
           onMouseMove={handleBigContainerMove}
         >
         {/* Decorative colored blobs (violet, yellow, blue) behind the chat container */}
-        {!isSafariOptimized && (
-          <div aria-hidden className="absolute inset-0 -z-10 pointer-events-none">
-            <span
-              className="absolute rounded-full blur-3xl transition-all duration-500 ease-out"
-              style={{
-                left: '8%',
-                top: '-2%',
-                width: isInsideBigContainer ? 420 : 340,
-                height: isInsideBigContainer ? 420 : 340,
-                transform: isInsideBigContainer ? 'scale(1.08)' : 'scale(1)',
-                background: 'radial-gradient(circle at 30% 30%, rgba(236,72,153,0.26), rgba(236,72,153,0.9) 60%, transparent 45%)',
-                opacity: isInsideBigContainer ? 1 : 0.92,
-              }}
-            />
-            <span
-              className="absolute rounded-full blur-3xl transition-all duration-600 ease-out"
-              style={{
-                right: '2%',
-                top: '8%',
-                width: isInsideBigContainer ? 420 : 340,
-                height: isInsideBigContainer ? 420 : 340,
-                transform: isInsideBigContainer ? 'scale(1.02)' : 'scale(1)',
-                background: 'radial-gradient(circle at 60% 40%, rgba(250,204,21,0.76), rgba(250,204,21,0.98) 60%, transparent 25%)',
-                opacity: isInsideBigContainer ? 1 : 0.9,
-              }}
-            />
-            <span
-              className="absolute rounded-full blur-3xl transition-all duration-700 ease-out"
-              style={{
-                left: '-4%',
-                top: '8%',
-                width: isInsideBigContainer ? 360 : 300,
-                height: isInsideBigContainer ? 360 : 300,
-                transform: isInsideBigContainer ? 'scale(1)' : 'scale(1)',
-                background: 'radial-gradient(circle at 40% 60%, rgba(59,130,246,0.26), rgba(59,130,246,0.98) 60%, transparent 48%)',
-                opacity: isInsideBigContainer ? 1 : 0.9,
-              }}
-            />
-          </div>
-        )}
+        <div aria-hidden className="absolute inset-0 -z-10 pointer-events-none">
+          <span
+            className="absolute rounded-full blur-3xl transition-all duration-500 ease-out"
+            style={{
+              left: '8%',
+              top: '-2%',
+              width: isInsideBigContainer ? 420 : 340,
+              height: isInsideBigContainer ? 420 : 340,
+              transform: isInsideBigContainer ? 'scale(1.08)' : 'scale(1)',
+              background: 'radial-gradient(circle at 30% 30%, rgba(236,72,153,0.26), rgba(236,72,153,0.9) 60%, transparent 45%)',
+              opacity: isInsideBigContainer ? 1 : 0.92,
+            }}
+          />
+          <span
+            className="absolute rounded-full blur-3xl transition-all duration-600 ease-out"
+            style={{
+              right: '2%',
+              top: '8%',
+              width: isInsideBigContainer ? 420 : 340,
+              height: isInsideBigContainer ? 420 : 340,
+              transform: isInsideBigContainer ? 'scale(1.02)' : 'scale(1)',
+              background: 'radial-gradient(circle at 60% 40%, rgba(250,204,21,0.76), rgba(250,204,21,0.98) 60%, transparent 25%)',
+              opacity: isInsideBigContainer ? 1 : 0.9,
+            }}
+          />
+          <span
+            className="absolute rounded-full blur-3xl transition-all duration-700 ease-out"
+            style={{
+              left: '-4%',
+              top: '8%',
+              width: isInsideBigContainer ? 360 : 300,
+              height: isInsideBigContainer ? 360 : 300,
+              transform: isInsideBigContainer ? 'scale(1)' : 'scale(1)',
+              background: 'radial-gradient(circle at 40% 60%, rgba(59,130,246,0.26), rgba(59,130,246,0.98) 60%, transparent 48%)',
+              opacity: isInsideBigContainer ? 1 : 0.9,
+            }}
+          />
+        </div>
         {/* MacBook-style window controls */}
         <div className="absolute top-4 left-4 flex gap-2">
           <span className="w-3 h-3 rounded-full bg-red-500 border border-red-300 shadow-sm"></span>
@@ -1109,9 +1066,9 @@ function HeroSectionLeftClean({ lang }: HeroProps) {
           <div className="md:col-span-6 lg:col-span-5 xl:col-span-5">
             {/* Small container above title */}
             <motion.div
-              initial={isSafariOptimized ? { opacity: 1 } : { opacity: 0, y: 8 }}
+              initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={isSafariOptimized ? { duration: 0 } : { duration: 0.5 }}
+              transition={{ duration: 0.5 }}
               className={`mb-5 inline-flex items-center gap-2 border border-black/10 px-3 py-1.5 shadow-sm rounded-md ${
                 isSafariOptimized 
                   ? 'bg-white/90' 
@@ -1125,9 +1082,9 @@ function HeroSectionLeftClean({ lang }: HeroProps) {
 
             {/* Title */}
             <motion.h1
-              initial={isSafariOptimized ? { opacity: 1 } : { opacity: 0, y: 12 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={isSafariOptimized ? { duration: 0 } : { duration: 0.6, delay: 0.05 }}
+              transition={{ duration: 0.6, delay: 0.05 }}
               className="text-left text-5xl sm:text-6xl md:text-7xl leading-[1.06] font-extrabold tracking-tight text-gray-900"
             >
               {translations?.HeroSection?.title}
@@ -1135,9 +1092,9 @@ function HeroSectionLeftClean({ lang }: HeroProps) {
 
             {/* Subtitle */}
             <motion.p
-              initial={isSafariOptimized ? { opacity: 1 } : { opacity: 0, y: 12 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={isSafariOptimized ? { duration: 0 } : { duration: 0.6, delay: 0.1 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
               className="mt-5 max-w-xl text-left text-base md:text-lg text-gray-600"
             >
               {translations?.HeroSection?.subtitle}
