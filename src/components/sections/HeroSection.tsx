@@ -25,8 +25,11 @@ function HeroSectionLeftClean({ lang }: HeroProps) {
   
   // Safari optimization flags
   const [isSafariOptimized, setIsSafariOptimized] = useState(false);
+  const [isSafariBrowser, setIsSafariBrowser] = useState(false);
   
   useEffect(() => {
+    const safari = isSafari();
+    setIsSafariBrowser(safari);
     setIsSafariOptimized(shouldUseSafariOptimizations());
   }, []);
 
@@ -384,7 +387,7 @@ function HeroSectionLeftClean({ lang }: HeroProps) {
 
   // Random movement for fake mouse, always active when showFakeMouse is true
   useEffect(() => {
-    if (!showFakeMouse) return;
+    if (!showFakeMouse || isSafariBrowser) return;
     let timeout: NodeJS.Timeout;
     let running = true;
     // Secvența fixă: indexii botilor și acțiuni speciale
@@ -517,7 +520,7 @@ function HeroSectionLeftClean({ lang }: HeroProps) {
       running = false;
       clearTimeout(timeout);
     };
-  }, [showFakeMouse]);
+  }, [showFakeMouse, isSafariBrowser]);
 
   // Show only the image mouse and hide everything else when hovering big container (including all nested elements)
   const [isInsideBigContainer, setIsInsideBigContainer] = useState(false);
@@ -529,7 +532,9 @@ function HeroSectionLeftClean({ lang }: HeroProps) {
   const handleBigContainerLeave = () => {
     setIsInsideBigContainer(false);
     setShowRealMouseImage(false);
-    setShowFakeMouse(true);
+    if (!isSafariBrowser) {
+      setShowFakeMouse(true);
+    }
   };
   const handleBigContainerMove = (e: React.MouseEvent<any>) => {
     setRealMousePos({ x: e.clientX, y: e.clientY });
