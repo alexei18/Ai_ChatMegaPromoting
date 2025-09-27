@@ -506,7 +506,7 @@ export default function DemoSectionDesktop() {
                     </svg>
                   </button>
                   {callStatusMessage && (
-                    <p className="text-white text-center mt-2 text-sm h-5">{callStatusMessage}</p>
+                    <p className="text-white text-center mt-2 text-sm h-5 whitespace-nowrap">{callStatusMessage}</p>
                   )}
                 </div>
 
